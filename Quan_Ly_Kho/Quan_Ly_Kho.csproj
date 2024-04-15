@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Win.Design" Version="22.2.*-*" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Quan_Ly_Kho_Data_Access\Quan_Ly_Kho_Data_Access.csproj" />
+    <ProjectReference Include="..\Quan_Ly_Kho_Sys\Quan_Ly_Kho_Sys.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="FileManamangent\images\" />
+    <Folder Include="FileManamangent\Template\" />
+  </ItemGroup>
+
+</Project>

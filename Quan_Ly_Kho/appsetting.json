@@ -1,0 +1,18 @@
+{
+  //Thông tin chuỗi kết nối
+  "Quan_Li_Kho_Data_Connection_String": "Data Source=.;Initial Catalog=WMS_Data_V1;Integrated Security=True;Encrypt=False",
+  "Quan_Li_Kho_Sys_Connection_String": "Data Source=.;Initial Catalog=WMS_System_V1;Integrated Security=True;Encrypt=False",
+
+  //Thông tin phần mềm
+  "Product_Name": "Warehouse Management System",
+  "Product_Version": "V1.0",
+  "Product_Auth": "Trần Minh Tuấn",
+  "Created": "14/04/2004",
+  "Created_By": "tuantm",
+
+  //Format
+  "Date_Format_String": "dd/MM/yyyy",
+
+  //File
+  "Folder_File_Management_Path": "C:\\File_Management"
+}
