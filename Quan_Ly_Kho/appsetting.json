@@ -1,7 +1,7 @@
 {
   //Thông tin chuỗi kết nối
-  "Quan_Li_Kho_Data_Connection_String": "Data Source=.;Initial Catalog=WMS_Data_V1;Integrated Security=True;Encrypt=False",
-  "Quan_Li_Kho_Sys_Connection_String": "Data Source=.;Initial Catalog=WMS_System_V1;Integrated Security=True;Encrypt=False",
+  "Quan_Li_Kho_Data_Connection_String": "",
+  "Quan_Li_Kho_Sys_Connection_String": "Data Source=.;Initial Catalog=Quan_Ly_Kho_System;Integrated Security=True;Encrypt=False",
 
   //Thông tin phần mềm
   "Product_Name": "Warehouse Management System",

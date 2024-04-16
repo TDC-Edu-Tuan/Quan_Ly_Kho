@@ -1,5 +1,6 @@
 ﻿using DevExpress.Skins;
 using DevExpress.UserSkins;
+using Quan_Ly_Kho_Data_Access.Controller.Cache;
 using Quan_Ly_Kho_Data_Access.Utility;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace Quan_Ly_Kho
 
             //Tạo thư mục file Manamangent
             CConfig.Folder_File_Management_Path = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Folder_File_Management_Path");
-            if (Directory.Exists(CConfig.Folder_File_Management_Path)) // Tạo thư mục nếu chưa có
+            if (!Directory.Exists(CConfig.Folder_File_Management_Path)) // Tạo thư mục nếu chưa có
                 Directory.CreateDirectory(CConfig.Folder_File_Management_Path);
 
         }
@@ -54,7 +55,7 @@ namespace Quan_Ly_Kho
         //Dùng để load cache các danh mục quản trị
         static void Load_Cache()
         {
-            
+            CCache_Kho.Load_Kho();
         }
 
         //Dùng để kiểm tra các điều kiện

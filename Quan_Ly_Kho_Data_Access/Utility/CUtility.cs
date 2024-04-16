@@ -153,7 +153,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
                 // Kiểm tra giá trị có null hay không
                 if (v_objItem_Info != null && p_Row[v_colValue] != DBNull.Value)
                 {
-                    MethodInfo v_objMethodInfo = v_objItem_Info.SetMethod; 
+                    MethodInfo v_objMethodInfo = v_objItem_Info.SetMethod;
 
                     // Kiểm tra propertie đó có cho phép gán dữ liệu không
 
@@ -165,12 +165,12 @@ namespace Quan_Ly_Kho_Data_Access.Utility
                             case "String": v_objItem_Info.SetValue(v_objItem, Convert_To_String(p_Row[v_colValue])); break;
                             case "Int16": v_objItem_Info.SetValue(v_objItem, Convert_To_Int32(p_Row[v_colValue])); break;
                             case "Int32": v_objItem_Info.SetValue(v_objItem, Convert_To_Int32(p_Row[v_colValue])); break;
-                            case "Int64": v_objItem_Info.SetValue(v_objItem,Convert_To_Int64(p_Row[v_colValue])); break;
+                            case "Int64": v_objItem_Info.SetValue(v_objItem, Convert_To_Int64(p_Row[v_colValue])); break;
                             case "DateTime": v_objItem_Info.SetValue(v_objItem, Convert_To_DateTime(p_Row[v_colValue])); break;
                             case "DateTime?": v_objItem_Info.SetValue(v_objItem, Convert_To_DateTime(p_Row[v_colValue])); break;
                             case "Double": v_objItem_Info.SetValue(v_objItem, Convert_To_Double(p_Row[v_colValue]), null); break;
                             case "Decimal": v_objItem_Info.SetValue(v_objItem, Convert_To_Double(p_Row[v_colValue]), null); break;
-                            case "Boolean": v_objItem_Info.SetValue(v_objItem,Convert_To_Bool(p_Row[v_colValue]), null); break;
+                            case "Boolean": v_objItem_Info.SetValue(v_objItem, Convert_To_Bool(p_Row[v_colValue]), null); break;
                         }
                     }
                 }
@@ -178,6 +178,41 @@ namespace Quan_Ly_Kho_Data_Access.Utility
 
             // return 
             return v_objItem;
+        }
+
+        public static string Tao_Key(params object[] p_arrParams)
+        {
+            string v_strRes = CConst.STR_VALUE_NULL;
+
+            if (p_arrParams != null && p_arrParams.Length > 0)
+                return v_strRes;
+
+            v_strRes = Convert_To_String(p_arrParams[0]);
+
+            for (int i = 1; i < p_arrParams.Length; i++)
+            {
+                if (p_arrParams[i] == DBNull.Value) //Nếu dữ liệu nó rỗng thì lấy kiểu dữ liệu của trường đó làm khóa
+                {
+                    string v_strTypedata = p_arrParams[i].GetType().ToString();
+                    switch (v_strTypedata)
+                    {
+                        case "String": Convert_To_String(p_arrParams[i]); break;
+                        case "Int16": Convert_To_Int32(p_arrParams[i]); break;
+                        case "Int32": Convert_To_Int32(p_arrParams[i]); break;
+                        case "Int64": Convert_To_Int64(p_arrParams[i]); break;
+                        case "DateTime": Convert_To_DateTime(p_arrParams[i]); break;
+                        case "DateTime?": Convert_To_DateTime(p_arrParams[i]); break;
+                        case "Double": Convert_To_Double(p_arrParams[i]); break;
+                        case "Decimal": Convert_To_Double(p_arrParams[i]); break;
+                        case "Boolean": Convert_To_Bool(p_arrParams[i]); break;
+                    }
+                }
+                else
+                {
+                    v_strRes += "|" + Convert_To_String(p_arrParams[i]);
+                }
+            }
+            return v_strRes;
         }
 
     }

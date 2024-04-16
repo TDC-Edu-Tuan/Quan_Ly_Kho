@@ -32,7 +32,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             m_objLog.Reset_Data();
 
             if (Is_Error == true)
-                m_objLog.Title = "Error: " + p_strTitle;
+                m_objLog.Title = "Error|" + p_strTitle;
 
             m_objLog.Title = p_strTitle;
 

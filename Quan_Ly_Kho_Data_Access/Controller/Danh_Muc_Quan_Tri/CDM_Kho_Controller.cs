@@ -16,7 +16,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Quan_Tri
 
             try
             {
-                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Li_Kho_Data_Connection_String, "");
+                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Li_Kho_Data_Connection_String, "sp_sel_List_Kho");
 
                 foreach (DataRow v_row in v_dt.Rows)
                     v_arrRes.Add(CUtility.Map_Row_To_Entity<CDM_Kho>(v_row));
@@ -40,7 +40,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Quan_Tri
 
             try
             {
-                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Li_Kho_Data_Connection_String, "");
+                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Li_Kho_Data_Connection_String, "sp_sel_Get_Kho_By_ID");
 
                 if (v_dt.Rows.Count > 0)
                     v_objRes = CUtility.Map_Row_To_Entity<CDM_Kho>(v_dt.Rows[0]);
@@ -61,7 +61,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Quan_Tri
             long v_lngRes = CConst.INT_VALUE_NULL;
             try
             {
-                v_lngRes = CUtility.Convert_To_Int64(CSqlHelper.ExecuteScarlar(CConfig.Quan_Li_Kho_Data_Connection_String, "",
+                v_lngRes = CUtility.Convert_To_Int64(CSqlHelper.ExecuteScarlar(CConfig.Quan_Li_Kho_Data_Connection_String, "sp_ins_Kho",
                     p_objData.Ma_Kho, p_objData.Ten_Kho, p_objData.Loai_Hinh_Kho, p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
             }
             catch (Exception)
@@ -75,7 +75,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Quan_Tri
         {
             try
             {
-                CSqlHelper.ExecuteNonquery(CConfig.Quan_Li_Kho_Data_Connection_String, "", p_objData.Auto_ID,
+                CSqlHelper.ExecuteNonquery(CConfig.Quan_Li_Kho_Data_Connection_String, "sp_upd_Kho", p_objData.Auto_ID,
                     p_objData.Ma_Kho, p_objData.Ten_Kho, p_objData.Loai_Hinh_Kho, p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
             }
             catch (Exception)
@@ -88,7 +88,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Quan_Tri
         {
             try
             {
-                CSqlHelper.ExecuteNonquery(CConfig.Quan_Li_Kho_Data_Connection_String, "", p_lngAuto_ID, p_strLast_Updated_By, p_strLast_Updated_By_Function);
+                CSqlHelper.ExecuteNonquery(CConfig.Quan_Li_Kho_Data_Connection_String, "sp_del_Kho", p_lngAuto_ID, p_strLast_Updated_By, p_strLast_Updated_By_Function);
             }
             catch (Exception)
             {

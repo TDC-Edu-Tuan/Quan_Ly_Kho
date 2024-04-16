@@ -38,11 +38,8 @@ namespace Quan_Ly_Kho_Data_Access.Utility
         public void Write_To_Txt(string p_strFile_Path)
         {
 
-
             if (!File.Exists(p_strFile_Path))
                 File.Create(p_strFile_Path);
-
-            StreamWriter v_sw = new(p_strFile_Path);
 
             StringBuilder sb = new();
 
@@ -51,13 +48,13 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             sb.Append(m_strFunction_Code);
             sb.Append("|");
             sb.Append(m_strFunction_Name);
-            sb.Append("|"); 
+            sb.Append("|");
             sb.Append(m_strDescription);
             sb.Append("|");
-            sb.AppendLine(CUtility.Convert_To_String(m_dblTotal_Time));
+            sb.AppendLine(CUtility.Convert_To_String(m_dblTotal_Time) + "\n");
 
-            v_sw.WriteLine(sb.ToString());
-
+            BinaryWriter v_sw = new BinaryWriter(new FileStream(p_strFile_Path, FileMode.Append,FileAccess.Write));
+            v_sw.Write(sb.ToString());
         }
     }
 }

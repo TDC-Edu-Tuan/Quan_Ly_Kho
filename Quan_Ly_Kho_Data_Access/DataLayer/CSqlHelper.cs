@@ -14,7 +14,12 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
     {
         public static SqlConnection Create_Connection(string p_strConnection_String)
         {
-            return new SqlConnection(p_strConnection_String);
+            SqlConnection v_conn = new(p_strConnection_String);
+
+            if (v_conn == null)
+                throw new Exception("Chuỗi kết nối có vấn đề.");
+
+            return v_conn;
         }
 
         /// <summary>
@@ -35,6 +40,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
             v_command.Connection = p_conn;
             v_command.Transaction = p_trans;
             v_command.CommandTimeout = 300;
+            v_command.CommandText = p_strStored_Name;
 
             SqlCommandBuilder.DeriveParameters(v_command);
 
@@ -83,21 +89,21 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
 
                 v_trans.Commit();
 
-                TimeSpan v_span = DateTime.Now - v_dtmStart;
+                TimeSpan v_span = DateTime.Now - v_dtmStart; // Thời gian viết log
 
                 CLogger.Save_Trace_Log("Fill:", "Sql-FillDataTable", "FillDataTable", "Get Data From Database", v_span.TotalSeconds);// Ghi log
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 TimeSpan v_span = DateTime.Now - v_dtmStart;
 
-                CLogger.Save_Trace_Error_Log("Fill:", "Sql-FillDataTable", "FillDataTable", "Get Data From Database", v_span.TotalSeconds); // Ghi log
+                CLogger.Save_Trace_Error_Log("Fill:", "Sql-FillDataTable", "FillDataTable", "Error: " + ex.Message, v_span.TotalSeconds); // Ghi log
 
                 if (v_trans != null)
                     v_trans.Rollback();
 
-                throw;
+                throw ex;
             }
             finally
             {
@@ -129,6 +135,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
             v_command.Connection = p_conn;
             v_command.Transaction = p_trans;
             v_command.CommandTimeout = 300;
+            v_command.CommandText = p_strStored_Name;
 
             SqlCommandBuilder.DeriveParameters(v_command);
 
@@ -176,19 +183,19 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
                 v_trans.Commit();
                 TimeSpan v_span = DateTime.Now - v_dtmStart;
 
-                CLogger.Save_Trace_Log("Fill:", "Sql-FillDataTable", "FillDataTable", "Get Data From Database", v_span.TotalSeconds);// Ghi log
+                CLogger.Save_Trace_Log("ExecuteScarlar:", "Sql-ExecuteScarlar", "ExecuteScarlar", "Execute sucess", v_span.TotalSeconds);// Ghi log
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 TimeSpan v_span = DateTime.Now - v_dtmStart;
 
-                CLogger.Save_Trace_Error_Log("Fill:", "Sql-FillDataTable", "FillDataTable", "Get Data From Database", v_span.TotalSeconds); // Ghi log
+                CLogger.Save_Trace_Error_Log("ExecuteScarlar:", "Sql-ExecuteScarlar", "ExecuteScarlar", "Error: " + ex.Message, v_span.TotalSeconds); // Ghi log
 
                 if (v_trans != null)
                     v_trans.Rollback();
 
-                throw;
+                throw ex;
             }
             finally
             {
@@ -217,6 +224,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
             v_command.Connection = p_conn;
             v_command.Transaction = p_trans;
             v_command.CommandTimeout = 300;
+            v_command.CommandText = p_strStored_Name;
 
             SqlCommandBuilder.DeriveParameters(v_command);
 
@@ -261,19 +269,19 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
                 v_trans.Commit();
                 TimeSpan v_span = DateTime.Now - v_dtmStart;
 
-                CLogger.Save_Trace_Log("ExecuteNonquery:", "Sql-ExecuteNonquery", "ExecuteNonquery", "Execute", v_span.TotalSeconds);// Ghi log
+                CLogger.Save_Trace_Log("ExecuteNonquery:", "Sql-ExecuteNonquery", "ExecuteNonquery", "Execute: Success", v_span.TotalSeconds);// Ghi log
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 TimeSpan v_span = DateTime.Now - v_dtmStart;
 
-                CLogger.Save_Trace_Error_Log("Fill:", "Sql-FillDataTable", "FillDataTable", "Get Data From Database", v_span.TotalSeconds); // Ghi log
+                CLogger.Save_Trace_Error_Log("ExecuteScarlar:", "Sql-ExecuteScarlar", "ExecuteScarlar", "Execute: Error" + ex.Message, v_span.TotalSeconds); // Ghi log
 
                 if (v_trans != null)
                     v_trans.Rollback();
 
-                throw;
+                throw ex;
             }
             finally
             {
