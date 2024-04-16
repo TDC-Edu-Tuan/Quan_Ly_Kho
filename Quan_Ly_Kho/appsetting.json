@@ -14,5 +14,7 @@
   "Date_Format_String": "dd/MM/yyyy",
 
   //File
-  "Folder_File_Management_Path": "C:\\File_Management"
+  "Folder_File_Management_Path": "C:\\File_Management",
+  "Time_Out": "300"
+   
 }

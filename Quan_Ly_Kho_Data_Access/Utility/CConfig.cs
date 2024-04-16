@@ -25,5 +25,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
         //File
         public static string Folder_File_Management_Path = "";
 
+        //
+        public static int Time_Out = 0;
     }
 }

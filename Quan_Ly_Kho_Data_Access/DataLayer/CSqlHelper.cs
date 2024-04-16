@@ -39,7 +39,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
             v_command.CommandType = CommandType.StoredProcedure;
             v_command.Connection = p_conn;
             v_command.Transaction = p_trans;
-            v_command.CommandTimeout = 300;
+            v_command.CommandTimeout = CConfig.Time_Out;
             v_command.CommandText = p_strStored_Name;
 
             SqlCommandBuilder.DeriveParameters(v_command);
@@ -130,11 +130,11 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
         {
             object v_objRes = CConst.OBJ_VALUE_NULL;
 
-            SqlCommand v_command = new SqlCommand();
+            SqlCommand v_command = new();
             v_command.CommandType = CommandType.StoredProcedure;
             v_command.Connection = p_conn;
             v_command.Transaction = p_trans;
-            v_command.CommandTimeout = 300;
+            v_command.CommandTimeout = CConfig.Time_Out;
             v_command.CommandText = p_strStored_Name;
 
             SqlCommandBuilder.DeriveParameters(v_command);
@@ -223,7 +223,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
             v_command.CommandType = CommandType.StoredProcedure;
             v_command.Connection = p_conn;
             v_command.Transaction = p_trans;
-            v_command.CommandTimeout = 300;
+            v_command.CommandTimeout = CConfig.Time_Out;
             v_command.CommandText = p_strStored_Name;
 
             SqlCommandBuilder.DeriveParameters(v_command);
