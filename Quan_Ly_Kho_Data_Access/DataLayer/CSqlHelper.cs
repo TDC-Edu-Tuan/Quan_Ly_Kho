@@ -12,7 +12,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
 {
     public class CSqlHelper
     {
-        public static SqlConnection Create_Connection(string p_strConnection_String)
+        public static SqlConnection CreateConnection(string p_strConnection_String)
         {
             SqlConnection v_conn = new(p_strConnection_String);
 
@@ -81,7 +81,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
 
             try
             {
-                v_conn = Create_Connection(p_strConnection_String);
+                v_conn = CreateConnection(p_strConnection_String);
                 v_conn.Open();
                 v_trans = v_conn.BeginTransaction();
 
@@ -126,7 +126,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
         /// <param name="p_arrParams"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static object ExecuteScarlar(SqlConnection p_conn, SqlTransaction p_trans, string p_strStored_Name, params object[] p_arrParams)
+        public static object ExecuteScalar(SqlConnection p_conn, SqlTransaction p_trans, string p_strStored_Name, params object[] p_arrParams)
         {
             object v_objRes = CConst.OBJ_VALUE_NULL;
 
@@ -165,7 +165,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
         /// <param name="p_strStored_Name"></param>
         /// <param name="p_arrParams"></param>
         /// <returns></returns>
-        public static object ExecuteScarlar(string p_strConnection_String, string p_strStored_Name, params object[] p_arrParams)
+        public static object ExecuteScalar(string p_strConnection_String, string p_strStored_Name, params object[] p_arrParams)
         {
             object v_objRes = CConst.OBJ_VALUE_NULL;
             SqlConnection v_conn = null;
@@ -174,11 +174,11 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
 
             try
             {
-                v_conn = Create_Connection(p_strConnection_String);
+                v_conn = CreateConnection(p_strConnection_String);
                 v_conn.Open();
                 v_trans = v_conn.BeginTransaction();
 
-                v_objRes = ExecuteScarlar(v_conn, v_trans, p_strStored_Name, p_arrParams);
+                v_objRes = ExecuteScalar(v_conn, v_trans, p_strStored_Name, p_arrParams);
 
                 v_trans.Commit();
                 TimeSpan v_span = DateTime.Now - v_dtmStart;
@@ -260,7 +260,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
 
             try
             {
-                v_conn = Create_Connection(p_strConnection_String);
+                v_conn = CreateConnection(p_strConnection_String);
                 v_conn.Open();
                 v_trans = v_conn.BeginTransaction();
 

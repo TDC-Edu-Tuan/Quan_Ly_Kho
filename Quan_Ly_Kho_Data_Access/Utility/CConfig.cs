@@ -9,8 +9,8 @@ namespace Quan_Ly_Kho_Data_Access.Utility
     public class CConfig
     {
         //Thông tin chuỗi kết nối
-        public static string Quan_Li_Kho_Data_Connection_String = "";
-        public static string Quan_Li_Kho_Sys_Connection_String = "";
+        public static string Quan_Ly_Kho_Data_Conn_String = "";
+        public static string Quan_Ly_Kho_Sys_Conn_String = "";
 
         //Thông tin sản phẩm
         public static string Product_Name = "";

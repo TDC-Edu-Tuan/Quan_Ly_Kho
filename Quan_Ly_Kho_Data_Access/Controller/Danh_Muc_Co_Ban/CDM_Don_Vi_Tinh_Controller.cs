@@ -1,99 +1,172 @@
-﻿using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban;
-using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Quan_Tri;
+﻿using Microsoft.Data.SqlClient;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Co_Ban
+namespace Quan_Ly_Kho_Data
 {
-    public class CDM_Don_Vi_Tinh_Controller : CController_Base<CDM_Don_Vi_Tinh>
+    public class CDM_Don_Vi_Tinh_Controller
     {
-        public override List<CDM_Don_Vi_Tinh> List_Data()
+        public List<CDM_Don_Vi_Tinh> FQ_110_DVT_sp_sel_List_By_Created(DateTime? p_dtmFrom, DateTime? p_dtmTo)
         {
-            DataTable v_dt = new();
-            List<CDM_Don_Vi_Tinh> v_arrRes = new();
+            List<CDM_Don_Vi_Tinh> v_arrRes = new List<CDM_Don_Vi_Tinh>();
+            DataTable v_dt = new DataTable();
 
             try
             {
-                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Li_Kho_Data_Connection_String, "");
+                p_dtmFrom = CUtility_Date.Convert_To_Dau_Ngay(p_dtmFrom);
+                p_dtmTo = CUtility_Date.Convert_To_Cuoi_Ngay(p_dtmTo);
+
+                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_110_DVT_sp_sel_List_By_Created", p_dtmFrom, p_dtmTo);
 
                 foreach (DataRow v_row in v_dt.Rows)
-                    v_arrRes.Add(CUtility.Map_Row_To_Entity<CDM_Don_Vi_Tinh>(v_row));
-
+                {
+                    CDM_Don_Vi_Tinh v_objRes = CUtility.Map_Row_To_Entity<CDM_Don_Vi_Tinh>(v_row);
+                    v_arrRes.Add(v_objRes);
+                }
             }
+
             catch (Exception)
             {
                 throw;
             }
+
             finally
             {
                 v_dt.Dispose();
             }
+
             return v_arrRes;
         }
 
-        public override CDM_Don_Vi_Tinh Get_Data_By_ID(long p_lngAuto_ID)
+        public List<CDM_Don_Vi_Tinh> FQ_110_DVT_sp_sel_List_For_Cache()
         {
-            DataTable v_dt = new();
-            CDM_Don_Vi_Tinh v_objRes = null;
+            List<CDM_Don_Vi_Tinh> v_arrRes = new List<CDM_Don_Vi_Tinh>();
+            DataTable v_dt = new DataTable();
 
             try
             {
-                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Li_Kho_Data_Connection_String, "");
+                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_110_DVT_sp_sel_List_For_Cache");
 
-                if (v_dt.Rows.Count > 0)
-                    v_objRes = CUtility.Map_Row_To_Entity<CDM_Don_Vi_Tinh>(v_dt.Rows[0]);
+                foreach (DataRow v_row in v_dt.Rows)
+                {
+                    CDM_Don_Vi_Tinh v_objRes = CUtility.Map_Row_To_Entity<CDM_Don_Vi_Tinh>(v_row);
+                    v_arrRes.Add(v_objRes);
+                }
             }
+
             catch (Exception)
             {
                 throw;
             }
+
             finally
             {
                 v_dt.Dispose();
             }
+
+            return v_arrRes;
+        }
+
+        public CDM_Don_Vi_Tinh FQ_110_DVT_sp_sel_Get_By_ID(long p_iID)
+        {
+            CDM_Don_Vi_Tinh v_objRes = null;
+            DataTable v_dt = new DataTable();
+
+            try
+            {
+                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_110_DVT_sp_sel_Get_By_ID", p_iID);
+
+                if (v_dt.Rows.Count > 0)
+                {
+                    v_objRes = CUtility.Map_Row_To_Entity<CDM_Don_Vi_Tinh>(v_dt.Rows[0]);
+                }
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
+            finally
+            {
+                v_dt.Dispose();
+            }
+
             return v_objRes;
         }
 
-        public override long Add_Data(CDM_Don_Vi_Tinh p_objData)
+        public long FQ_110_DVT_sp_ins_Insert(CDM_Don_Vi_Tinh p_objData)
         {
-            long v_lngRes = CConst.INT_VALUE_NULL;
+            long v_iRes = CConst.INT_VALUE_NULL;
+
             try
             {
-                v_lngRes = CUtility.Convert_To_Int64(CSqlHelper.ExecuteScarlar(CConfig.Quan_Li_Kho_Data_Connection_String, "",
+                v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_110_DVT_sp_ins_Insert",
                     p_objData.Ten_Don_Vi_Tinh, p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
             }
+
             catch (Exception)
             {
                 throw;
             }
-            return v_lngRes;
+
+            return v_iRes;
         }
 
-        public override void Update_Data(CDM_Don_Vi_Tinh p_objData)
+        public long FQ_110_DVT_sp_ins_Insert(SqlConnection p_conn, SqlTransaction p_trans, CDM_Don_Vi_Tinh p_objData)
+        {
+            long v_iRes = CConst.INT_VALUE_NULL;
+
+            try
+            {
+                v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_110_DVT_sp_ins_Insert",
+                    p_objData.Ten_Don_Vi_Tinh, p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return v_iRes;
+        }
+
+        public void FQ_110_DVT_sp_upd_Update(CDM_Don_Vi_Tinh p_objData)
         {
             try
             {
-                CSqlHelper.ExecuteNonquery(CConfig.Quan_Li_Kho_Data_Connection_String, "", p_objData.Auto_ID,
+                CSqlHelper.ExecuteNonquery(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_110_DVT_sp_upd_Update", p_objData.Auto_ID,
                     p_objData.Ten_Don_Vi_Tinh, p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
             }
+
             catch (Exception)
             {
                 throw;
             }
         }
 
-        public override void Delete_Data(long p_lngAuto_ID, string p_strLast_Updated_By, string p_strLast_Updated_By_Function)
+        public void FQ_110_DVT_sp_upd_Update(SqlConnection p_conn, SqlTransaction p_trans, CDM_Don_Vi_Tinh p_objData)
         {
             try
             {
-                CSqlHelper.ExecuteNonquery(CConfig.Quan_Li_Kho_Data_Connection_String, "", p_lngAuto_ID, p_strLast_Updated_By, p_strLast_Updated_By_Function);
+                CSqlHelper.ExecuteNonquery(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_110_DVT_sp_upd_Update", p_objData.Auto_ID,
+                    p_objData.Ten_Don_Vi_Tinh, p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
             }
+
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void FQ_110_DVT_sp_del_Delete_By_ID(long p_iAuto_ID, string p_strLast_Updated_By, string p_strLast_Updated_By_Function)
+        {
+            try
+            {
+                CSqlHelper.ExecuteNonquery(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_110_DVT_sp_del_Delete_By_ID", p_iAuto_ID, p_strLast_Updated_By, p_strLast_Updated_By_Function);
+            }
+
             catch (Exception)
             {
                 throw;

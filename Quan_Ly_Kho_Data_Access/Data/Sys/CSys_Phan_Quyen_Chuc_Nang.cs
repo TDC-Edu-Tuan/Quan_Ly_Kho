@@ -1,16 +1,17 @@
-﻿using Quan_Ly_Kho_Data_Access.Utility;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+using System.Data;
+using Quan_Ly_Kho_Data_Access.Utility;
 
 namespace Quan_Ly_Kho_Sys
 {
-    public class CSys_Thanh_Vien
+    public class CSys_Phan_Quyen_Chuc_Nang
     {
         private long m_lngAuto_ID;
-        private string m_strMa_Dang_Nhap;
-        private string m_strMat_Khau;
-        private string m_strHo_Ten;
-        private string m_strEmail;
-        private string m_strSDT;
-        private string m_strGioi_Tinh;
+        private long m_lngNhom_Thanh_Vien_ID;
+        private long m_lngChuc_Nang_ID;
         private int m_intdeleted;
         private DateTime? m_dtmCreated;
         private string m_strCreated_By;
@@ -19,7 +20,7 @@ namespace Quan_Ly_Kho_Sys
         private string m_strLast_Updated_By;
         private string m_strLast_Updated_By_Function;
 
-        public CSys_Thanh_Vien()
+        public CSys_Phan_Quyen_Chuc_Nang()
         {
             ResetData();
         }
@@ -27,12 +28,8 @@ namespace Quan_Ly_Kho_Sys
         public void ResetData()
         {
             m_lngAuto_ID = CConst.INT_VALUE_NULL;
-            m_strMa_Dang_Nhap = CConst.STR_VALUE_NULL;
-            m_strMat_Khau = CConst.STR_VALUE_NULL;
-            m_strHo_Ten = CConst.STR_VALUE_NULL;
-            m_strEmail = CConst.STR_VALUE_NULL;
-            m_strSDT = CConst.STR_VALUE_NULL;
-            m_strGioi_Tinh = CConst.STR_VALUE_NULL;
+            m_lngNhom_Thanh_Vien_ID = CConst.INT_VALUE_NULL;
+            m_lngChuc_Nang_ID = CConst.INT_VALUE_NULL;
             m_intdeleted = CConst.INT_VALUE_NULL;
             m_dtmCreated = CConst.DTM_VALUE_NULL;
             m_strCreated_By = CConst.STR_VALUE_NULL;
@@ -54,75 +51,27 @@ namespace Quan_Ly_Kho_Sys
             }
         }
 
-        public string Ma_Dang_Nhap
+        public long Nhom_Thanh_Vien_ID
         {
             get
             {
-                return m_strMa_Dang_Nhap;
+                return m_lngNhom_Thanh_Vien_ID;
             }
             set
             {
-                m_strMa_Dang_Nhap = value.Trim();
+                m_lngNhom_Thanh_Vien_ID = value;
             }
         }
 
-        public string Mat_Khau
+        public long Chuc_Nang_ID
         {
             get
             {
-                return m_strMat_Khau;
+                return m_lngChuc_Nang_ID;
             }
             set
             {
-                m_strMat_Khau = value.Trim();
-            }
-        }
-
-        public string Ho_Ten
-        {
-            get
-            {
-                return m_strHo_Ten;
-            }
-            set
-            {
-                m_strHo_Ten = value.Trim();
-            }
-        }
-
-        public string Email
-        {
-            get
-            {
-                return m_strEmail;
-            }
-            set
-            {
-                m_strEmail = value.Trim();
-            }
-        }
-
-        public string SDT
-        {
-            get
-            {
-                return m_strSDT;
-            }
-            set
-            {
-                m_strSDT = value.Trim();
-            }
-        }
-
-        public string Gioi_Tinh
-        {
-            get
-            {
-                return m_strGioi_Tinh;
-            }
-            set
-            {
-                m_strGioi_Tinh = value.Trim();
+                m_lngChuc_Nang_ID = value;
             }
         }
 

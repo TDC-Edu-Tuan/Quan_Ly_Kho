@@ -55,6 +55,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
 
             BinaryWriter v_sw = new BinaryWriter(new FileStream(p_strFile_Path, FileMode.Append,FileAccess.Write));
             v_sw.Write(sb.ToString());
+            v_sw.Close();
         }
     }
 }

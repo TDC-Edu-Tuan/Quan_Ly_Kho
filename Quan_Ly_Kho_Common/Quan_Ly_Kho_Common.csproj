@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Quan_Ly_Kho_Data_Access\Quan_Ly_Kho_Data_Access.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DevExpress.XtraBars.v22.2">
+      <HintPath>..\..\..\..\..\Program Files\DevExpress 22.2\Components\Offline Packages\devexpress.win.navigation\22.2.3\lib\net6.0-windows\DevExpress.XtraBars.v22.2.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
