@@ -72,5 +72,10 @@ namespace Quan_Ly_Kho_Sys
             }
 
         }
+
+        private void btnLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            btnLogin_Click(sender,e);
+        }
     }
 }

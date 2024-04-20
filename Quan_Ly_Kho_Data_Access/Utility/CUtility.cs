@@ -180,39 +180,113 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             return v_objItem;
         }
 
-        public static string Tao_Key(params object[] p_arrParams)
+        private static string Get_String_For_Tao_Key(object p_objData)
         {
-            string v_strRes = CConst.STR_VALUE_NULL;
+            if (p_objData == null)
+                return "";
 
-            if (p_arrParams != null && p_arrParams.Length > 0)
-                return v_strRes;
+            string v_strType = p_objData.GetType().Name.ToLower();
+            string v_strRes = "";
 
-            v_strRes = Convert_To_String(p_arrParams[0]);
-
-            for (int i = 1; i < p_arrParams.Length; i++)
+            //Lấy kiểu dữ liệu để sử dụng hàm convert tương ứng (vì nó là object) để design text
+            switch (v_strType.ToLower())
             {
-                if (p_arrParams[i] == DBNull.Value) //Nếu dữ liệu nó rỗng thì lấy kiểu dữ liệu của trường đó làm khóa
-                {
-                    string v_strTypedata = p_arrParams[i].GetType().ToString();
-                    switch (v_strTypedata)
-                    {
-                        case "String": Convert_To_String(p_arrParams[i]); break;
-                        case "Int16": Convert_To_Int32(p_arrParams[i]); break;
-                        case "Int32": Convert_To_Int32(p_arrParams[i]); break;
-                        case "Int64": Convert_To_Int64(p_arrParams[i]); break;
-                        case "DateTime": Convert_To_DateTime(p_arrParams[i]); break;
-                        case "DateTime?": Convert_To_DateTime(p_arrParams[i]); break;
-                        case "Double": Convert_To_Double(p_arrParams[i]); break;
-                        case "Decimal": Convert_To_Double(p_arrParams[i]); break;
-                        case "Boolean": Convert_To_Bool(p_arrParams[i]); break;
-                    }
-                }
+                case "string": v_strRes = Convert_To_String(p_objData); break;
+                case "int32": v_strRes = Convert_To_Int32(p_objData).ToString("###0"); break;
+                case "int64": v_strRes = Convert_To_Int64(p_objData).ToString("###0"); break;
+                case "double": v_strRes = Convert_To_Double(p_objData).ToString("###0.#####;-###0.#####;0").Replace(",", "."); break;
+                case "float": v_strRes = Convert_To_Double(p_objData).ToString("###0.#####;-###0.#####;0").Replace(",", "."); break;
+                case "datetime":
+                    v_strRes = Convert_DateTime_To_String(Convert_To_DateTime(p_objData));
+                    break;
+                case "bool":
+                    if (Convert_To_Bool(p_objData) == true)
+                        v_strRes = "1";
+                    else
+                        v_strRes = "0";
+                    break;
+            }
+
+            if (v_strRes == "")
+                v_strRes = "";
+
+            return v_strRes;
+        }
+
+        public static string Tao_Key(params object[] p_arrValue)
+        {
+            string v_strKey = "";
+            if (p_arrValue == null)
+                return "";
+
+            for (int i = 0, j = p_arrValue.Length; i < j; i++)
+            {
+                string v_strValue = Get_String_For_Tao_Key(p_arrValue[i]);
+
+                if (v_strKey == "")
+                    v_strKey = v_strValue;
                 else
                 {
-                    v_strRes += "|" + Convert_To_String(p_arrParams[i]);
+                    v_strKey += "|" + v_strValue;
                 }
             }
+
+            return v_strKey.ToUpper();
+        }
+
+        private static string Get_String_For_Tao_Combo(object p_objData)
+        {
+            if (p_objData == null)
+                return "";
+
+            string v_strType = p_objData.GetType().Name.ToLower();
+            string v_strRes = "";
+
+            //Lấy kiểu dữ liệu để sử dụng hàm convert tương ứng (vì nó là object) để design text
+            switch (v_strType.ToLower())
+            {
+                case "string": v_strRes = Convert_To_String(p_objData); break;
+                case "int32": v_strRes = Convert_To_Int32(p_objData).ToString("###0"); break;
+                case "int64": v_strRes = Convert_To_Int64(p_objData).ToString("###0"); break;
+                case "double": v_strRes = Convert_To_Double(p_objData).ToString("###0.#####;-###0.#####;0").Replace(",", "."); break;
+                case "float": v_strRes = Convert_To_Double(p_objData).ToString("###0.#####;-###0.#####;0").Replace(",", "."); break;
+                case "datetime":
+                    v_strRes = Convert_DateTime_To_String(Convert_To_DateTime(p_objData));
+                    break;
+                case "bool":
+                    if (Convert_To_Bool(p_objData) == true)
+                        v_strRes = "1";
+                    else
+                        v_strRes = "0";
+                    break;
+            }
+
+            if (v_strRes == "")
+                v_strRes = "";
+
             return v_strRes;
+        }
+
+        public static string Tao_Combo_Text(params object[] p_arrValue)
+        {
+            string v_strKey = "";
+            if (p_arrValue == null) // Check rỗng
+                return "";
+
+            for (int i = 0, j = p_arrValue.Length; i < j; i++)
+            {
+                string v_strValue = Get_String_For_Tao_Combo(p_arrValue[i]);
+
+                if (v_strKey == "")
+                    v_strKey = v_strValue;
+                else
+                {
+                    if (v_strValue != "")
+                        v_strKey += " (" + v_strValue + ")";
+                }
+            }
+
+            return v_strKey;
         }
 
     }

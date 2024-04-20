@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraBars.FluentDesignSystem;
 using DevExpress.XtraBars.Navigation;
+using Quan_Ly_Kho_Data_Access.Utility;
 using System.ComponentModel;
 
 namespace Quan_Ly_Kho
@@ -33,8 +34,8 @@ namespace Quan_Ly_Kho
         private void InitializeComponent()
         {
             components = new Container();
-            fluentDesignFormContainer1 = new FluentDesignFormContainer();
-            accordionControl1 = new AccordionControl();
+            Container_Control = new FluentDesignFormContainer();
+            Menu = new AccordionControl();
             Danh_Muc = new AccordionControlElement();
             Danh_Muc_Quan_Tri = new AccordionControlElement();
             Danh_Muc_Kho_Item = new AccordionControlElement();
@@ -57,44 +58,39 @@ namespace Quan_Ly_Kho
             Ton_Kho = new AccordionControlElement();
             Ca_Nhan = new AccordionControlElement();
             fluentDesignFormControl1 = new FluentDesignFormControl();
-            cbbKho = new DevExpress.XtraBars.BarEditItem();
-            repositoryItemComboBox2 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            barEditItem2 = new DevExpress.XtraBars.BarEditItem();
-            barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
-            barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
-            barEditItem1 = new DevExpress.XtraBars.BarEditItem();
-            repositoryItemComboBox3 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            barStaticItem2 = new DevExpress.XtraBars.BarStaticItem();
+            Chu_Hang = new System.Windows.Forms.Label();
+            cbbChu_Hang_User = new System.Windows.Forms.ComboBox();
+            Kho = new System.Windows.Forms.Label();
+            cbbKho_User = new System.Windows.Forms.ComboBox();
+            Header = new DevExpress.XtraBars.BarStaticItem();
+            Title = new DevExpress.XtraBars.BarStaticItem();
             fluentFormDefaultManager1 = new FluentFormDefaultManager(components);
-            repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            ((ISupportInitialize)accordionControl1).BeginInit();
+            ((ISupportInitialize)Menu).BeginInit();
             ((ISupportInitialize)fluentDesignFormControl1).BeginInit();
-            ((ISupportInitialize)repositoryItemComboBox2).BeginInit();
-            ((ISupportInitialize)repositoryItemComboBox3).BeginInit();
+            fluentDesignFormControl1.SuspendLayout();
             ((ISupportInitialize)fluentFormDefaultManager1).BeginInit();
-            ((ISupportInitialize)repositoryItemComboBox1).BeginInit();
             SuspendLayout();
             // 
-            // fluentDesignFormContainer1
+            // Container_Control
             // 
-            fluentDesignFormContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            fluentDesignFormContainer1.Location = new System.Drawing.Point(260, 39);
-            fluentDesignFormContainer1.Name = "fluentDesignFormContainer1";
-            fluentDesignFormContainer1.Size = new System.Drawing.Size(772, 434);
-            fluentDesignFormContainer1.TabIndex = 0;
+            Container_Control.Dock = System.Windows.Forms.DockStyle.Fill;
+            Container_Control.Location = new System.Drawing.Point(260, 39);
+            Container_Control.Name = "Container_Control";
+            Container_Control.Size = new System.Drawing.Size(772, 434);
+            Container_Control.TabIndex = 0;
             // 
-            // accordionControl1
+            // Menu
             // 
-            accordionControl1.Dock = System.Windows.Forms.DockStyle.Left;
-            accordionControl1.Elements.AddRange(new AccordionControlElement[] { Danh_Muc, Nhap_Hang, Dev_Tool, Xuat_Hang, Ton_Kho, Ca_Nhan });
-            accordionControl1.Location = new System.Drawing.Point(0, 39);
-            accordionControl1.Name = "accordionControl1";
-            accordionControl1.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.False;
-            accordionControl1.ScrollBarMode = ScrollBarMode.Touch;
-            accordionControl1.ShowFilterControl = ShowFilterControl.Always;
-            accordionControl1.Size = new System.Drawing.Size(260, 434);
-            accordionControl1.TabIndex = 1;
-            accordionControl1.ViewType = AccordionControlViewType.HamburgerMenu;
+            Menu.Dock = System.Windows.Forms.DockStyle.Left;
+            Menu.Elements.AddRange(new AccordionControlElement[] { Danh_Muc, Nhap_Hang, Dev_Tool, Xuat_Hang, Ton_Kho, Ca_Nhan });
+            Menu.Location = new System.Drawing.Point(0, 39);
+            Menu.Name = "Menu";
+            Menu.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.False;
+            Menu.ScrollBarMode = ScrollBarMode.Touch;
+            Menu.ShowFilterControl = ShowFilterControl.Always;
+            Menu.Size = new System.Drawing.Size(260, 434);
+            Menu.TabIndex = 1;
+            Menu.ViewType = AccordionControlViewType.HamburgerMenu;
             // 
             // Danh_Muc
             // 
@@ -142,6 +138,7 @@ namespace Quan_Ly_Kho
             // Danh_Muc_Co_Ban
             // 
             Danh_Muc_Co_Ban.Elements.AddRange(new AccordionControlElement[] { Danh_Muc_Don_Vi_Tinh_Item, Danh_Muc_Loai_San_Pham_Item, Danh_Muc_San_Pham_Item, Danh_Muc_Ke_Item, Danh_Muc_Vi_Tri_Item, Danh_Muc_NCC_Item, Danh_Muc_Noi_Xuat_Den_Item });
+            Danh_Muc_Co_Ban.Expanded = true;
             Danh_Muc_Co_Ban.Name = "Danh_Muc_Co_Ban";
             Danh_Muc_Co_Ban.Text = "Cơ Bản";
             // 
@@ -150,6 +147,7 @@ namespace Quan_Ly_Kho
             Danh_Muc_Don_Vi_Tinh_Item.Name = "Danh_Muc_Don_Vi_Tinh_Item";
             Danh_Muc_Don_Vi_Tinh_Item.Style = ElementStyle.Item;
             Danh_Muc_Don_Vi_Tinh_Item.Text = "Đơn Vị Tính";
+            Danh_Muc_Don_Vi_Tinh_Item.Click += Item_Click;
             // 
             // Danh_Muc_Loai_San_Pham_Item
             // 
@@ -222,126 +220,120 @@ namespace Quan_Ly_Kho
             // 
             // fluentDesignFormControl1
             // 
+            fluentDesignFormControl1.Controls.Add(Chu_Hang);
+            fluentDesignFormControl1.Controls.Add(cbbChu_Hang_User);
+            fluentDesignFormControl1.Controls.Add(Kho);
+            fluentDesignFormControl1.Controls.Add(cbbKho_User);
             fluentDesignFormControl1.FluentDesignForm = this;
-            fluentDesignFormControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { cbbKho, barEditItem2, barHeaderItem1, barStaticItem1, barEditItem1, barStaticItem2 });
+            fluentDesignFormControl1.ForeColor = System.Drawing.Color.White;
+            fluentDesignFormControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { Header, Title });
             fluentDesignFormControl1.Location = new System.Drawing.Point(0, 0);
             fluentDesignFormControl1.Manager = fluentFormDefaultManager1;
             fluentDesignFormControl1.Name = "fluentDesignFormControl1";
-            fluentDesignFormControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemComboBox1, repositoryItemComboBox2, repositoryItemComboBox3 });
             fluentDesignFormControl1.Size = new System.Drawing.Size(1032, 39);
             fluentDesignFormControl1.TabIndex = 2;
             fluentDesignFormControl1.TabStop = false;
-            fluentDesignFormControl1.TitleItemLinks.Add(cbbKho);
-            fluentDesignFormControl1.TitleItemLinks.Add(barStaticItem1);
-            fluentDesignFormControl1.TitleItemLinks.Add(barEditItem1);
-            fluentDesignFormControl1.TitleItemLinks.Add(barStaticItem2);
+            fluentDesignFormControl1.TitleItemLinks.Add(Header);
+            fluentDesignFormControl1.TitleItemLinks.Add(Title);
             // 
-            // cbbKho
+            // Chu_Hang
             // 
-            cbbKho.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            cbbKho.Caption = "Kho: ";
-            cbbKho.Edit = repositoryItemComboBox2;
-            cbbKho.EditHeight = 20;
-            cbbKho.EditWidth = 200;
-            cbbKho.Id = 0;
-            cbbKho.Name = "cbbKho";
+            Chu_Hang.Anchor = System.Windows.Forms.AnchorStyles.None;
+            Chu_Hang.AutoSize = true;
+            Chu_Hang.BackColor = System.Drawing.SystemColors.Control;
+            Chu_Hang.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Chu_Hang.ForeColor = System.Drawing.Color.Red;
+            Chu_Hang.Location = new System.Drawing.Point(288, 9);
+            Chu_Hang.Name = "Chu_Hang";
+            Chu_Hang.Size = new System.Drawing.Size(87, 22);
+            Chu_Hang.TabIndex = 5;
+            Chu_Hang.Text = "Chủ Hàng";
             // 
-            // repositoryItemComboBox2
+            // cbbChu_Hang_User
             // 
-            repositoryItemComboBox2.AutoHeight = false;
-            repositoryItemComboBox2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            repositoryItemComboBox2.Name = "repositoryItemComboBox2";
+            cbbChu_Hang_User.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            cbbChu_Hang_User.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            cbbChu_Hang_User.FormattingEnabled = true;
+            cbbChu_Hang_User.Location = new System.Drawing.Point(381, 3);
+            cbbChu_Hang_User.Name = "cbbChu_Hang_User";
+            cbbChu_Hang_User.Size = new System.Drawing.Size(240, 34);
+            cbbChu_Hang_User.TabIndex = 4;
             // 
-            // barEditItem2
+            // Kho
             // 
-            barEditItem2.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            barEditItem2.Caption = "Kho: ";
-            barEditItem2.Edit = repositoryItemComboBox2;
-            barEditItem2.EditHeight = 20;
-            barEditItem2.EditWidth = 200;
-            barEditItem2.Id = 1;
-            barEditItem2.MaxWidth = 10;
-            barEditItem2.MinWidth = 10;
-            barEditItem2.Name = "barEditItem2";
+            Kho.Anchor = System.Windows.Forms.AnchorStyles.None;
+            Kho.AutoSize = true;
+            Kho.BackColor = System.Drawing.SystemColors.Control;
+            Kho.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Kho.ForeColor = System.Drawing.Color.Red;
+            Kho.Location = new System.Drawing.Point(630, 9);
+            Kho.Name = "Kho";
+            Kho.Size = new System.Drawing.Size(43, 22);
+            Kho.TabIndex = 3;
+            Kho.Text = "Kho";
             // 
-            // barHeaderItem1
+            // cbbKho_User
             // 
-            barHeaderItem1.Caption = "Kho: ";
-            barHeaderItem1.Id = 2;
-            barHeaderItem1.Name = "barHeaderItem1";
+            cbbKho_User.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            cbbKho_User.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            cbbKho_User.FormattingEnabled = true;
+            cbbKho_User.Location = new System.Drawing.Point(679, 3);
+            cbbKho_User.Name = "cbbKho_User";
+            cbbKho_User.Size = new System.Drawing.Size(240, 34);
+            cbbKho_User.TabIndex = 0;
             // 
-            // barStaticItem1
+            // Header
             // 
-            barStaticItem1.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            barStaticItem1.Caption = "Kho";
-            barStaticItem1.Id = 3;
-            barStaticItem1.Name = "barStaticItem1";
+            Header.Id = 6;
+            Header.Name = "Header";
             // 
-            // barEditItem1
+            // Title
             // 
-            barEditItem1.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            barEditItem1.Caption = "barEditItem1";
-            barEditItem1.Edit = repositoryItemComboBox3;
-            barEditItem1.EditWidth = 200;
-            barEditItem1.Id = 4;
-            barEditItem1.Name = "barEditItem1";
-            // 
-            // repositoryItemComboBox3
-            // 
-            repositoryItemComboBox3.AutoHeight = false;
-            repositoryItemComboBox3.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            repositoryItemComboBox3.Name = "repositoryItemComboBox3";
-            // 
-            // barStaticItem2
-            // 
-            barStaticItem2.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            barStaticItem2.Caption = "Chủ Hàng";
-            barStaticItem2.Id = 5;
-            barStaticItem2.Name = "barStaticItem2";
+            Title.Caption = "Tiêu đề";
+            Title.Id = 8;
+            Title.ItemAppearance.Hovered.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            Title.ItemAppearance.Hovered.Options.UseFont = true;
+            Title.ItemAppearance.Normal.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            Title.ItemAppearance.Normal.FontStyleDelta = System.Drawing.FontStyle.Bold;
+            Title.ItemAppearance.Normal.ForeColor = System.Drawing.Color.Blue;
+            Title.ItemAppearance.Normal.Options.UseFont = true;
+            Title.ItemAppearance.Normal.Options.UseForeColor = true;
+            Title.Name = "Title";
             // 
             // fluentFormDefaultManager1
             // 
             fluentFormDefaultManager1.Form = this;
-            fluentFormDefaultManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { cbbKho, barEditItem2, barHeaderItem1, barStaticItem1, barEditItem1, barStaticItem2 });
-            fluentFormDefaultManager1.MaxItemId = 6;
-            fluentFormDefaultManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemComboBox1, repositoryItemComboBox2, repositoryItemComboBox3 });
-            // 
-            // repositoryItemComboBox1
-            // 
-            repositoryItemComboBox1.AutoHeight = false;
-            repositoryItemComboBox1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            repositoryItemComboBox1.Name = "repositoryItemComboBox1";
+            fluentFormDefaultManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { Header, Title });
+            fluentFormDefaultManager1.MaxItemId = 9;
             // 
             // FMain
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1032, 473);
-            ControlContainer = fluentDesignFormContainer1;
-            Controls.Add(fluentDesignFormContainer1);
-            Controls.Add(accordionControl1);
+            ControlContainer = Container_Control;
+            Controls.Add(Container_Control);
+            Controls.Add(Menu);
             Controls.Add(fluentDesignFormControl1);
             FluentDesignFormControl = fluentDesignFormControl1;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FMain";
-            NavigationControl = accordionControl1;
+            NavigationControl = Menu;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "Trang Chủ";
             WindowState = System.Windows.Forms.FormWindowState.Maximized;
             Load += FMain_Load;
-            ((ISupportInitialize)accordionControl1).EndInit();
+            ((ISupportInitialize)Menu).EndInit();
             ((ISupportInitialize)fluentDesignFormControl1).EndInit();
-            ((ISupportInitialize)repositoryItemComboBox2).EndInit();
-            ((ISupportInitialize)repositoryItemComboBox3).EndInit();
+            fluentDesignFormControl1.ResumeLayout(false);
+            fluentDesignFormControl1.PerformLayout();
             ((ISupportInitialize)fluentFormDefaultManager1).EndInit();
-            ((ISupportInitialize)repositoryItemComboBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-        private FluentDesignFormContainer fluentDesignFormContainer1;
-        private AccordionControl accordionControl1;
+        private FluentDesignFormContainer Container_Control;
+        private AccordionControl Menu;
         private FluentDesignFormControl fluentDesignFormControl1;
         private FluentFormDefaultManager fluentFormDefaultManager1;
         private AccordionControlElement Dev_Tool;
@@ -365,15 +357,15 @@ namespace Quan_Ly_Kho
         private AccordionControlElement Xuat_Hang;
         private AccordionControlElement Ton_Kho;
         private AccordionControlElement Ca_Nhan;
-        private DevExpress.XtraBars.BarEditItem cbbKho;
-        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox1;
-        private DevExpress.XtraBars.BarEditItem barEditItem2;
-        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox2;
-        private DevExpress.XtraBars.BarHeaderItem barHeaderItem1;
-        private DevExpress.XtraBars.BarStaticItem barStaticItem1;
-        private DevExpress.XtraBars.BarEditItem barEditItem1;
-        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox3;
-        private DevExpress.XtraBars.BarStaticItem barStaticItem2;
+
+
+        private DevExpress.XtraBars.BarStaticItem Header;
+    
+        private System.Windows.Forms.ComboBox cbbKho_User;
+        private System.Windows.Forms.Label Chu_Hang;
+        private System.Windows.Forms.ComboBox cbbChu_Hang_User;
+        private System.Windows.Forms.Label Kho;
+        private DevExpress.XtraBars.BarStaticItem Title;
     }
 }
 

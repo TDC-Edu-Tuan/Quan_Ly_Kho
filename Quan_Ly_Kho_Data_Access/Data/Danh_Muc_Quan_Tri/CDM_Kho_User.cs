@@ -11,7 +11,10 @@ namespace Quan_Ly_Kho_Data
     {
         private long m_lngAuto_ID;
         private long m_lngKho_ID;
+        private string m_strMa_Kho;
+        private string m_strTen_Kho;
         private long m_lngThanh_Vien_ID;
+        
         private int m_intdeleted;
         private DateTime? m_dtmCreated;
         private string m_strCreated_By;
@@ -156,6 +159,18 @@ namespace Quan_Ly_Kho_Data
             set
             {
                 m_strLast_Updated_By_Function = value.Trim();
+            }
+        }
+
+        public string Ma_Kho { get => m_strMa_Kho; set => m_strMa_Kho = value.Trim(); }
+
+        public string Ten_Kho { get => m_strTen_Kho; set => m_strTen_Kho = value.Trim(); }
+
+        public string Kho_Combo
+        {
+            get
+            {
+                return CUtility.Tao_Combo_Text(m_strMa_Kho, m_strTen_Kho);
             }
         }
     }

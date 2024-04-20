@@ -91,5 +91,10 @@ namespace Quan_Ly_Kho_Data_Data_Access.Controller.Cache
 
             return new List<CDM_Kho_User>();
         }
+
+        public static List<CDM_Kho_User> List_Data_By_Thanh_Vien_ID(long p_lngThanh_Vien_ID)
+        {
+            return Arr_Data.Where(it => it.Thanh_Vien_ID == p_lngThanh_Vien_ID).ToList();
+        }
     }
 }

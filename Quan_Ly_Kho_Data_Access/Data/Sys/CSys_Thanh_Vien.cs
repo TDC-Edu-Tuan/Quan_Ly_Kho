@@ -11,6 +11,7 @@ namespace Quan_Ly_Kho_Sys
         private string m_strEmail;
         private string m_strSDT;
         private string m_strGioi_Tinh;
+        private int m_iNhom_Thanh_Vien_ID;
         private int m_intdeleted;
         private DateTime? m_dtmCreated;
         private string m_strCreated_By;
@@ -33,6 +34,7 @@ namespace Quan_Ly_Kho_Sys
             m_strEmail = CConst.STR_VALUE_NULL;
             m_strSDT = CConst.STR_VALUE_NULL;
             m_strGioi_Tinh = CConst.STR_VALUE_NULL;
+            m_iNhom_Thanh_Vien_ID = CConst.INT_VALUE_NULL;
             m_intdeleted = CConst.INT_VALUE_NULL;
             m_dtmCreated = CConst.DTM_VALUE_NULL;
             m_strCreated_By = CConst.STR_VALUE_NULL;
@@ -207,6 +209,18 @@ namespace Quan_Ly_Kho_Sys
             set
             {
                 m_strLast_Updated_By_Function = value.Trim();
+            }
+        }
+
+        public int Nhom_Thanh_Vien_ID
+        {
+            get
+            {
+                return m_iNhom_Thanh_Vien_ID;
+            }
+            set
+            {
+                m_iNhom_Thanh_Vien_ID = value;
             }
         }
     }

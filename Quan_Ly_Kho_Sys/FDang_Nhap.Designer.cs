@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            pnlImage = new DevExpress.XtraEditors.PanelControl();
+            pictureBox1 = new PictureBox();
             groupControl1 = new DevExpress.XtraEditors.GroupControl();
             btnLogin = new DevExpress.XtraEditors.SimpleButton();
             lblMessage = new Label();
@@ -39,7 +39,7 @@
             txtUser_Name = new DevExpress.XtraEditors.TextEdit();
             labelControl1 = new DevExpress.XtraEditors.LabelControl();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pnlImage).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)groupControl1).BeginInit();
             groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ckcRememberMe.Properties).BeginInit();
@@ -49,7 +49,7 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(pnlImage);
+            panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(groupControl1);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
@@ -57,15 +57,20 @@
             panel1.Size = new Size(850, 326);
             panel1.TabIndex = 0;
             // 
-            // pnlImage
+            // pictureBox1
             // 
-            pnlImage.Location = new Point(43, 35);
-            pnlImage.Name = "pnlImage";
-            pnlImage.Size = new Size(317, 266);
-            pnlImage.TabIndex = 3;
+            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox1.Image = Properties.Resources.Screenshot_2024_04_07_165841;
+            pictureBox1.Location = new Point(28, 35);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(338, 266);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 3;
+            pictureBox1.TabStop = false;
             // 
             // groupControl1
             // 
+            groupControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupControl1.Controls.Add(btnLogin);
             groupControl1.Controls.Add(lblMessage);
             groupControl1.Controls.Add(ckcRememberMe);
@@ -89,6 +94,7 @@
             btnLogin.TabIndex = 7;
             btnLogin.Text = "Đăng Nhập";
             btnLogin.Click += btnLogin_Click;
+            btnLogin.KeyDown += btnLogin_KeyDown;
             // 
             // lblMessage
             // 
@@ -144,10 +150,12 @@
             // 
             // FDang_Nhap
             // 
+            AcceptButton = btnLogin;
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(850, 326);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MdiChildrenMinimizedAnchorBottom = false;
             Name = "FDang_Nhap";
@@ -155,7 +163,7 @@
             Text = "Đăng Nhập";
             Load += FDang_Nhap_Load;
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pnlImage).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)groupControl1).EndInit();
             groupControl1.ResumeLayout(false);
             groupControl1.PerformLayout();
@@ -168,7 +176,6 @@
         #endregion
 
         private Panel panel1;
-        private DevExpress.XtraEditors.PanelControl pnlImage;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.TextEdit txtPassword;
         private DevExpress.XtraEditors.LabelControl labelControl2;
@@ -177,5 +184,6 @@
         private DevExpress.XtraEditors.SimpleButton btnLogin;
         private Label lblMessage;
         private DevExpress.XtraEditors.CheckEdit ckcRememberMe;
+        private PictureBox pictureBox1;
     }
 }

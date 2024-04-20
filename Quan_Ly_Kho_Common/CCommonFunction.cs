@@ -3,6 +3,7 @@ using Quan_Ly_Kho_Data_Access.Utility;
 using Quan_Ly_Kho_Data_Data_Access.Controller.Cache;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,6 +72,7 @@ namespace Quan_Ly_Kho_Common
 
             //Tạo thư mục file Manamangent
             CConfig.Folder_File_Management_Path = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Folder_File_Management_Path");
+           
             if (!Directory.Exists(CConfig.Folder_File_Management_Path)) // Tạo thư mục nếu chưa có
                 Directory.CreateDirectory(CConfig.Folder_File_Management_Path);
 
