@@ -196,33 +196,33 @@ namespace Quan_Ly_Kho_Data_Access.Utility
         /// <param name="p_iRow_Start"></param>
         /// <param name="p_arrData"></param>
         /// <returns></returns>
-        public static byte[] Export_Excel_Template(string p_strPath_File, int p_intSheet_Index, int p_iRow_Start, List<object[]> p_arrData)
-        {
-            byte[] v_arrContents;
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-            using (ExcelPackage v_objPackage = new ExcelPackage(p_strPath_File))
-            {
-                var v_objWorksheet = v_objPackage.Workbook.Worksheets[p_intSheet_Index];// v_objPackage.Workbook.Worksheets.($"Sheet{p_intSheet_Index}");
-                int v_intRowStart = p_iRow_Start;
-                //int v_intColumnStart = 1;
-                object[] v_objData = p_arrData[0];
-                int v_intColummEnd = v_objData.Length;
+        //public static byte[] Export_Excel_Template(string p_strPath_File, int p_intSheet_Index, int p_iRow_Start, List<object[]> p_arrData)
+        //{
+        //    byte[] v_arrContents;
+        //    ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+        //    using (ExcelPackage v_objPackage = new(p_strPath_File))
+        //    {
+        //        var v_objWorksheet = v_objPackage.Workbook.Worksheets[p_intSheet_Index];
+        //        int v_intRowStart = p_iRow_Start;
+        //        //int v_intColumnStart = 1;
+        //        object[] v_objData = p_arrData[0];
+        //        int v_intColummEnd = v_objData.Length;
 
-                foreach (object[] item in p_arrData)
-                {
-                    v_intRowStart++;
-                    for (int v_i = 0; v_i < v_intColummEnd; v_i++)
-                    {
-                        v_objWorksheet.Cells[v_intRowStart, v_i + 1].Value = item[v_i];
-                    }
-                }
+        //        foreach (object[] item in p_arrData)
+        //        {
+        //            v_intRowStart++;
+        //            for (int v_i = 0; v_i < v_intColummEnd; v_i++)
+        //            {
+        //                v_objWorksheet.Cells[v_intRowStart, v_i + 1].Value = item[v_i];
+        //            }
+        //        }
 
-                v_arrContents = v_objPackage.GetAsByteArray();
-                v_objPackage.Dispose();
-            }
+        //        v_arrContents = v_objPackage.GetAsByteArray();
+        //        v_objPackage.Dispose();
+        //    }
 
-            return v_arrContents;
-        }
+        //    return v_arrContents;
+        //}
 
         /// <summary>
         /// Lấy giá trị 1 ô
