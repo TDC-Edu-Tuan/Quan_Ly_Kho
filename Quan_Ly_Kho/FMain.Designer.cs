@@ -65,6 +65,7 @@ namespace Quan_Ly_Kho
             Header = new DevExpress.XtraBars.BarStaticItem();
             Title = new DevExpress.XtraBars.BarStaticItem();
             fluentFormDefaultManager1 = new FluentFormDefaultManager(components);
+            alert = new DevExpress.XtraBars.Alerter.AlertControl(components);
             ((ISupportInitialize)Menu).BeginInit();
             ((ISupportInitialize)fluentDesignFormControl1).BeginInit();
             fluentDesignFormControl1.SuspendLayout();
@@ -306,6 +307,11 @@ namespace Quan_Ly_Kho
             fluentFormDefaultManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { Header, Title });
             fluentFormDefaultManager1.MaxItemId = 9;
             // 
+            // alert
+            // 
+            alert.AutoFormDelay = 5000;
+            alert.HtmlTemplate.Template = "<div class=\"modal-dialog modal-sm\">\r\n\tTesst\r\n</div>";
+            // 
             // FMain
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -366,6 +372,7 @@ namespace Quan_Ly_Kho
         private System.Windows.Forms.ComboBox cbbChu_Hang_User;
         private System.Windows.Forms.Label Kho;
         private DevExpress.XtraBars.BarStaticItem Title;
+        private DevExpress.XtraBars.Alerter.AlertControl alert;
     }
 }
 

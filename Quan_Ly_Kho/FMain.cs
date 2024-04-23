@@ -1,4 +1,6 @@
-﻿using DevExpress.XtraBars;
+﻿using DevExpress.Utils;
+using DevExpress.XtraBars;
+using DevExpress.XtraBars.Alerter;
 using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
@@ -29,10 +31,10 @@ namespace Quan_Ly_Kho
         private List<CDM_Kho_User> m_arrKho_User = new();
         private List<CDM_Chu_Hang_User> m_arrCH_User = new();
 
-
         public FMain()
         {
             InitializeComponent();
+
 
         }
 
@@ -48,6 +50,14 @@ namespace Quan_Ly_Kho
 
                 m_arrCH_User = CCache_Chu_Hang_User.List_Data_By_Thanh_Vien_ID(Thanh_Vien.Auto_ID);
 
+                if ((m_arrKho_User.Count == 0 || m_arrCH_User.Count == 0))
+                {
+                    FCommonFunction.Show_Alert(alert, this, "Thông báo", "Bạn không có quyền thực hiện thao tác này");
+                    return;
+                }
+
+                //Load combo
+
                 FCommonFunction.Load_Combo(cbbKho_User, m_arrKho_User, "Kho_ID", "Kho_Combo");
 
                 FCommonFunction.Load_Combo(cbbChu_Hang_User, m_arrCH_User, "Chu_Hang_ID", "Chu_Hang_Combo");
@@ -59,9 +69,7 @@ namespace Quan_Ly_Kho
             }
         }
 
-
-
-        public void Load_Cay_Chuc_Nang_By_Nhom_Thanh_Vien(long p_lngNhom_Thanh_Vien)
+        private void Load_Cay_Chuc_Nang_By_Nhom_Thanh_Vien(long p_lngNhom_Thanh_Vien)
         {
             List<AccordionControlElement> v_arrChuc_Nang = new();
             switch (p_lngNhom_Thanh_Vien)
@@ -84,14 +92,27 @@ namespace Quan_Ly_Kho
             }
 
 
-            Menu.Elements.Clear();
+            Menu.Elements.Clear(); //Xóa đi menu cũ
 
             foreach (AccordionControlElement v_objItem in v_arrChuc_Nang)
-            {
                 Menu.Elements.Add(v_objItem);
+        }
+
+        private void Load_User_Control(UCBase p_usControl, string v_strFunction_Code, string p_strFunction_Name)
+        {
+            if (p_usControl != null)
+            {
+                p_usControl.User_Name = Thanh_Vien.Ma_Dang_Nhap;
+                Container_Control.Controls.Add(p_usControl);
+                p_usControl.Function_Code = v_strFunction_Code + "Click";
+                Title.Caption = CUtility.Tao_Combo_Text(p_strFunction_Name, v_strFunction_Code);
             }
         }
 
+        /// <summary>
+        /// Set disable double click in title bar
+        /// </summary>
+        /// <param name="m"></param>
         protected override void WndProc(ref Message m)
         {
             const int WM_SYSCOMMAND = 0x0112;
@@ -116,6 +137,7 @@ namespace Quan_Ly_Kho
             base.WndProc(ref m);
         }
 
+        #region Tool
         private void Load_Quan_Tri(List<AccordionControlElement> p_arrChuc_Nang)
         {
             p_arrChuc_Nang.Add(Danh_Muc);
@@ -165,42 +187,35 @@ namespace Quan_Ly_Kho
             //  p_arrChuc_Nang.Add(Xuat_Hang);
             p_arrChuc_Nang.Add(Ca_Nhan);
         }
+        #endregion End tool
 
-        private void Item_Click(object sender, EventArgs e)
+        #region Event
+        private void Item_Click(object p_objSender, EventArgs p_objEvent_Key)
         {
+            AccordionControlElement v_objClicked = p_objSender as AccordionControlElement;
 
-            // Chuyển sender thành AccordionControlElement để truy cập thuộc tính Name
-            AccordionControlElement v_objClicked_Control = sender as AccordionControlElement;
-            UCBase v_objUC_Base = new();
-            if (v_objClicked_Control != null)
+            if (v_objClicked != null)
             {
-                string v_strFunction_Code = v_objClicked_Control.Name;
-                string v_strFunction_Name = v_objClicked_Control.Text;
+                UCBase v_objUS_Base = new();
+
+                string v_strFunction_Code = v_objClicked.Name;
+                string v_strFunction_Name = v_objClicked.Text;
 
                 switch (v_strFunction_Code)
                 {
                     case "Danh_Muc_Don_Vi_Tinh_Item":
-                        v_strFunction_Code = "DVT";
-                        v_objUC_Base = new uc_DM_Don_Vi_Tinh_List();
+                        v_objUS_Base = new uc_DM_Don_Vi_Tinh_List();
+                        break;
+                    case "Danh_Muc_Loai_San_Pham_Item":
+                        v_objUS_Base = new uc_DM_Loai_San_Pham_List();
                         break;
                 }
 
-                Load_User_Control(v_objUC_Base, v_strFunction_Code, v_strFunction_Name);
+                //Load control
+                Load_User_Control(v_objUS_Base, v_strFunction_Code, v_strFunction_Name);
             }
 
-            Container_Control.Dock = DockStyle.Fill;
-
-
-            Container_Control.BringToFront();
         }
-
-        private void Load_User_Control(UCBase p_usControl, string v_strFunction_Code, string p_strFunction_Name)
-        {
-            p_usControl = new();
-            p_usControl.User_Name = Thanh_Vien.Ma_Dang_Nhap;
-            Container_Control.Controls.Add(p_usControl);
-            p_usControl.Function_Code = v_strFunction_Code + "Click";
-            Title.Caption = CUtility.Tao_Combo_Text(p_strFunction_Name, v_strFunction_Code);
-        }
+        #endregion end event
     }
 }

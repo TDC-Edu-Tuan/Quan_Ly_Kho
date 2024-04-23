@@ -13,7 +13,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
 {
     public class CUtility
     {
-        //Dùng để convert 1 chuỗi json sang đối tượng
+        #region Nhóm convert
         public static T Convert_Json_To_Object<T>(string p_strJson_Path)
         {
             // Đọc nội dung của tệp tin
@@ -105,6 +105,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             return DateTime.ParseExact(p_strDate, p_strFormat, provider);
         }
 
+        #endregion 
 
         //Đọc 1 field trong file json
         public static string Map_Json_To_Entity_Field(string p_strJson_Path, string v_strFieldName)
@@ -124,6 +125,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             return v_strRes;
         }
 
+        //Tìm đường dẫn của 1 file trong source
         public static string Find_File_In_Solution(string p_strFileName)
         {
             string v_strRes = CConst.STR_VALUE_NULL;
@@ -140,6 +142,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             return v_strRes;
         }
 
+        //Dùng để chuyển 1 dòng trong datatable thành entity
         public static T Map_Row_To_Entity<T>(DataRow p_Row) where T : new()
         {
             // create a new object
@@ -180,6 +183,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             return v_objItem;
         }
 
+        //format
         private static string Get_String_For_Tao_Key(object p_objData)
         {
             if (p_objData == null)
@@ -213,13 +217,14 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             return v_strRes;
         }
 
+        //Tạo key
         public static string Tao_Key(params object[] p_arrValue)
         {
             string v_strKey = "";
             if (p_arrValue == null)
                 return "";
 
-            for (int i = 0, j = p_arrValue.Length; i < j; i++)
+            for (int i = 0; i < p_arrValue.Length; i++)
             {
                 string v_strValue = Get_String_For_Tao_Key(p_arrValue[i]);
 
@@ -234,6 +239,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             return v_strKey.ToUpper();
         }
 
+        //Format
         private static string Get_String_For_Tao_Combo(object p_objData)
         {
             if (p_objData == null)
@@ -267,13 +273,14 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             return v_strRes;
         }
 
+        //Tạo trường theo combo
         public static string Tao_Combo_Text(params object[] p_arrValue)
         {
             string v_strKey = "";
             if (p_arrValue == null) // Check rỗng
                 return "";
 
-            for (int i = 0, j = p_arrValue.Length; i < j; i++)
+            for (int i = 0; i < p_arrValue.Length; i++)
             {
                 string v_strValue = Get_String_For_Tao_Combo(p_arrValue[i]);
 
@@ -289,5 +296,22 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             return v_strKey;
         }
 
+        //Mã hóa mật khẩu
+        public static string MD5_Encrypt(string p_strSource)
+        {
+            UTF8Encoding p_utf8encoding = new UTF8Encoding();
+            byte[] p_arrData = p_utf8encoding.GetBytes(p_strSource);
+
+            System.Security.Cryptography.MD5CryptoServiceProvider p_md5Encrypt = new System.Security.Cryptography.MD5CryptoServiceProvider();
+
+            byte[] v_arrHashData = p_md5Encrypt.ComputeHash(p_arrData);
+
+            string v_strResult = "";
+
+            for (int i = 0; i < v_arrHashData.Length; i++)
+                v_strResult += Convert.ToString(v_arrHashData[i], 16).PadLeft(2, 'j');
+
+            return v_strResult.PadLeft(32, 'n');
+        }
     }
 }

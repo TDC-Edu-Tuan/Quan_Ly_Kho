@@ -1,4 +1,6 @@
 ﻿using DevExpress.ClipboardSource.SpreadsheetML;
+using DevExpress.XtraBars.Alerter;
+
 using DevExpress.XtraEditors.Repository;
 using System;
 using System.Collections.Generic;
@@ -12,17 +14,37 @@ namespace Quan_Ly_Kho_Common
     public class FCommonFunction : Form
     {
 
+        /// <summary>
+        /// Bắt lỗi trên label
+        /// </summary>
+        /// <param name="p_objLabel"></param>
+        /// <param name="p_strMessage"></param>
         public static void Set_Error_Label_Message(Label p_objLabel, string p_strMessage)
         {
             p_objLabel.Text = p_strMessage;
             p_objLabel.ForeColor = Color.Red;
         }
 
+        /// <summary>
+        /// Xuất kq trên label
+        /// </summary>
+        /// <param name="p_objLabel"></param>
+        /// <param name="p_strMessage"></param>
+
         public static void Set_Success_Label_Message(Label p_objLabel, string p_strMessage)
         {
             p_objLabel.Text = p_strMessage;
             p_objLabel.ForeColor = Color.Green;
         }
+
+        /// <summary>
+        /// Load combo box
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="p_objCombo"></param>
+        /// <param name="p_arrData"></param>
+        /// <param name="p_strField_Value"></param>
+        /// <param name="p_strDisplay"></param>
 
         public static void Load_Combo<T>(ComboBox p_objCombo, List<T> p_arrData, string p_strField_Value, string p_strDisplay)
         {
@@ -42,5 +64,21 @@ namespace Quan_Ly_Kho_Common
             p_objCombo.DisplayMember = p_strDisplay;
             p_objCombo.ValueMember = p_strField_Value;
         }
+
+        #region Start load Alert
+        public static void Show_Alert(AlertControl p_objAlert, Form p_objForm, string title, string message)
+        {
+            // Set properties for the alert control
+            p_objAlert.AutoFormDelay = 1; 
+            p_objAlert.FormLocation = AlertFormLocation.BottomRight; // Set alert location
+
+            // Disable pin button (optional)
+            p_objAlert.ShowPinButton = false;
+
+            AlertInfo info = new AlertInfo(title, message);
+            p_objAlert.Show(p_objForm, info);
+        }
+        #endregion Stop load alert
+
     }
 }
