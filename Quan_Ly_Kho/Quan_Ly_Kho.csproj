@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -16,12 +16,29 @@
     <ProjectReference Include="..\Quan_Ly_Kho_Common\Quan_Ly_Kho_Common.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_Danh_Muc\Quan_Ly_Kho_Danh_Muc.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_Data_Access\Quan_Ly_Kho_Data_Access.csproj" />
+    <ProjectReference Include="..\Quan_Ly_Kho_Report\Quan_Ly_Kho_Report.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_Sys\Quan_Ly_Kho_Sys.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="FileManamangent\images\" />
     <Folder Include="FileManamangent\Template\" />
+    <Folder Include="Reports\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

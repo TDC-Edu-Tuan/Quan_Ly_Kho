@@ -34,7 +34,6 @@ namespace Quan_Ly_Kho
         private void InitializeComponent()
         {
             components = new Container();
-            Container_Control = new FluentDesignFormContainer();
             Menu = new AccordionControl();
             Danh_Muc = new AccordionControlElement();
             Danh_Muc_Quan_Tri = new AccordionControlElement();
@@ -58,27 +57,14 @@ namespace Quan_Ly_Kho
             Ton_Kho = new AccordionControlElement();
             Ca_Nhan = new AccordionControlElement();
             fluentDesignFormControl1 = new FluentDesignFormControl();
-            Chu_Hang = new System.Windows.Forms.Label();
-            cbbChu_Hang_User = new System.Windows.Forms.ComboBox();
-            Kho = new System.Windows.Forms.Label();
-            cbbKho_User = new System.Windows.Forms.ComboBox();
             Header = new DevExpress.XtraBars.BarStaticItem();
             Title = new DevExpress.XtraBars.BarStaticItem();
             fluentFormDefaultManager1 = new FluentFormDefaultManager(components);
-            alert = new DevExpress.XtraBars.Alerter.AlertControl(components);
+            Container = new FluentDesignFormContainer();
             ((ISupportInitialize)Menu).BeginInit();
             ((ISupportInitialize)fluentDesignFormControl1).BeginInit();
-            fluentDesignFormControl1.SuspendLayout();
             ((ISupportInitialize)fluentFormDefaultManager1).BeginInit();
             SuspendLayout();
-            // 
-            // Container_Control
-            // 
-            Container_Control.Dock = System.Windows.Forms.DockStyle.Fill;
-            Container_Control.Location = new System.Drawing.Point(260, 39);
-            Container_Control.Name = "Container_Control";
-            Container_Control.Size = new System.Drawing.Size(772, 434);
-            Container_Control.TabIndex = 0;
             // 
             // Menu
             // 
@@ -148,7 +134,6 @@ namespace Quan_Ly_Kho
             Danh_Muc_Don_Vi_Tinh_Item.Name = "Danh_Muc_Don_Vi_Tinh_Item";
             Danh_Muc_Don_Vi_Tinh_Item.Style = ElementStyle.Item;
             Danh_Muc_Don_Vi_Tinh_Item.Text = "Đơn Vị Tính";
-            Danh_Muc_Don_Vi_Tinh_Item.Click += Item_Click;
             // 
             // Danh_Muc_Loai_San_Pham_Item
             // 
@@ -221,10 +206,6 @@ namespace Quan_Ly_Kho
             // 
             // fluentDesignFormControl1
             // 
-            fluentDesignFormControl1.Controls.Add(Chu_Hang);
-            fluentDesignFormControl1.Controls.Add(cbbChu_Hang_User);
-            fluentDesignFormControl1.Controls.Add(Kho);
-            fluentDesignFormControl1.Controls.Add(cbbKho_User);
             fluentDesignFormControl1.FluentDesignForm = this;
             fluentDesignFormControl1.ForeColor = System.Drawing.Color.White;
             fluentDesignFormControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { Header, Title });
@@ -236,52 +217,6 @@ namespace Quan_Ly_Kho
             fluentDesignFormControl1.TabStop = false;
             fluentDesignFormControl1.TitleItemLinks.Add(Header);
             fluentDesignFormControl1.TitleItemLinks.Add(Title);
-            // 
-            // Chu_Hang
-            // 
-            Chu_Hang.Anchor = System.Windows.Forms.AnchorStyles.None;
-            Chu_Hang.AutoSize = true;
-            Chu_Hang.BackColor = System.Drawing.SystemColors.Control;
-            Chu_Hang.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            Chu_Hang.ForeColor = System.Drawing.Color.Red;
-            Chu_Hang.Location = new System.Drawing.Point(288, 9);
-            Chu_Hang.Name = "Chu_Hang";
-            Chu_Hang.Size = new System.Drawing.Size(87, 22);
-            Chu_Hang.TabIndex = 5;
-            Chu_Hang.Text = "Chủ Hàng";
-            // 
-            // cbbChu_Hang_User
-            // 
-            cbbChu_Hang_User.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            cbbChu_Hang_User.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            cbbChu_Hang_User.FormattingEnabled = true;
-            cbbChu_Hang_User.Location = new System.Drawing.Point(381, 3);
-            cbbChu_Hang_User.Name = "cbbChu_Hang_User";
-            cbbChu_Hang_User.Size = new System.Drawing.Size(240, 34);
-            cbbChu_Hang_User.TabIndex = 4;
-            // 
-            // Kho
-            // 
-            Kho.Anchor = System.Windows.Forms.AnchorStyles.None;
-            Kho.AutoSize = true;
-            Kho.BackColor = System.Drawing.SystemColors.Control;
-            Kho.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            Kho.ForeColor = System.Drawing.Color.Red;
-            Kho.Location = new System.Drawing.Point(630, 9);
-            Kho.Name = "Kho";
-            Kho.Size = new System.Drawing.Size(43, 22);
-            Kho.TabIndex = 3;
-            Kho.Text = "Kho";
-            // 
-            // cbbKho_User
-            // 
-            cbbKho_User.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            cbbKho_User.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            cbbKho_User.FormattingEnabled = true;
-            cbbKho_User.Location = new System.Drawing.Point(679, 3);
-            cbbKho_User.Name = "cbbKho_User";
-            cbbKho_User.Size = new System.Drawing.Size(240, 34);
-            cbbKho_User.TabIndex = 0;
             // 
             // Header
             // 
@@ -307,18 +242,21 @@ namespace Quan_Ly_Kho
             fluentFormDefaultManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] { Header, Title });
             fluentFormDefaultManager1.MaxItemId = 9;
             // 
-            // alert
+            // Container
             // 
-            alert.AutoFormDelay = 5000;
-            alert.HtmlTemplate.Template = "<div class=\"modal-dialog modal-sm\">\r\n\tTesst\r\n</div>";
+            Container.Dock = System.Windows.Forms.DockStyle.Fill;
+            Container.Location = new System.Drawing.Point(260, 39);
+            Container.Name = "Container";
+            Container.Size = new System.Drawing.Size(772, 434);
+            Container.TabIndex = 0;
             // 
             // FMain
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1032, 473);
-            ControlContainer = Container_Control;
-            Controls.Add(Container_Control);
+            ControlContainer = Container;
+            Controls.Add(Container);
             Controls.Add(Menu);
             Controls.Add(fluentDesignFormControl1);
             FluentDesignFormControl = fluentDesignFormControl1;
@@ -331,17 +269,15 @@ namespace Quan_Ly_Kho
             Load += FMain_Load;
             ((ISupportInitialize)Menu).EndInit();
             ((ISupportInitialize)fluentDesignFormControl1).EndInit();
-            fluentDesignFormControl1.ResumeLayout(false);
-            fluentDesignFormControl1.PerformLayout();
             ((ISupportInitialize)fluentFormDefaultManager1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-        private FluentDesignFormContainer Container_Control;
         private AccordionControl Menu;
         private FluentDesignFormControl fluentDesignFormControl1;
         private FluentFormDefaultManager fluentFormDefaultManager1;
+        private FluentDesignFormContainer Container;
         private AccordionControlElement Dev_Tool;
         private AccordionControlElement Danh_Muc;
         private AccordionControlElement Danh_Muc_Quan_Tri;
@@ -366,13 +302,7 @@ namespace Quan_Ly_Kho
 
 
         private DevExpress.XtraBars.BarStaticItem Header;
-    
-        private System.Windows.Forms.ComboBox cbbKho_User;
-        private System.Windows.Forms.Label Chu_Hang;
-        private System.Windows.Forms.ComboBox cbbChu_Hang_User;
-        private System.Windows.Forms.Label Kho;
         private DevExpress.XtraBars.BarStaticItem Title;
-        private DevExpress.XtraBars.Alerter.AlertControl alert;
     }
 }
 

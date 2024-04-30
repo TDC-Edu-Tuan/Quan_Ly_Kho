@@ -1,12 +1,4 @@
-﻿using DevExpress.Utils;
-using DevExpress.XtraBars;
-using DevExpress.XtraBars.Alerter;
-using DevExpress.XtraBars.Navigation;
-using DevExpress.XtraBars.Ribbon;
-using DevExpress.XtraEditors;
-using DevExpress.XtraEditors.Repository;
-using DevExpress.XtraRichEdit.Model;
-using DevExpress.XtraVerticalGrid.Native;
+﻿using DevExpress.XtraBars.Navigation;
 using Quan_Ly_Kho_Common;
 using Quan_Ly_Kho_Danh_Muc;
 using Quan_Ly_Kho_Data;
@@ -23,50 +15,75 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace Quan_Ly_Kho
 {
     public partial class FMain : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
     {
-        public CSys_Thanh_Vien Thanh_Vien { get; set; } = CSystem.Thanh_Vien;
         private List<CDM_Kho_User> m_arrKho_User = new();
         private List<CDM_Chu_Hang_User> m_arrCH_User = new();
+        private CSys_Thanh_Vien m_objThanh_Vien = new();
 
         public FMain()
         {
             InitializeComponent();
-
-
         }
 
         private void FMain_Load(object sender, EventArgs e)
         {
-            try
+            do
             {
-                //Load cây chức năng
-                Load_Cay_Chuc_Nang_By_Nhom_Thanh_Vien(Thanh_Vien.Nhom_Thanh_Vien_ID);
+                DateTime v_dtmStart = DateTime.Now;
 
-                //Load kho - user
-                m_arrKho_User = CCache_Kho_User.List_Data_By_Thanh_Vien_ID(Thanh_Vien.Auto_ID);
-
-                m_arrCH_User = CCache_Chu_Hang_User.List_Data_By_Thanh_Vien_ID(Thanh_Vien.Auto_ID);
-
-                if ((m_arrKho_User.Count == 0 || m_arrCH_User.Count == 0))
+                try
                 {
-                    FCommonFunction.Show_Alert(alert, this, "Thông báo", "Bạn không có quyền thực hiện thao tác này");
-                    return;
+                    //Kiểm tra thành viên, Đăng nhập
+                    if (CSystem.Thanh_Vien == null)
+                    {
+                        //Ẩn form hiện tại đi
+                        Hide();
+                        FDang_Nhap v_frmDang_Nhap = new();
+                        v_frmDang_Nhap.ShowDialog();
+                    }
+
+                    //Khi thoát form đăng nhập nếu thành viên thoát form đăng nhập thì tắt toàn bộ chương trình
+                    if (CSystem.Thanh_Vien == null)
+                    {
+                        Close();
+                        return;
+                    }
+
+                    #region Start program
+                    Show();// Show lại form
+
+                    m_objThanh_Vien = CSystem.Thanh_Vien; // Set thành viên để xử lý
+
+                    //Load cây chức năng
+                    Load_Cay_Chuc_Nang_By_Nhom_Thanh_Vien(m_objThanh_Vien.Nhom_Thanh_Vien_ID);
+
+                    //Load kho, chủ hàng - User
+                    m_arrKho_User = CCache_Kho_User.List_Data_By_Thanh_Vien_ID(m_objThanh_Vien.Auto_ID);
+                    m_arrCH_User = CCache_Chu_Hang_User.List_Data_By_Thanh_Vien_ID(m_objThanh_Vien.Auto_ID);
+
+                    // Nếu người dùng không được phân quyền vào kho hoặc chủ hàng thì không cho sử dụng ứng dụng
+                    if ((m_arrKho_User.Count == 0 || m_arrCH_User.Count == 0) && m_objThanh_Vien.Ma_Dang_Nhap.ToLower() != "admin")
+                    {
+                        CSystem.Thanh_Vien = null;
+                        CSystem.State = (int)EStatus_Type.Closed_And_Reload; // Đặt state
+                        throw new Exception("Bạn không có quyền sử dụng chức năng này.");
+                    }
+                    CSystem.State = (int)EStatus_Type.Success;//Đặt state
+
+                    #endregion End program
+                }
+                catch (Exception ex)
+                {
+                    TimeSpan v_span = DateTime.Now - v_dtmStart;
+                    FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
+                    CLogger.Save_Trace_Error_Log("System", "Load", "Main Load", ex.Message, v_span.TotalSeconds);
                 }
 
-                //Load combo
-
-                FCommonFunction.Load_Combo(cbbKho_User, m_arrKho_User, "Kho_ID", "Kho_Combo");
-
-                FCommonFunction.Load_Combo(cbbChu_Hang_User, m_arrCH_User, "Chu_Hang_ID", "Chu_Hang_Combo");
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            } while (CSystem.State == (int)EStatus_Type.Closed_And_Reload); // Nếu người dùng rơi vào lỗi khác lỗi đóng thì cho phép đăng nhập lại
         }
 
         private void Load_Cay_Chuc_Nang_By_Nhom_Thanh_Vien(long p_lngNhom_Thanh_Vien)
@@ -91,21 +108,45 @@ namespace Quan_Ly_Kho
                     break;
             }
 
+            Menu.Elements.Clear(); // Xóa đi menu cũ
+            ((ISupportInitialize)Menu).BeginInit();
+            SuspendLayout();
+            foreach (AccordionControlElement v_objItems_1 in v_arrChuc_Nang)//Menu C1
+            {
+                //Kiểm tra nếu Có menu C2
+                if (v_objItems_1.Elements.Count > 0)
+                {
+                    foreach (AccordionControlElement v_objItems_2 in v_objItems_1.Elements) //Menu C2
+                    {
+                        //Kiểm tra nếu Có menu C3
+                        if (v_objItems_2.Elements.Count > 0)
+                            foreach (AccordionControlElement v_objItem_3 in v_objItems_2.Elements)// Menu C3                            
+                                v_objItem_3.Click += Item_Click;
+                        else
+                            v_objItems_2.Click += Item_Click;
+                    }
+                }
+                else
+                    v_objItems_1.Click += Item_Click;
 
-            Menu.Elements.Clear(); //Xóa đi menu cũ
+                Menu.Elements.Add(v_objItems_1);
+            }
+            ((ISupportInitialize)Menu).EndInit();
+            ResumeLayout(false); // Resume layout để áp dụng các thay đổi giao diện người dùng
 
-            foreach (AccordionControlElement v_objItem in v_arrChuc_Nang)
-                Menu.Elements.Add(v_objItem);
         }
 
-        private void Load_User_Control(UCBase p_usControl, string v_strFunction_Code, string p_strFunction_Name)
+        private void Load_User_Control(UCBase p_usControl, string p_strActive_User_Name, string v_strFunction_Code, string p_strFunction_Name)
         {
             if (p_usControl != null)
             {
-                p_usControl.User_Name = Thanh_Vien.Ma_Dang_Nhap;
-                Container_Control.Controls.Add(p_usControl);
-                p_usControl.Function_Code = v_strFunction_Code + "Click";
+                Container.Controls.Clear();
+                p_usControl.User_Name = p_strActive_User_Name;
+                p_usControl.Dock = DockStyle.Fill;
+                Container.Controls.Add(p_usControl);
+                p_usControl.Function_Code = v_strFunction_Code;
                 Title.Caption = CUtility.Tao_Combo_Text(p_strFunction_Name, v_strFunction_Code);
+                Container.BringToFront();
             }
         }
 
@@ -212,7 +253,7 @@ namespace Quan_Ly_Kho
                 }
 
                 //Load control
-                Load_User_Control(v_objUS_Base, v_strFunction_Code, v_strFunction_Name);
+                Load_User_Control(v_objUS_Base, m_objThanh_Vien.Ma_Dang_Nhap, v_strFunction_Code, v_strFunction_Name);
             }
 
         }

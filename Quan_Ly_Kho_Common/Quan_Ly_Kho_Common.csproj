@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Quan_Ly_Kho_Danh_Muc\Quan_Ly_Kho_Danh_Muc.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_Data_Access\Quan_Ly_Kho_Data_Access.csproj" />
   </ItemGroup>
 
@@ -34,6 +33,10 @@
     <Reference Include="DevExpress.XtraBars.v22.2">
       <HintPath>..\..\..\..\..\Program Files\DevExpress 22.2\Components\Offline Packages\devexpress.win.navigation\22.2.3\lib\net6.0-windows\DevExpress.XtraBars.v22.2.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UCBase.cs" />
   </ItemGroup>
 
 </Project>

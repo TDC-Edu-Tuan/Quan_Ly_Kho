@@ -11,7 +11,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
 {
     public class CExcel_Controller
     {
-        const int maxFileSize = 10485760;
+        
         private ExcelPackage m_objExcel_Package = null;
 
         public CExcel_Controller(FileInfo p_objFile_Info)
@@ -22,11 +22,11 @@ namespace Quan_Ly_Kho_Data_Access.Utility
         /// <summary>
         /// Check kiểu file
         /// </summary>
-        /// <param name="p_strFileName"></param>
+        /// <param name="p_strFileExtension "></param>
         /// <returns></returns>
-        public static bool Check_Excel_File_Type(string p_strFileName)
+        public static bool Check_Excel_File_Type(string p_strFileExtension)
         {
-            if (p_strFileName != ".xls" && p_strFileName != ".xlsx")
+            if (p_strFileExtension != ".xls" && p_strFileExtension != ".xlsx")
                 return false;
             return true;
         }
@@ -42,6 +42,11 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             if (p_arrList_Extensions.Contains(p_strCheck))
                 return true;
             return false;
+        }
+
+        public static void Export_Excel(DataTable p_dt, string strFile_Path="")
+        {
+
         }
 
         /// <summary>

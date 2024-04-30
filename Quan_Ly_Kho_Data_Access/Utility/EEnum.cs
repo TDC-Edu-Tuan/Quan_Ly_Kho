@@ -24,4 +24,25 @@ namespace Quan_Ly_Kho_Data_Access.Utility
         Data = 3,
         Dev = 4,
     }
+
+    public enum EMessage_Type
+    {
+        None = 0,
+        Error = 1,
+        Warning = 2,
+        Stop = 3,
+        Success = 4,
+        Question = 5,
+    }
+
+    public enum EStatus_Type
+    {
+        Closed = 1000,
+        Closed_And_Reload = 1001,
+        Message_Box = 1002,
+        Custom_Status = 1003,
+        Success = 1004,
+
+        None = 0,
+    }
 }

@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Quan_Ly_Kho_Common\Quan_Ly_Kho_Common.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_Data_Access\Quan_Ly_Kho_Data_Access.csproj" />
   </ItemGroup>
 

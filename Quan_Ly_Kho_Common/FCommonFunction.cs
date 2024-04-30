@@ -2,6 +2,7 @@
 using DevExpress.XtraBars.Alerter;
 
 using DevExpress.XtraEditors.Repository;
+using Quan_Ly_Kho_Data_Access.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,11 +66,39 @@ namespace Quan_Ly_Kho_Common
             p_objCombo.ValueMember = p_strField_Value;
         }
 
+        public static DialogResult Show_Message_Box(string p_strHeader, string p_strCaption, int p_iType = 0)
+        {
+            DialogResult v_dlr = new DialogResult();
+            switch (p_iType)
+            {
+                case (int)EMessage_Type.None:
+                    v_dlr = MessageBox.Show(p_strCaption, p_strHeader, MessageBoxButtons.YesNo, MessageBoxIcon.None);
+                    break;
+                case (int)EMessage_Type.Error:
+                    v_dlr = MessageBox.Show(p_strCaption, p_strHeader, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (int)EMessage_Type.Warning:
+                    v_dlr = MessageBox.Show(p_strCaption, p_strHeader, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case (int)EMessage_Type.Stop:
+                    v_dlr = MessageBox.Show(p_strCaption, p_strHeader, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    break;
+                case (int)EMessage_Type.Success:
+                    v_dlr = MessageBox.Show(p_strCaption, p_strHeader, MessageBoxButtons.OK, MessageBoxIcon.None);
+                    break;
+                case (int)EMessage_Type.Question:
+                    v_dlr = MessageBox.Show(p_strCaption, p_strHeader, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    break;
+            }
+            return v_dlr;
+        }
+
+
         #region Start load Alert
         public static void Show_Alert(AlertControl p_objAlert, Form p_objForm, string title, string message)
         {
             // Set properties for the alert control
-            p_objAlert.AutoFormDelay = 1; 
+            p_objAlert.AutoFormDelay = 1;
             p_objAlert.FormLocation = AlertFormLocation.BottomRight; // Set alert location
 
             // Disable pin button (optional)

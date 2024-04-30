@@ -161,6 +161,7 @@
             Name = "FDang_Nhap";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Đăng Nhập";
+            FormClosing += FDang_Nhap_FormClosing;
             Load += FDang_Nhap_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

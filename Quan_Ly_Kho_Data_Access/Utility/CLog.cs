@@ -53,7 +53,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             sb.Append("|");
             sb.AppendLine(CUtility.Convert_To_String(m_dblTotal_Time) + "\n");
 
-            BinaryWriter v_sw = new BinaryWriter(new FileStream(p_strFile_Path, FileMode.Append,FileAccess.Write));
+            BinaryWriter v_sw = new(new FileStream(p_strFile_Path, FileMode.Append, FileAccess.Write));
             v_sw.Write(sb.ToString());
             v_sw.Close();
         }

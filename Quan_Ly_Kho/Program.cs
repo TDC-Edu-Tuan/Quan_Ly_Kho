@@ -18,33 +18,16 @@ namespace Quan_Ly_Kho
             try
             {
                 CCommonFunction.Load_Config();
-
                 CCommonFunction.Load_Cache();
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new FDang_Nhap());
-
-                if (CSystem.Thanh_Vien == null)
-                    Application.Exit();
-                else
-                    Application.Run(new FMain());
-
-
+                Application.Run(new FMain());
             }
-            catch (Exception ex) //Nếu cache lỗi load => đóng chương trình
+            catch (Exception ex)
             {
-                string v_strError_Message = ex.Message;
-
-                DialogResult v_rs = MessageBox.Show(v_strError_Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                if (v_rs == DialogResult.OK || v_rs == DialogResult.Cancel)
-                {
-                    Application.Exit();
-                }
-
+                FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
             }
-
         }
     }
 }

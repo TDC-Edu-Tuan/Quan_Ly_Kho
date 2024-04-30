@@ -25,8 +25,8 @@ namespace Quan_Ly_Kho_Sys
 
         private void FDang_Nhap_Load(object sender, EventArgs e)
         {
-            txtUser_Name.Text = m_objThanh_Vien.Ma_Dang_Nhap;
-            txtPassword.Text = m_objThanh_Vien.Mat_Khau;
+            txtUser_Name.Text = m_objThanh_Vien.Ma_Dang_Nhap.Trim().ToLower();
+            txtPassword.Text = m_objThanh_Vien.Mat_Khau.Trim().ToLower();
             lblMessage.Text = "";
         }
 
@@ -38,18 +38,18 @@ namespace Quan_Ly_Kho_Sys
             try
             {
                 #region Kiểm tra lỗi
-                if (txtUser_Name.Text == CConst.STR_VALUE_NULL)
+                if (txtUser_Name.Text.Trim().ToLower() == CConst.STR_VALUE_NULL)
                     v_sbError.AppendLine("Mã đăng nhập không được để trống.");
 
-                if (txtPassword.Text == CConst.STR_VALUE_NULL)
+                if (txtPassword.Text.Trim() == CConst.STR_VALUE_NULL)
                     v_sbError.AppendLine("Mật khẩu không được để trống.");
 
-                CSys_Thanh_Vien v_objData = v_objCtrlThanh_Vien.FQ_531_TV_sp_sel_Get_By_Ma_Dang_Nhap(txtUser_Name.Text);
+                CSys_Thanh_Vien v_objData = v_objCtrlThanh_Vien.FQ_531_TV_sp_sel_Get_By_Ma_Dang_Nhap(txtUser_Name.Text.Trim());
 
                 if (v_objData == null)
                     v_sbError.AppendLine("Mã đăng nhập không tồn tại.");
 
-                else if (v_objData.Mat_Khau.Equals(txtPassword.Text) == false)
+                else if (v_objData.Mat_Khau.Equals(txtPassword.Text.Trim()) == false)
                     v_sbError.AppendLine("Mật khẩu không đúng.");
 
                 if (v_sbError.ToString() != CConst.STR_VALUE_NULL)
@@ -58,12 +58,14 @@ namespace Quan_Ly_Kho_Sys
                 #endregion
 
                 //Gán cho obj
-                m_objThanh_Vien.Ma_Dang_Nhap = v_objData.Ma_Dang_Nhap;
-                m_objThanh_Vien.Mat_Khau = v_objData.Mat_Khau;
+                m_objThanh_Vien.Ma_Dang_Nhap = v_objData.Ma_Dang_Nhap.Trim().ToLower();
+                m_objThanh_Vien.Mat_Khau = v_objData.Mat_Khau.Trim().ToLower();
 
                 CSystem.Thanh_Vien = v_objData;
 
                 Close();
+
+                CSystem.State = (int)EStatus_Type.Closed;//Trả về trạng thái closed
             }
             catch (Exception ex)
             {
@@ -75,7 +77,19 @@ namespace Quan_Ly_Kho_Sys
 
         private void btnLogin_KeyDown(object sender, KeyEventArgs e)
         {
-            btnLogin_Click(sender,e);
+            btnLogin_Click(sender, e);
+        }
+
+        private void FDang_Nhap_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //Kiểm tra nếu thành viên null tức là chưa được gán trên sự kiện login -> ấn thoát chương trình
+            if (CSystem.Thanh_Vien == null) //Kiểm tra 
+            {
+                if (FCommonFunction.Show_Message_Box("Thông báo", "Bạn có muốn thoát chương trình", (int)EMessage_Type.Question) == DialogResult.Yes)
+                {
+                    CSystem.State = (int)EStatus_Type.Closed;
+                }
+            }
         }
     }
 }
