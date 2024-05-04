@@ -1,13 +1,7 @@
-﻿using DevExpress.Map.Native;
-using DevExpress.XtraCharts.UI;
+﻿using DevExpress.XtraEditors;
+using DevExpress.XtraSpreadsheet.Model;
 using OfficeOpenXml;
-using Quan_Ly_Kho_Common;
-using Quan_Ly_Kho_Data;
-using Quan_Ly_Kho_Data_Access.Controller.Cache;
-using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
-using Quan_Ly_Kho_Data_Data_Access.Controller.Cache;
-using Quan_Ly_Kho_Sys;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,28 +9,25 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Quan_Ly_Kho_Danh_Muc
+namespace Quan_Ly_Kho_Common
 {
-    public partial class UCBase : UserControl
+    public partial class FBase : XtraForm
     {
         #region Các biến control system
         private bool g_bIs_First_Load = CConst.IS_VALUE_NULL;
 
+        public long g_lngAuto_ID { get; set; } = CConst.INT_VALUE_NULL;
         public string Function_Code { get; set; } = CConst.STR_VALUE_NULL;
         public string User_Name { get; set; } = CConst.STR_VALUE_NULL;
+        protected string g_strKeys { get; set; } = CConst.STR_VALUE_NULL;
 
-        public long g_lngAuto_ID { get; set; } = CConst.INT_VALUE_NULL;
-        public long g_lngKho_ID { get; set; } = CConst.INT_VALUE_NULL;
-        public long g_lngChu_Hang_ID { get; set; } = CConst.INT_VALUE_NULL;
+        protected long g_lngChu_Hang_ID { get; set; } = CConst.INT_VALUE_NULL;
 
-        public List<CDM_Kho_User> g_arrKho_Users { get; set; } = new();
-        public List<CDM_Chu_Hang_User> g_arrChu_Hang_Users { get; set; } = new();
+        protected long g_lngKho_ID { get; set; } = CConst.INT_VALUE_NULL;
 
         protected DataGridView g_grdData { get; set; } = (DataGridView)CConst.OBJ_VALUE_NULL;
 
@@ -60,7 +51,7 @@ namespace Quan_Ly_Kho_Danh_Muc
         /// <param name="e"></param>
         protected virtual void Tim_Kiem(object sender, EventArgs e)
         {
-            Load_Data();
+            Load_Form(sender, e);
         }
 
         /// <summary>
@@ -70,33 +61,28 @@ namespace Quan_Ly_Kho_Danh_Muc
         /// <param name="e"></param>
         protected virtual void Load_Form(object sender, EventArgs e)
         {
-
             try
             {
-                g_lngChu_Hang_ID = CSystem.Chu_Hang_ID;
-                g_lngKho_ID = CSystem.Kho_ID;
-          
+                
                 if (g_bIs_First_Load == false)
                 {
                     Load_Init();
+                    if (g_grdData == null)
+                        g_grdData = new DataGridView();
                     g_grdData.CellContentClick += Cell_Content_Click;
 
                     g_bIs_First_Load = true;
                 }
+
+                //Xóa dữ liệu cũ
                 g_grdData.Columns.Clear();
+                g_grdData.Rows.Clear();
 
                 Load_Data();
-
-                Tim_Kiem_TextChanged(sender, e);
             }
             catch (Exception ex)
             {
                 FCommonFunction.Show_Message_Box("Lỗi", ex.Message, (int)EMessage_Type.Error);
-                if (CSystem.State == (int)EStatus_Type.Closed)
-                {
-
-                }
-
             }
 
         }
@@ -138,6 +124,8 @@ namespace Quan_Ly_Kho_Danh_Muc
                 else
                     Add_Data();
 
+                CLogger.Save_Trace_Error_Log("Save Data", Function_Code + ": Save_Data", "Lưu: " + User_Name, "Thêm dữ liệu thành công Keys+ " + g_strKeys, (DateTime.Now - v_dtmStart).TotalSeconds);
+                Closed_Form();
             }
             catch (Exception ex)
             {
@@ -206,6 +194,7 @@ namespace Quan_Ly_Kho_Danh_Muc
                     if (v_iCount_Error != CConst.INT_VALUE_NULL)
                         throw new Exception($"Import excel không thành công với {v_iCount_Error} dòng lỗi");
 
+                    CLogger.Save_Trace_Error_Log("Save Data", Function_Code + ": Save_Data", "Lưu: " + User_Name, "Thêm dữ liệu thành công Keys+ " + g_strKeys, (DateTime.Now - v_dtmStart).TotalSeconds);
 
                     FCommonFunction.Show_Message_Box("Thông báo", $"Import excel: {v_iCount_Success} dòng thành công ", (int)EMessage_Type.Success);
 
@@ -249,18 +238,7 @@ namespace Quan_Ly_Kho_Danh_Muc
             }
         }
 
-
-        /// <summary>
-        /// Hàm tìm kiếm theo keys
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Tim_Kiem_TextChanged(object sender, EventArgs e)
-        {
-            Tim_Kiem_By_Key();
-        }
         #endregion
-
 
         #region Nhóm kế thừa
 
@@ -403,10 +381,14 @@ namespace Quan_Ly_Kho_Danh_Muc
             g_grdData.Columns.Insert(p_intIndex, v_colRes);
         }
 
-        protected virtual void Tim_Kiem_By_Key()
+        /// <summary>
+        /// Gọi sự kiện đóng form ở đây
+        /// </summary>
+        protected virtual void Closed_Form()
         {
 
         }
+
         #endregion
 
         #region Nhóm private
@@ -549,6 +531,7 @@ namespace Quan_Ly_Kho_Danh_Muc
             // Ngăn người dùng điều chỉnh độ rộng của cột
             p_col.Resizable = DataGridViewTriState.False;
         }
+
         private void Cell_Content_Click(object? sender, DataGridViewCellEventArgs e)
         {
             // Kiểm tra xem cột được click 
@@ -571,8 +554,30 @@ namespace Quan_Ly_Kho_Danh_Muc
             }
         }
 
-
         #endregion
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SYSCOMMAND = 0x0112;
+            const int SC_MOVE = 0xF010;
+            const int WM_NCLBUTTONDBLCLK = 0x00A3; //double click on a title bar a.k.a. non-client area of the form
+
+            switch (m.Msg)
+            {
+                case WM_SYSCOMMAND:             //preventing the form from being moved by the mouse.
+                    int command = m.WParam.ToInt32() & 0xfff0;
+                    if (command == SC_MOVE)
+                        return;
+                    break;
+            }
+
+            if (m.Msg == WM_NCLBUTTONDBLCLK)       //preventing the form being resized by the mouse double click on the title bar.
+            {
+                m.Result = IntPtr.Zero;
+                return;
+            }
+
+            base.WndProc(ref m);
+        }
 
 
     }

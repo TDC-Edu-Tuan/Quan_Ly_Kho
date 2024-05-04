@@ -1,6 +1,6 @@
 ﻿namespace Quan_Ly_Kho_Danh_Muc
 {
-    partial class uc_DM_Loai_San_Pham_List
+    partial class FDM_02_01_Loai_San_Pham_List
     {
         /// <summary> 
         /// Required designer variable.

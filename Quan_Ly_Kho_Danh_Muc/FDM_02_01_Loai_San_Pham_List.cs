@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Quan_Ly_Kho_Danh_Muc
 {
-    public partial class uc_DM_Loai_San_Pham_List : UCBase
+    public partial class FDM_02_01_Loai_San_Pham_List : UCBase
     {
-        public uc_DM_Loai_San_Pham_List()
+        public FDM_02_01_Loai_San_Pham_List()
         {
             InitializeComponent();
         }

@@ -34,6 +34,7 @@ namespace Quan_Ly_Kho
         private void InitializeComponent()
         {
             components = new Container();
+            Loading_Control = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(Quan_Ly_Kho_Common.FLoading), true, true);
             Menu = new AccordionControl();
             Danh_Muc = new AccordionControlElement();
             Danh_Muc_Quan_Tri = new AccordionControlElement();
@@ -56,6 +57,7 @@ namespace Quan_Ly_Kho
             Xuat_Hang = new AccordionControlElement();
             Ton_Kho = new AccordionControlElement();
             Ca_Nhan = new AccordionControlElement();
+            Dang_Xuat_Item = new AccordionControlElement();
             fluentDesignFormControl1 = new FluentDesignFormControl();
             Header = new DevExpress.XtraBars.BarStaticItem();
             Title = new DevExpress.XtraBars.BarStaticItem();
@@ -66,14 +68,20 @@ namespace Quan_Ly_Kho
             ((ISupportInitialize)fluentFormDefaultManager1).BeginInit();
             SuspendLayout();
             // 
+            // Loading_Control
+            // 
+            Loading_Control.ClosingDelay = 500;
+            // 
             // Menu
             // 
+            Menu.Appearance.AccordionControl.ForeColor = System.Drawing.Color.FromArgb(110, 218, 218);
+            Menu.Appearance.AccordionControl.Options.UseForeColor = true;
             Menu.Dock = System.Windows.Forms.DockStyle.Left;
             Menu.Elements.AddRange(new AccordionControlElement[] { Danh_Muc, Nhap_Hang, Dev_Tool, Xuat_Hang, Ton_Kho, Ca_Nhan });
             Menu.Location = new System.Drawing.Point(0, 39);
             Menu.Name = "Menu";
-            Menu.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.False;
-            Menu.ScrollBarMode = ScrollBarMode.Touch;
+            Menu.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.True;
+            Menu.ScrollBarMode = ScrollBarMode.Fluent;
             Menu.ShowFilterControl = ShowFilterControl.Always;
             Menu.Size = new System.Drawing.Size(260, 434);
             Menu.TabIndex = 1;
@@ -200,9 +208,15 @@ namespace Quan_Ly_Kho
             // 
             // Ca_Nhan
             // 
-            Ca_Nhan.Expanded = true;
+            Ca_Nhan.Elements.AddRange(new AccordionControlElement[] { Dang_Xuat_Item });
             Ca_Nhan.Name = "Ca_Nhan";
             Ca_Nhan.Text = "Cá Nhân";
+            // 
+            // Dang_Xuat_Item
+            // 
+            Dang_Xuat_Item.Name = "Dang_Xuat_Item";
+            Dang_Xuat_Item.Style = ElementStyle.Item;
+            Dang_Xuat_Item.Text = "Đăng xuất";
             // 
             // fluentDesignFormControl1
             // 
@@ -277,7 +291,7 @@ namespace Quan_Ly_Kho
         private AccordionControl Menu;
         private FluentDesignFormControl fluentDesignFormControl1;
         private FluentFormDefaultManager fluentFormDefaultManager1;
-        private FluentDesignFormContainer Container;
+        private new FluentDesignFormContainer Container;
         private AccordionControlElement Dev_Tool;
         private AccordionControlElement Danh_Muc;
         private AccordionControlElement Danh_Muc_Quan_Tri;
@@ -303,6 +317,8 @@ namespace Quan_Ly_Kho
 
         private DevExpress.XtraBars.BarStaticItem Header;
         private DevExpress.XtraBars.BarStaticItem Title;
+        private AccordionControlElement Dang_Xuat_Item;
+        private DevExpress.XtraSplashScreen.SplashScreenManager Loading_Control;
     }
 }
 

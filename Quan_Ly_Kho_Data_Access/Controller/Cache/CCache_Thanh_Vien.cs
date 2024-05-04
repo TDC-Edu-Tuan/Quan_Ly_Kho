@@ -33,7 +33,6 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Cache
 
             Arr_Data.Add(p_objData);
 
-
             //Kiểm tra trong dic
             string v_strKey = CUtility.Tao_Key(p_objData.Ma_Dang_Nhap);
             if (Dic_Code.ContainsKey(v_strKey) == true)

@@ -6,16 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quan_Ly_Kho_Data_Access.Utility
 {
-    public enum EChuc_Nang
-    {
-        Danh_Muc = 1, 
-        Nhap_Hang = 2,
-        Dev_Tool = 3, 
-        Xuat_Hang = 4, 
-        Ton_Kho = 5,
-        Ca_Nhan = 0,
-    }
-
+ 
     public enum ENhom_Thanh_Vien
     {
         Quan_Tri = 0,
@@ -42,6 +33,9 @@ namespace Quan_Ly_Kho_Data_Access.Utility
         Message_Box = 1002,
         Custom_Status = 1003,
         Success = 1004,
+        Reload = 1005,
+        New = 1006,
+
 
         None = 0,
     }

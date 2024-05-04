@@ -25,6 +25,11 @@ namespace Quan_Ly_Kho_Sys
 
         private void FDang_Nhap_Load(object sender, EventArgs e)
         {
+            if (CSystem.Thanh_Vien != null && CSystem.State == (int)EStatus_Type.Reload)
+            {
+                m_objThanh_Vien = CSystem.Thanh_Vien;
+            }
+
             txtUser_Name.Text = m_objThanh_Vien.Ma_Dang_Nhap.Trim().ToLower();
             txtPassword.Text = m_objThanh_Vien.Mat_Khau.Trim().ToLower();
             lblMessage.Text = "";
@@ -57,15 +62,11 @@ namespace Quan_Ly_Kho_Sys
 
                 #endregion
 
-                //Gán cho obj
-                m_objThanh_Vien.Ma_Dang_Nhap = v_objData.Ma_Dang_Nhap.Trim().ToLower();
-                m_objThanh_Vien.Mat_Khau = v_objData.Mat_Khau.Trim().ToLower();
-
                 CSystem.Thanh_Vien = v_objData;
 
                 Close();
 
-                CSystem.State = (int)EStatus_Type.Closed;//Trả về trạng thái closed
+                CSystem.State = (int)EStatus_Type.Success;//Trả về trạng thái thành công
             }
             catch (Exception ex)
             {

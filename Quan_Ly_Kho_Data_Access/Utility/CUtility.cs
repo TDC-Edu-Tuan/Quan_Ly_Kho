@@ -313,5 +313,16 @@ namespace Quan_Ly_Kho_Data_Access.Utility
 
             return v_strResult.PadLeft(32, 'n');
         }
+
+        // Phương thức để kiểm tra xem một kiểu dữ liệu có phải là kiểu số không
+        public static bool Is_Numeric_Type(Type p_type)
+        {
+            return p_type == typeof(int)
+                || p_type == typeof(double)
+                || p_type == typeof(decimal)
+                || p_type == typeof(float)
+                || p_type == typeof(long);
+        }
+
     }
 }

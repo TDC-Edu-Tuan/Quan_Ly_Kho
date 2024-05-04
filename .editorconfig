@@ -50,6 +50,13 @@ dotnet_diagnostic.CS0618.severity = none
 
 # SYSLIB0021: Type or member is obsolete
 dotnet_diagnostic.SYSLIB0021.severity = none
+csharp_space_around_binary_operators = before_and_after
+
+# CA2200: Rethrow to preserve stack details
+dotnet_diagnostic.CA2200.severity = none
+
+# CS8601: Possible null reference assignment.
+dotnet_diagnostic.CS8601.severity = none
 
 [*.{cs,vb}]
 #### Naming styles ####
