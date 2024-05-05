@@ -1,8 +1,13 @@
 ﻿using DevExpress.XtraWaitForm;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
-namespace Quan_Ly_Kho
+namespace Quan_Ly_Kho_Common
 {
     public partial class FLoading : WaitForm
     {

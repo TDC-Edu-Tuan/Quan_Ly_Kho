@@ -37,25 +37,35 @@ namespace Quan_Ly_Kho_Data_Access.Utility
 
         public void Write_To_Txt(string p_strFile_Path)
         {
+            // Tạo một đối tượng FileInfo
+            FileInfo v_FileInfo = new(p_strFile_Path);
 
-            if (!File.Exists(p_strFile_Path))
-                File.Create(p_strFile_Path);
+            // Kiểm tra xem tệp có tồn tại không
+            if (!v_FileInfo.Exists)
+            {
+                // Nếu không tồn tại, tạo mới
+                using FileStream fs = v_FileInfo.Create();
+            }
 
-            StringBuilder sb = new();
+            // Sử dụng StreamWriter để ghi vào tệp tin
+            using (StreamWriter v_sw = v_FileInfo.AppendText())
+            {
+                StringBuilder v_sb = new();
 
-            sb.Append(m_strTitle);
-            sb.Append("|");
-            sb.Append(m_strFunction_Code);
-            sb.Append("|");
-            sb.Append(m_strFunction_Name);
-            sb.Append("|");
-            sb.Append(m_strDescription);
-            sb.Append("|");
-            sb.AppendLine(CUtility.Convert_To_String(m_dblTotal_Time) + "\n");
+                v_sb.Append(m_strTitle);
+                v_sb.Append("|");
+                v_sb.Append(m_strFunction_Code);
+                v_sb.Append("|");
+                v_sb.Append(m_strFunction_Name);
+                v_sb.Append("|");
+                v_sb.Append(m_strDescription);
+                v_sb.Append("|");
+                v_sb.AppendLine(CUtility.Convert_To_String(m_dblTotal_Time) + "\n");
 
-            BinaryWriter v_sw = new(new FileStream(p_strFile_Path, FileMode.Append, FileAccess.Write));
-            v_sw.Write(sb.ToString());
-            v_sw.Close();
+                v_sw.Write(v_sb.ToString());
+            }
+
+
         }
     }
 }

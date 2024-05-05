@@ -1,6 +1,8 @@
 ﻿using DevExpress.XtraEditors;
 using DevExpress.XtraSpreadsheet.Model;
 using OfficeOpenXml;
+using Quan_Ly_Kho_Data;
+using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
 using System;
 using System.Collections.Generic;
@@ -20,14 +22,15 @@ namespace Quan_Ly_Kho_Common
         #region Các biến control system
         private bool g_bIs_First_Load = CConst.IS_VALUE_NULL;
 
-        public long g_lngAuto_ID { get; set; } = CConst.INT_VALUE_NULL;
         public string Function_Code { get; set; } = CConst.STR_VALUE_NULL;
         public string User_Name { get; set; } = CConst.STR_VALUE_NULL;
-        protected string g_strKeys { get; set; } = CConst.STR_VALUE_NULL;
 
-        protected long g_lngChu_Hang_ID { get; set; } = CConst.INT_VALUE_NULL;
+        public long g_lngAuto_ID { get; set; } = CConst.INT_VALUE_NULL;
+        public long g_lngKho_ID { get; set; } = CConst.INT_VALUE_NULL;
+        public long g_lngChu_Hang_ID { get; set; } = CConst.INT_VALUE_NULL;
 
-        protected long g_lngKho_ID { get; set; } = CConst.INT_VALUE_NULL;
+        public List<CDM_Kho_User> g_arrKho_Users { get; set; } = new();
+        public List<CDM_Chu_Hang_User> g_arrChu_Hang_Users { get; set; } = new();
 
         protected DataGridView g_grdData { get; set; } = (DataGridView)CConst.OBJ_VALUE_NULL;
 
@@ -51,7 +54,8 @@ namespace Quan_Ly_Kho_Common
         /// <param name="e"></param>
         protected virtual void Tim_Kiem(object sender, EventArgs e)
         {
-            Load_Form(sender, e);
+            g_grdData.Columns.Clear();
+            Load_Data();
         }
 
         /// <summary>
@@ -61,27 +65,39 @@ namespace Quan_Ly_Kho_Common
         /// <param name="e"></param>
         protected virtual void Load_Form(object sender, EventArgs e)
         {
+            Start_Loading();//
+            DateTime v_dtmStart = DateTime.Now;
+
             try
             {
-                
+                g_lngChu_Hang_ID = CSystem.Chu_Hang_ID;
+                g_lngKho_ID = CSystem.Kho_ID;
+
                 if (g_bIs_First_Load == false)
                 {
+                    if(g_grdData == null)
+                    {
+                        g_grdData = new();
+                    }
                     Load_Init();
-                    if (g_grdData == null)
-                        g_grdData = new DataGridView();
                     g_grdData.CellContentClick += Cell_Content_Click;
 
                     g_bIs_First_Load = true;
                 }
-
-                //Xóa dữ liệu cũ
                 g_grdData.Columns.Clear();
-                g_grdData.Rows.Clear();
 
                 Load_Data();
+
+                Tim_Kiem_TextChanged(sender, e);
+
+                End_Loading();//
             }
             catch (Exception ex)
             {
+                CLogger.Save_Trace_Error_Log("Load Form", Function_Code + ": Load Form", "Load: " + User_Name, ex.Message, (DateTime.Now - v_dtmStart).TotalSeconds);
+
+                End_Loading();//
+
                 FCommonFunction.Show_Message_Box("Lỗi", ex.Message, (int)EMessage_Type.Error);
             }
 
@@ -116,6 +132,7 @@ namespace Quan_Ly_Kho_Common
         {
             DateTime v_dtmStart = DateTime.Now;
 
+            Start_Loading();
             try
             {
 
@@ -124,12 +141,14 @@ namespace Quan_Ly_Kho_Common
                 else
                     Add_Data();
 
-                CLogger.Save_Trace_Error_Log("Save Data", Function_Code + ": Save_Data", "Lưu: " + User_Name, "Thêm dữ liệu thành công Keys+ " + g_strKeys, (DateTime.Now - v_dtmStart).TotalSeconds);
                 Closed_Form();
+                End_Loading();
             }
             catch (Exception ex)
             {
                 CLogger.Save_Trace_Error_Log("Save Data", Function_Code + ": Save_Data", "Lưu: " + User_Name, ex.Message, (DateTime.Now - v_dtmStart).TotalSeconds);
+                End_Loading();
+
                 FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
             }
         }
@@ -163,7 +182,8 @@ namespace Quan_Ly_Kho_Common
         protected void Import_Excel(object sender, EventArgs e)
         {
             DateTime v_dtmStart = DateTime.Now;
-            OpenFileDialog v_objFile_Dialog = new OpenFileDialog();
+            OpenFileDialog v_objFile_Dialog = new();
+
             int v_iCount_Success = CConst.INT_VALUE_NULL;
             int v_iCount_Error = CConst.INT_VALUE_NULL;
 
@@ -178,8 +198,9 @@ namespace Quan_Ly_Kho_Common
                 //Hộp thoại chọn file
                 if (v_objFile_Dialog.ShowDialog() == DialogResult.OK)
                 {
-                    string v_strFile_Path = v_objFile_Dialog.FileName;
+                    Start_Loading();//
 
+                    string v_strFile_Path = v_objFile_Dialog.FileName;
 
                     FileInfo v_info = new(v_strFile_Path);
                     //Kiêm tra đuôi file
@@ -194,15 +215,18 @@ namespace Quan_Ly_Kho_Common
                     if (v_iCount_Error != CConst.INT_VALUE_NULL)
                         throw new Exception($"Import excel không thành công với {v_iCount_Error} dòng lỗi");
 
-                    CLogger.Save_Trace_Error_Log("Save Data", Function_Code + ": Save_Data", "Lưu: " + User_Name, "Thêm dữ liệu thành công Keys+ " + g_strKeys, (DateTime.Now - v_dtmStart).TotalSeconds);
 
                     FCommonFunction.Show_Message_Box("Thông báo", $"Import excel: {v_iCount_Success} dòng thành công ", (int)EMessage_Type.Success);
 
+                    End_Loading();//
                 }
             }
             catch (Exception ex)
             {
                 CLogger.Save_Trace_Error_Log("Import_Excel", Function_Code + ": Import_Excel", "Import excel by: " + User_Name, ex.Message + "\n" + ex.StackTrace, (DateTime.Now - v_dtmStart).TotalSeconds);
+
+                End_Loading();//
+
                 FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
             }
             finally
@@ -219,7 +243,7 @@ namespace Quan_Ly_Kho_Common
         protected void Export_Excel(object sender, EventArgs e)
         {
             DateTime v_dtmStart = DateTime.Now;
-
+            Start_Loading();
             try
             {
                 if (g_grdData == null)
@@ -230,15 +254,30 @@ namespace Quan_Ly_Kho_Common
                 Export_Excel_Entry(g_grdData, Function_Code.Replace("_Item", "") + ".xlsx");
                 FCommonFunction.Show_Message_Box("Thông báo", "Export thành công", (int)EMessage_Type.Success);
 
+                End_Loading();
             }
             catch (Exception ex)
             {
                 CLogger.Save_Trace_Error_Log("Export Excel", Function_Code + ": Xuất Excel", "Export: " + User_Name, ex.Message, (DateTime.Now - v_dtmStart).TotalSeconds);
+
+                End_Loading();
+
                 FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
             }
         }
 
+
+        /// <summary>
+        /// Hàm tìm kiếm theo keys
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Tim_Kiem_TextChanged(object sender, EventArgs e)
+        {
+            Tim_Kiem_By_Key();
+        }
         #endregion
+
 
         #region Nhóm kế thừa
 
@@ -381,12 +420,33 @@ namespace Quan_Ly_Kho_Common
             g_grdData.Columns.Insert(p_intIndex, v_colRes);
         }
 
-        /// <summary>
-        /// Gọi sự kiện đóng form ở đây
-        /// </summary>
+        protected virtual void Tim_Kiem_By_Key()
+        {
+
+        }
+
+        protected void Start_Loading()
+        {
+            if (g_bIs_First_Load == false)
+            {
+                InitializeComponent();
+            }
+            Loading_Control.ShowWaitForm();
+        }
+
+        protected void End_Loading()
+        {
+            Loading_Control.CloseWaitForm();
+        }
+
         protected virtual void Closed_Form()
         {
 
+        }
+
+        protected void text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true; // Ngăn chặn sự kiện KeyPress được xử lý
         }
 
         #endregion
@@ -459,6 +519,11 @@ namespace Quan_Ly_Kho_Common
                 // Tạo một worksheet mới
                 ExcelWorksheet v_Worksheet = v_Package.Workbook.Worksheets.Add("Sheet1");
 
+                //Không import 3 cột chức năng
+                p_dgv.Columns["btnCheck"].Visible = false;
+                p_dgv.Columns["btnDeleted"].Visible = false;
+                p_dgv.Columns["btnView"].Visible = false;
+
                 // Thêm tiêu đề của cột vào worksheet
                 int v_index = 1;
                 for (int i = 1; i <= p_dgv.Columns.Count; i++)
@@ -486,8 +551,6 @@ namespace Quan_Ly_Kho_Common
                     }
                 }
 
-
-
                 FileInfo v_info = new(p_strExcel);
                 //Kiêm tra đuôi file
                 if (!CExcel_Controller.Check_Excel_File_Type(v_info.Extension))
@@ -498,6 +561,11 @@ namespace Quan_Ly_Kho_Common
 
                 // Lưu file
                 v_Package.SaveAs(new FileInfo(v_strFile_Path));
+
+                //Hiện lại 3 cột đó trên grid
+                p_dgv.Columns["btnCheck"].Visible = false;
+                p_dgv.Columns["btnDeleted"].Visible = false;
+                p_dgv.Columns["btnView"].Visible = false;
             }
         }
 
@@ -554,7 +622,8 @@ namespace Quan_Ly_Kho_Common
             }
         }
 
-        #endregion
+
+         #endregion
         protected override void WndProc(ref Message m)
         {
             const int WM_SYSCOMMAND = 0x0112;
@@ -579,6 +648,21 @@ namespace Quan_Ly_Kho_Common
             base.WndProc(ref m);
         }
 
+        private DevExpress.XtraSplashScreen.SplashScreenManager Loading_Control;
 
+        private void InitializeComponent()
+        {
+            Loading_Control = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(FLoading), true, true);
+            SuspendLayout();
+            // 
+            // Loading_Control
+            // 
+            Loading_Control.ClosingDelay = 500;
+            // 
+            // UCBase
+            // 
+            Name = "UCBase";
+            ResumeLayout(false);
+        }
     }
 }

@@ -18,7 +18,6 @@ namespace Quan_Ly_Kho
             try
             {
                 CCommonFunction.Load_Config();
-                CCommonFunction.Load_Cache();
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);

@@ -26,9 +26,6 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             DateTime v_dtmNow = DateTime.Now;
             string p_strFile_Path = Path.Combine(CConfig.Folder_File_Management_Path, $"Log{v_dtmNow.Day}{v_dtmNow.Month}{v_dtmNow.Year}.txt"); // Lưu log 1 ngày
 
-            if (!File.Exists(p_strFile_Path))
-                File.Create(p_strFile_Path);
-
             m_objLog.Reset_Data();
 
             if (Is_Error == true)

@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraBars.FluentDesignSystem;
 using DevExpress.XtraBars.Navigation;
+using Quan_Ly_Kho_Common;
 using Quan_Ly_Kho_Data_Access.Utility;
 using System.ComponentModel;
 
@@ -34,7 +35,7 @@ namespace Quan_Ly_Kho
         private void InitializeComponent()
         {
             components = new Container();
-            Loading_Control = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(Quan_Ly_Kho_Common.FLoading), true, true);
+            Loading_Control = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(FLoading), true, true);
             Menu = new AccordionControl();
             Danh_Muc = new AccordionControlElement();
             Danh_Muc_Quan_Tri = new AccordionControlElement();

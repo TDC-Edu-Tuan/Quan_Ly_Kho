@@ -1,7 +1,6 @@
 ﻿using DevExpress.XtraBars.FluentDesignSystem;
 using DevExpress.XtraBars.Navigation;
-using DevExpress.XtraSplashScreen;
-using DevExpress.XtraWaitForm;
+using DevExpress.XtraRichEdit.Fields;
 using Quan_Ly_Kho_Common;
 using Quan_Ly_Kho_Danh_Muc;
 using Quan_Ly_Kho_Data;
@@ -12,12 +11,8 @@ using Quan_Ly_Kho_Sys;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -48,6 +43,8 @@ namespace Quan_Ly_Kho
 
                 try
                 {
+
+
                     // Ẩn form hiện tại
                     Hide();
 
@@ -66,8 +63,15 @@ namespace Quan_Ly_Kho
                     }
                     //Dừng khoản 5s
                     Loading_Control.ShowWaitForm();
+
                     // Load dữ liệu và các tác vụ khởi động ở đây
                     m_objThanh_Vien = CSystem.Thanh_Vien; // Set thành viên để xử lý
+
+                    //Load cache
+                    if (m_bIs_First_Load == false)
+                    {
+                        CCommonFunction.Load_Cache();
+                    }
 
                     // Load cây chức năng
                     Load_Cay_Chuc_Nang_By_Nhom_Thanh_Vien(m_objThanh_Vien.Nhom_Thanh_Vien_ID);
@@ -99,6 +103,7 @@ namespace Quan_Ly_Kho
                     // Hiển thị lại form chính
                     Show();
 
+                    m_bIs_First_Load = true;
                 }
                 catch (Exception ex)
                 {
@@ -182,7 +187,6 @@ namespace Quan_Ly_Kho
             ((ISupportInitialize)Menu).EndInit();
             ResumeLayout(false); // Resume layout để áp dụng các thay đổi giao diện người dùng
 
-            m_bIs_First_Load = true;
         }
 
         private void Load_User_Control(UCBase p_usControl, string p_strActive_User_Name, string p_strFunction_Code, string p_strFunction_Name)
@@ -312,10 +316,7 @@ namespace Quan_Ly_Kho
                 switch (CSystem.State)
                 {
                     case (int)EStatus_Type.New:
-                        Loading_Control.ShowWaitForm();
-                        Thread.Sleep(1000);
                         Load_User_Control(v_objUS_Base, m_objThanh_Vien.Ma_Dang_Nhap, v_strFunction_Code, v_strFunction_Name);
-                        Loading_Control.CloseWaitForm();
                         break;
 
                     case (int)EStatus_Type.Closed_And_Reload:

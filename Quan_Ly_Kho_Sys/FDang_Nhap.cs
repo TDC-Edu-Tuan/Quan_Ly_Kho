@@ -21,6 +21,7 @@ namespace Quan_Ly_Kho_Sys
         public FDang_Nhap()
         {
             InitializeComponent();
+            txtPassword.Properties.PasswordChar = '•';
         }
 
         private void FDang_Nhap_Load(object sender, EventArgs e)

@@ -88,11 +88,6 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
                 v_dt = FillDataTable(v_conn, v_trans, p_strStored_Name, p_arrParams);
 
                 v_trans.Commit();
-
-                TimeSpan v_span = DateTime.Now - v_dtmStart; // Thời gian viết log
-
-                CLogger.Save_Trace_Log("Fill:", "Sql-FillDataTable", "FillDataTable", "Get Data From Database", v_span.TotalSeconds);// Ghi log
-
             }
             catch (Exception ex)
             {
@@ -181,10 +176,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
                 v_objRes = ExecuteScalar(v_conn, v_trans, p_strStored_Name, p_arrParams);
 
                 v_trans.Commit();
-                TimeSpan v_span = DateTime.Now - v_dtmStart;
-
-                CLogger.Save_Trace_Log("ExecuteScarlar:", "Sql-ExecuteScarlar", "ExecuteScarlar", "Execute sucess", v_span.TotalSeconds);// Ghi log
-
+            
             }
             catch (Exception ex)
             {
@@ -267,10 +259,6 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
                 ExecuteNonquery(v_conn, v_trans, p_strStored_Name, p_arrParams);
 
                 v_trans.Commit();
-                TimeSpan v_span = DateTime.Now - v_dtmStart;
-
-                CLogger.Save_Trace_Log("ExecuteNonquery:", "Sql-ExecuteNonquery", "ExecuteNonquery", "Execute: Success", v_span.TotalSeconds);// Ghi log
-
             }
             catch (Exception ex)
             {
@@ -293,7 +281,5 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
             }
 
         }
-
-
     }
 }

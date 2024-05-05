@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace Quan_Ly_Kho
+namespace Quan_Ly_Kho_Common
 {
     partial class FLoading
     {
@@ -44,7 +44,7 @@ namespace Quan_Ly_Kho
             progressPanel1.AppearanceCaption.Options.UseFont = true;
             progressPanel1.AppearanceDescription.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             progressPanel1.AppearanceDescription.Options.UseFont = true;
-            progressPanel1.Caption = "Đang load hệ thống";
+            progressPanel1.Caption = "Chờ chút xíu";
             progressPanel1.Dock = DockStyle.Fill;
             progressPanel1.ImageHorzOffset = 20;
             progressPanel1.Location = new Point(0, 21);
@@ -65,7 +65,7 @@ namespace Quan_Ly_Kho
             tableLayoutPanel1.Controls.Add(progressPanel1, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Margin = new Padding(4);
+            tableLayoutPanel1.Margin = new Padding(4, 4, 4, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.Padding = new Padding(0, 17, 0, 17);
             tableLayoutPanel1.RowCount = 1;
@@ -82,7 +82,7 @@ namespace Quan_Ly_Kho
             ClientSize = new Size(287, 90);
             Controls.Add(tableLayoutPanel1);
             DoubleBuffered = true;
-            Margin = new Padding(4);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "FLoading";
             StartPosition = FormStartPosition.Manual;
             Text = "Form1";

@@ -1,25 +1,9 @@
-﻿using DevExpress.Map.Native;
-using DevExpress.XtraCharts.UI;
-using OfficeOpenXml;
+﻿using OfficeOpenXml;
 using Quan_Ly_Kho_Common;
 using Quan_Ly_Kho_Data;
-using Quan_Ly_Kho_Data_Access.Controller.Cache;
 using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
-using Quan_Ly_Kho_Data_Data_Access.Controller.Cache;
-using Quan_Ly_Kho_Sys;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Quan_Ly_Kho_Danh_Muc
 {
@@ -60,6 +44,7 @@ namespace Quan_Ly_Kho_Danh_Muc
         /// <param name="e"></param>
         protected virtual void Tim_Kiem(object sender, EventArgs e)
         {
+            g_grdData.Columns.Clear();
             Load_Data();
         }
 
@@ -70,12 +55,14 @@ namespace Quan_Ly_Kho_Danh_Muc
         /// <param name="e"></param>
         protected virtual void Load_Form(object sender, EventArgs e)
         {
+            Start_Loading();//
+            DateTime v_dtmStart = DateTime.Now;
 
             try
             {
                 g_lngChu_Hang_ID = CSystem.Chu_Hang_ID;
                 g_lngKho_ID = CSystem.Kho_ID;
-          
+
                 if (g_bIs_First_Load == false)
                 {
                     Load_Init();
@@ -88,15 +75,16 @@ namespace Quan_Ly_Kho_Danh_Muc
                 Load_Data();
 
                 Tim_Kiem_TextChanged(sender, e);
+
+                End_Loading();//
             }
             catch (Exception ex)
             {
+                CLogger.Save_Trace_Error_Log("Load Form", Function_Code + ": Load Form", "Load: " + User_Name, ex.Message, (DateTime.Now - v_dtmStart).TotalSeconds);
+
+                End_Loading();//
+
                 FCommonFunction.Show_Message_Box("Lỗi", ex.Message, (int)EMessage_Type.Error);
-                if (CSystem.State == (int)EStatus_Type.Closed)
-                {
-
-                }
-
             }
 
         }
@@ -130,6 +118,7 @@ namespace Quan_Ly_Kho_Danh_Muc
         {
             DateTime v_dtmStart = DateTime.Now;
 
+            Start_Loading();
             try
             {
 
@@ -138,10 +127,13 @@ namespace Quan_Ly_Kho_Danh_Muc
                 else
                     Add_Data();
 
+                End_Loading();
             }
             catch (Exception ex)
             {
                 CLogger.Save_Trace_Error_Log("Save Data", Function_Code + ": Save_Data", "Lưu: " + User_Name, ex.Message, (DateTime.Now - v_dtmStart).TotalSeconds);
+                End_Loading();
+
                 FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
             }
         }
@@ -153,7 +145,7 @@ namespace Quan_Ly_Kho_Danh_Muc
         /// <param name="e"></param>
         protected void Open_Edit(object sender, EventArgs e)
         {
-            Open_Edit_Data();
+            Open_Edit_Data(g_lngAuto_ID);
             Load_Form(sender, e);
         }
 
@@ -175,7 +167,8 @@ namespace Quan_Ly_Kho_Danh_Muc
         protected void Import_Excel(object sender, EventArgs e)
         {
             DateTime v_dtmStart = DateTime.Now;
-            OpenFileDialog v_objFile_Dialog = new OpenFileDialog();
+            OpenFileDialog v_objFile_Dialog = new();
+
             int v_iCount_Success = CConst.INT_VALUE_NULL;
             int v_iCount_Error = CConst.INT_VALUE_NULL;
 
@@ -190,8 +183,9 @@ namespace Quan_Ly_Kho_Danh_Muc
                 //Hộp thoại chọn file
                 if (v_objFile_Dialog.ShowDialog() == DialogResult.OK)
                 {
-                    string v_strFile_Path = v_objFile_Dialog.FileName;
+                    Start_Loading();//
 
+                    string v_strFile_Path = v_objFile_Dialog.FileName;
 
                     FileInfo v_info = new(v_strFile_Path);
                     //Kiêm tra đuôi file
@@ -209,11 +203,15 @@ namespace Quan_Ly_Kho_Danh_Muc
 
                     FCommonFunction.Show_Message_Box("Thông báo", $"Import excel: {v_iCount_Success} dòng thành công ", (int)EMessage_Type.Success);
 
+                    End_Loading();//
                 }
             }
             catch (Exception ex)
             {
                 CLogger.Save_Trace_Error_Log("Import_Excel", Function_Code + ": Import_Excel", "Import excel by: " + User_Name, ex.Message + "\n" + ex.StackTrace, (DateTime.Now - v_dtmStart).TotalSeconds);
+                
+                End_Loading();//
+
                 FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
             }
             finally
@@ -230,7 +228,7 @@ namespace Quan_Ly_Kho_Danh_Muc
         protected void Export_Excel(object sender, EventArgs e)
         {
             DateTime v_dtmStart = DateTime.Now;
-
+            Start_Loading();
             try
             {
                 if (g_grdData == null)
@@ -241,10 +239,14 @@ namespace Quan_Ly_Kho_Danh_Muc
                 Export_Excel_Entry(g_grdData, Function_Code.Replace("_Item", "") + ".xlsx");
                 FCommonFunction.Show_Message_Box("Thông báo", "Export thành công", (int)EMessage_Type.Success);
 
+                End_Loading();
             }
             catch (Exception ex)
             {
                 CLogger.Save_Trace_Error_Log("Export Excel", Function_Code + ": Xuất Excel", "Export: " + User_Name, ex.Message, (DateTime.Now - v_dtmStart).TotalSeconds);
+
+                End_Loading();
+
                 FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
             }
         }
@@ -309,7 +311,7 @@ namespace Quan_Ly_Kho_Danh_Muc
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected virtual void Open_Edit_Data()
+        protected virtual void Open_Edit_Data(long p_lngAuto_ID)
         {
 
         }
@@ -318,7 +320,7 @@ namespace Quan_Ly_Kho_Danh_Muc
         /// Hàm xử lý khi mở form view
         /// </summary>
         /// <param name="p_lngAuto_ID"></param>
-        protected void Open_View_Data(long p_lngAuto_ID)
+        protected virtual void Open_View_Data(long p_lngAuto_ID)
         {
 
         }
@@ -386,7 +388,7 @@ namespace Quan_Ly_Kho_Danh_Muc
                 DataGridViewImageColumn v_ImgCol = new();
                 v_ImgCol.Resizable = DataGridViewTriState.False;
                 v_ImgCol.Name = p_strName;
-                v_ImgCol.Width = 100;
+                v_ImgCol.Width = 40;
                 v_ImgCol.Image = p_icon;
                 v_ImgCol.ImageLayout = DataGridViewImageCellLayout.Zoom; // Zoom ảnh trong ô
                 v_colRes = v_ImgCol;
@@ -396,7 +398,7 @@ namespace Quan_Ly_Kho_Danh_Muc
                 DataGridViewCheckBoxColumn v_checkBoxCol = new();
                 v_checkBoxCol.Resizable = DataGridViewTriState.False;
                 v_checkBoxCol.Name = p_strName;
-                v_checkBoxCol.Width = 100;
+                v_checkBoxCol.Width = 40;
                 v_colRes = v_checkBoxCol;
             }
 
@@ -407,6 +409,21 @@ namespace Quan_Ly_Kho_Danh_Muc
         {
 
         }
+
+        protected void Start_Loading()
+        {
+            if(g_bIs_First_Load == false)
+            {
+                InitializeComponent();
+            }
+            Loading_Control.ShowWaitForm();
+        }
+
+        protected void End_Loading()
+        {
+            Loading_Control.CloseWaitForm();
+        }
+
         #endregion
 
         #region Nhóm private
@@ -477,6 +494,11 @@ namespace Quan_Ly_Kho_Danh_Muc
                 // Tạo một worksheet mới
                 ExcelWorksheet v_Worksheet = v_Package.Workbook.Worksheets.Add("Sheet1");
 
+                //Không import 3 cột chức năng
+                p_dgv.Columns["btnCheck"].Visible = false;
+                p_dgv.Columns["btnDeleted"].Visible = false;
+                p_dgv.Columns["btnView"].Visible = false;
+
                 // Thêm tiêu đề của cột vào worksheet
                 int v_index = 1;
                 for (int i = 1; i <= p_dgv.Columns.Count; i++)
@@ -504,8 +526,6 @@ namespace Quan_Ly_Kho_Danh_Muc
                     }
                 }
 
-
-
                 FileInfo v_info = new(p_strExcel);
                 //Kiêm tra đuôi file
                 if (!CExcel_Controller.Check_Excel_File_Type(v_info.Extension))
@@ -516,6 +536,11 @@ namespace Quan_Ly_Kho_Danh_Muc
 
                 // Lưu file
                 v_Package.SaveAs(new FileInfo(v_strFile_Path));
+
+                //Hiện lại 3 cột đó trên grid
+                p_dgv.Columns["btnCheck"].Visible = false;
+                p_dgv.Columns["btnDeleted"].Visible = false;
+                p_dgv.Columns["btnView"].Visible = false;
             }
         }
 
@@ -549,6 +574,7 @@ namespace Quan_Ly_Kho_Danh_Muc
             // Ngăn người dùng điều chỉnh độ rộng của cột
             p_col.Resizable = DataGridViewTriState.False;
         }
+
         private void Cell_Content_Click(object? sender, DataGridViewCellEventArgs e)
         {
             // Kiểm tra xem cột được click 
@@ -571,9 +597,23 @@ namespace Quan_Ly_Kho_Danh_Muc
             }
         }
 
+        private void InitializeComponent()
+        {
+            Loading_Control = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(FLoading), true, true, typeof(UserControl));
+            SuspendLayout();
+            // 
+            // Loading_Control
+            // 
+            Loading_Control.ClosingDelay = 500;
+            // 
+            // UCBase
+            // 
+            Name = "UCBase";
+            ResumeLayout(false);
+        }
 
+        private DevExpress.XtraSplashScreen.SplashScreenManager Loading_Control;
         #endregion
-
 
     }
 }
