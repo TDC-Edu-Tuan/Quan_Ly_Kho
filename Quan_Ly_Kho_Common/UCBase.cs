@@ -1,11 +1,10 @@
-﻿using OfficeOpenXml;
-using Quan_Ly_Kho_Common;
+﻿using DevExpress.XtraRichEdit.Fields;
+using OfficeOpenXml;
 using Quan_Ly_Kho_Data;
-using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
 using System.IO;
 
-namespace Quan_Ly_Kho_Danh_Muc
+namespace Quan_Ly_Kho_Common
 {
     public partial class UCBase : UserControl
     {
@@ -60,12 +59,11 @@ namespace Quan_Ly_Kho_Danh_Muc
 
             try
             {
-                g_lngChu_Hang_ID = CSystem.Chu_Hang_ID;
-                g_lngKho_ID = CSystem.Kho_ID;
 
                 if (g_bIs_First_Load == false)
                 {
                     Load_Init();
+
                     g_grdData.CellContentClick += Cell_Content_Click;
 
                     g_bIs_First_Load = true;
@@ -209,7 +207,7 @@ namespace Quan_Ly_Kho_Danh_Muc
             catch (Exception ex)
             {
                 CLogger.Save_Trace_Error_Log("Import_Excel", Function_Code + ": Import_Excel", "Import excel by: " + User_Name, ex.Message + "\n" + ex.StackTrace, (DateTime.Now - v_dtmStart).TotalSeconds);
-                
+
                 End_Loading();//
 
                 FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
@@ -236,7 +234,7 @@ namespace Quan_Ly_Kho_Danh_Muc
                     throw new Exception("Không tìm thấy lưới dữ liệu để phục vụ export excel vui lòng liên hệ nhà phát triển để xử lý");
                 }
 
-                Export_Excel_Entry(g_grdData, Function_Code.Replace("_Item", "") + ".xlsx");
+                Export_Excel_Entry(g_grdData, Function_Code + "_Export_" + ".xlsx");
                 FCommonFunction.Show_Message_Box("Thông báo", "Export thành công", (int)EMessage_Type.Success);
 
                 End_Loading();
@@ -261,8 +259,16 @@ namespace Quan_Ly_Kho_Danh_Muc
         {
             Tim_Kiem_By_Key();
         }
-        #endregion
 
+        protected void Combobox_Selected_Index_Changed(object sender, EventArgs e)
+        {
+            if (g_bIs_First_Load == true)
+            {
+                Combobox_Selected_Index_Changed();
+                Load_Form(sender,e);
+            }
+        }
+        #endregion
 
         #region Nhóm kế thừa
 
@@ -347,7 +353,7 @@ namespace Quan_Ly_Kho_Danh_Muc
             // Tính toán lại chiều dài các cột và thiết lập kiểu cho từng cột
             foreach (DataGridViewColumn v_item in g_grdData.Columns)
             {
-                if (v_item.Name != "btnDeleted" && v_item.Name != "btnView")
+                if (v_item.Name != "btnUpdated" && v_item.Name != "btnView" && v_item.Name != "btnDeleted")
                     // Gọi phương thức Col_Custom để thiết lập kiểu cho cột
                     Col_Custom(v_item);
             }
@@ -412,7 +418,7 @@ namespace Quan_Ly_Kho_Danh_Muc
 
         protected void Start_Loading()
         {
-            if(g_bIs_First_Load == false)
+            if (g_bIs_First_Load == false)
             {
                 InitializeComponent();
             }
@@ -422,6 +428,12 @@ namespace Quan_Ly_Kho_Danh_Muc
         protected void End_Loading()
         {
             Loading_Control.CloseWaitForm();
+        }
+
+
+        protected virtual void Combobox_Selected_Index_Changed()
+        {
+            
         }
 
         #endregion
@@ -450,28 +462,37 @@ namespace Quan_Ly_Kho_Danh_Muc
 
         private void Load_System_Button()
         {
-            string v_strDeleted_Icon_Path = CUtility.Find_File_In_Solution("settings.png");
+            string v_strDelete_Icon_Path = CUtility.Find_File_In_Solution("delete.png");
+            string v_strSettings_Icon_Path = CUtility.Find_File_In_Solution("settings.png");
+
             string v_strView_Icon_Path = CUtility.Find_File_In_Solution("view.png");
 
             // Load hình ảnh từ tệp và tạo đối tượng Image
-            Image v_objDeleted_Icon = Image.FromFile(v_strDeleted_Icon_Path);
+            Image v_objDeleted_Icon = Image.FromFile(v_strDelete_Icon_Path);
+            Image v_objSetting_Icon = Image.FromFile(v_strSettings_Icon_Path);
             Image v_objView_Icon = Image.FromFile(v_strView_Icon_Path);
 
             //Thêm check box, view, deleted
             DataGridViewImageColumn v_objView_Col = new();
             DataGridViewImageColumn v_objDel_Col = new();
+            DataGridViewImageColumn v_objSet_Col = new();
             DataGridViewCheckBoxColumn v_objCheck_Col = new();
 
-            Add_Button_Column("btnView", v_objView_Col, 1, v_objView_Icon);
-            Add_Button_Column("btnDeleted", v_objDel_Col, 2, v_objDeleted_Icon);
             Add_Button_Column("btnCheck", v_objCheck_Col, 0);
+            Add_Button_Column("btnView", v_objView_Col, 1, v_objView_Icon);
+            Add_Button_Column("btnUpdated", v_objSet_Col, 2, v_objSetting_Icon);
+            Add_Button_Column("btnDeleted", v_objDel_Col, 3, v_objDeleted_Icon);
 
+            g_grdData.Columns["btnUpdated"].Visible = g_bIs_Deleted_Permission;
             g_grdData.Columns["btnDeleted"].Visible = g_bIs_Deleted_Permission;
-            g_grdData.Columns["btnView"].Visible = g_bIs_Deleted_Permission;
+            g_grdData.Columns["btnView"].Visible = g_bIs_View_Permission;
+
+            g_grdData.Columns["btnUpdated"].HeaderText = "Cập nhật";
             g_grdData.Columns["btnDeleted"].HeaderText = "Xóa";
             g_grdData.Columns["btnView"].HeaderText = "View";
             g_grdData.Columns["btnCheck"].HeaderText = "";
 
+            Col_Custom(g_grdData.Columns["btnUpdated"]);
             Col_Custom(g_grdData.Columns["btnDeleted"]);
             Col_Custom(g_grdData.Columns["btnView"]);
             Col_Custom(g_grdData.Columns["btnCheck"]);
@@ -487,17 +508,19 @@ namespace Quan_Ly_Kho_Danh_Muc
         /// <exception cref="Exception"></exception>
         private void Export_Excel_Entry(DataGridView p_dgv, string p_strExcel)
         {
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             using (ExcelPackage v_Package = new())
             {
                 // Tạo một worksheet mới
                 ExcelWorksheet v_Worksheet = v_Package.Workbook.Worksheets.Add("Sheet1");
 
-                //Không import 3 cột chức năng
+                //Không import 4 cột chức năng
                 p_dgv.Columns["btnCheck"].Visible = false;
-                p_dgv.Columns["btnDeleted"].Visible = false;
+                p_dgv.Columns["btnUpdated"].Visible = false;
                 p_dgv.Columns["btnView"].Visible = false;
+                p_dgv.Columns["btnDeleted"].Visible = false;
+
 
                 // Thêm tiêu đề của cột vào worksheet
                 int v_index = 1;
@@ -534,13 +557,21 @@ namespace Quan_Ly_Kho_Danh_Muc
                 // Nếu không có đường dẫn được cung cấp, sử dụng thư mục Downloads mặc định
                 string v_strFile_Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", p_strExcel);
 
+                string v_strLog_Excel = Path.Combine(CConfig.Folder_File_Management_Path, "excel_log", p_strExcel);
+
                 // Lưu file
                 v_Package.SaveAs(new FileInfo(v_strFile_Path));
 
+                //Lưu log
+                v_Package.SaveAs(new FileInfo(v_strLog_Excel));
+
+
                 //Hiện lại 3 cột đó trên grid
                 p_dgv.Columns["btnCheck"].Visible = false;
-                p_dgv.Columns["btnDeleted"].Visible = false;
+                p_dgv.Columns["btnUpdated"].Visible = false;
                 p_dgv.Columns["btnView"].Visible = false;
+                p_dgv.Columns["btnDeleted"].Visible = false;
+
             }
         }
 
@@ -590,8 +621,11 @@ namespace Quan_Ly_Kho_Danh_Muc
                     case "btnView":
                         Open_View(sender, e);
                         break;
-                    case "btnDeleted":
+                    case "btnUpdated":
                         Open_Edit(sender, e);
+                        break;
+                    case "btnDeleted":
+                        Delete_Data_Entry(sender, e);
                         break;
                 }
             }
@@ -600,19 +634,12 @@ namespace Quan_Ly_Kho_Danh_Muc
         private void InitializeComponent()
         {
             Loading_Control = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(FLoading), true, true, typeof(UserControl));
-            SuspendLayout();
-            // 
-            // Loading_Control
-            // 
-            Loading_Control.ClosingDelay = 500;
-            // 
-            // UCBase
-            // 
-            Name = "UCBase";
-            ResumeLayout(false);
+            Loading_Control.ClosingDelay = 500;       
         }
 
         private DevExpress.XtraSplashScreen.SplashScreenManager Loading_Control;
+
+
         #endregion
 
     }

@@ -1,15 +1,6 @@
-﻿using OfficeOpenXml;
-using Quan_Ly_Kho_Data_Access.Controller.Cache;
-using Quan_Ly_Kho_Data_Access.Utility;
+﻿using Quan_Ly_Kho_Data_Access.Utility;
 using Quan_Ly_Kho_Data_Data_Access.Controller.Cache;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quan_Ly_Kho_Common
 {
@@ -81,8 +72,20 @@ namespace Quan_Ly_Kho_Common
             if (!Directory.Exists(CConfig.Folder_File_Management_Path)) // Tạo thư mục nếu chưa có
                 Directory.CreateDirectory(CConfig.Folder_File_Management_Path);
 
+            // Nếu không có đường dẫn được cung cấp, sử dụng thư mục Downloads mặc định
+            string v_strLog_Excel = Path.Combine(CConfig.Folder_File_Management_Path, "log_excel");
+            string v_strLog_Txt = Path.Combine(CConfig.Folder_File_Management_Path, "log_txt");
+
+            //Kiểm tra nếu thư mục log chưa tồn tại thì tạo
+            if (!Directory.Exists(v_strLog_Excel))    
+                Directory.CreateDirectory(v_strLog_Excel);
+
+            if (!Directory.Exists(v_strLog_Txt))
+                Directory.CreateDirectory(v_strLog_Txt);
+
+
         }
 
     }
-    
+
 }

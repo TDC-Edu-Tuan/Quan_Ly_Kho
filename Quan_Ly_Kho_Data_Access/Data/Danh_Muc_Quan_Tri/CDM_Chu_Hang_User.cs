@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Data;
-using Quan_Ly_Kho_Data_Access.Utility;
+﻿using Quan_Ly_Kho_Data_Access.Utility;
 
 namespace Quan_Ly_Kho_Data
 {
@@ -11,6 +6,8 @@ namespace Quan_Ly_Kho_Data
     {
         private long m_lngAuto_ID;
         private long m_lngChu_Hang_ID;
+        private string m_strMa_CH;
+        private string m_strTen_CH;
         private long m_lngThanh_Vien_ID;
         private int m_intdeleted;
         private DateTime? m_dtmCreated;
@@ -30,6 +27,8 @@ namespace Quan_Ly_Kho_Data
             m_lngAuto_ID = CConst.INT_VALUE_NULL;
             m_lngChu_Hang_ID = CConst.INT_VALUE_NULL;
             m_lngThanh_Vien_ID = CConst.INT_VALUE_NULL;
+            m_strMa_CH = CConst.STR_VALUE_NULL;
+            m_strTen_CH = CConst.STR_VALUE_NULL;
             m_intdeleted = CConst.INT_VALUE_NULL;
             m_dtmCreated = CConst.DTM_VALUE_NULL;
             m_strCreated_By = CConst.STR_VALUE_NULL;
@@ -158,5 +157,17 @@ namespace Quan_Ly_Kho_Data
                 m_strLast_Updated_By_Function = value.Trim();
             }
         }
+
+        public string Chu_Hang_Combo
+        {
+            get
+            {
+                return CUtility.Tao_Combo_Text(m_strMa_CH, m_strTen_CH);
+            }
+
+        }
+
+        public string Ma_CH { get => m_strMa_CH; set => m_strMa_CH = value.Trim(); }
+        public string Ten_CH { get => m_strTen_CH; set => m_strTen_CH = value.Trim(); }
     }
 }

@@ -2,15 +2,7 @@
 using Quan_Ly_Kho_Common;
 using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Quan_Ly_Kho_Sys
 {
@@ -26,7 +18,7 @@ namespace Quan_Ly_Kho_Sys
 
         private void FDang_Nhap_Load(object sender, EventArgs e)
         {
-            if (CSystem.Thanh_Vien != null && CSystem.State == (int)EStatus_Type.Reload)
+            if (CSystem.Thanh_Vien != null && CSystem.State == (int)EStatus_Type.Closed_And_Reload)
             {
                 m_objThanh_Vien = CSystem.Thanh_Vien;
             }

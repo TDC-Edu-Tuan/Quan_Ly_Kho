@@ -1,7 +1,5 @@
-﻿using Quan_Ly_Kho_Data;
-using Quan_Ly_Kho_Data_Access.Utility;
+﻿using Quan_Ly_Kho_Data_Access.Utility;
 using Quan_Ly_Kho_Sys;
-using System;
 
 
 namespace Quan_Ly_Kho_Data_Data_Access.Controller.Cache

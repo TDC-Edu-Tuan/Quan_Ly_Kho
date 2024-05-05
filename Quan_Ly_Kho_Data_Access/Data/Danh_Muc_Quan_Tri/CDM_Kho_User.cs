@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Data;
-using Quan_Ly_Kho_Data_Access.Utility;
+﻿using Quan_Ly_Kho_Data_Access.Utility;
 
 namespace Quan_Ly_Kho_Data
 {
@@ -14,7 +9,7 @@ namespace Quan_Ly_Kho_Data
         private string m_strMa_Kho;
         private string m_strTen_Kho;
         private long m_lngThanh_Vien_ID;
-        
+
         private int m_intdeleted;
         private DateTime? m_dtmCreated;
         private string m_strCreated_By;

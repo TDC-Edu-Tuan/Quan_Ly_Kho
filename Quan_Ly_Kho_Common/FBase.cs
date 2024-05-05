@@ -1,19 +1,9 @@
 ﻿using DevExpress.XtraEditors;
-using DevExpress.XtraSpreadsheet.Model;
 using OfficeOpenXml;
 using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Quan_Ly_Kho_Common
 {
@@ -75,7 +65,7 @@ namespace Quan_Ly_Kho_Common
 
                 if (g_bIs_First_Load == false)
                 {
-                    if(g_grdData == null)
+                    if (g_grdData == null)
                     {
                         g_grdData = new();
                     }
@@ -623,7 +613,7 @@ namespace Quan_Ly_Kho_Common
         }
 
 
-         #endregion
+        #endregion
         protected override void WndProc(ref Message m)
         {
             const int WM_SYSCOMMAND = 0x0112;

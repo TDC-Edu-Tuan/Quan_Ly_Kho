@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
 using System.Data;
 
 
@@ -98,7 +97,7 @@ namespace Quan_Ly_Kho_Sys
             return v_objRes;
         }
 
-        public CSys_Thanh_Vien FQ_531_TV_sp_sel_Get_By_Ma_Dang_Nhap(string  p_strMa_Dang_Nhap)
+        public CSys_Thanh_Vien FQ_531_TV_sp_sel_Get_By_Ma_Dang_Nhap(string p_strMa_Dang_Nhap)
         {
             CSys_Thanh_Vien v_objRes = null;
             DataTable v_dt = new DataTable();

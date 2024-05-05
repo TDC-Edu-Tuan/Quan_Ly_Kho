@@ -2,7 +2,6 @@
 using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
 using System.Data;
 
 

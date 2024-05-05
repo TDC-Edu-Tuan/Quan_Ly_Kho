@@ -1,10 +1,4 @@
-﻿using Quan_Ly_Kho_Data;
-using Quan_Ly_Kho_Sys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Quan_Ly_Kho_Sys;
 
 namespace Quan_Ly_Kho_Data_Access.Data.Sys
 {
@@ -16,7 +10,7 @@ namespace Quan_Ly_Kho_Data_Access.Data.Sys
         public static int Kho_ID { get; set; } = 0;
         public static int Chu_Hang_ID { get; set; } = 0;
 
-     
+
 
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
 namespace Quan_Ly_Kho_Data_Data_Access.Controller.Cache
 {
     public class CCache_Kho_User

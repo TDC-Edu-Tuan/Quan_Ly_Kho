@@ -2,7 +2,6 @@
 using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
 using System.Data;
 
 

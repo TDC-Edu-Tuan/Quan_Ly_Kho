@@ -18,6 +18,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quan_Ly_Kho_Common", "Quan_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quan_Ly_Kho_Report", "Quan_Ly_Kho_Report\Quan_Ly_Kho_Report.csproj", "{58476D02-C966-4CD7-88B5-404E6D922962}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quan_Ly_Kho_DM", "Quan_Ly_Kho_DM\Quan_Ly_Kho_DM.csproj", "{68A3529B-D750-47E6-9C7E-5E63B7D99A48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quan_Ly_Kho_Controls", "Quan_Ly_Kho_Controls\Quan_Ly_Kho_Controls.csproj", "{28FD39E8-779F-48A4-A0AA-6FEC28903279}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,14 @@ Global
 		{58476D02-C966-4CD7-88B5-404E6D922962}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58476D02-C966-4CD7-88B5-404E6D922962}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58476D02-C966-4CD7-88B5-404E6D922962}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68A3529B-D750-47E6-9C7E-5E63B7D99A48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68A3529B-D750-47E6-9C7E-5E63B7D99A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68A3529B-D750-47E6-9C7E-5E63B7D99A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68A3529B-D750-47E6-9C7E-5E63B7D99A48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28FD39E8-779F-48A4-A0AA-6FEC28903279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28FD39E8-779F-48A4-A0AA-6FEC28903279}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28FD39E8-779F-48A4-A0AA-6FEC28903279}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28FD39E8-779F-48A4-A0AA-6FEC28903279}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

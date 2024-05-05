@@ -1,17 +1,11 @@
 ﻿using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quan_Ly_Kho_Data_Access.Utility
 {
     public class CExcel_Controller
     {
-        
+
         private ExcelPackage m_objExcel_Package = null;
 
         public CExcel_Controller(FileInfo p_objFile_Info)
@@ -44,7 +38,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             return false;
         }
 
-        public static void Export_Excel(DataTable p_dt, string strFile_Path="")
+        public static void Export_Excel(DataTable p_dt, string strFile_Path = "")
         {
 
         }

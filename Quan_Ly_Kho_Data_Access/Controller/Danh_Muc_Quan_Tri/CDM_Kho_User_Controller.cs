@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
 using System.Data;
 
 namespace Quan_Ly_Kho_Data

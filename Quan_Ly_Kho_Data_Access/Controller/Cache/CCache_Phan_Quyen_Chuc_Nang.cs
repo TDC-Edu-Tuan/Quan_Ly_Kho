@@ -1,7 +1,5 @@
-﻿using Quan_Ly_Kho_Data;
-using Quan_Ly_Kho_Data_Access.Utility;
+﻿using Quan_Ly_Kho_Data_Access.Utility;
 using Quan_Ly_Kho_Sys;
-using System;
 
 
 namespace Quan_Ly_Kho_Data_Data_Access.Controller.Cache
@@ -11,7 +9,7 @@ namespace Quan_Ly_Kho_Data_Data_Access.Controller.Cache
         private static List<CSys_Phan_Quyen_Chuc_Nang> Arr_Data = new List<CSys_Phan_Quyen_Chuc_Nang>();
         private static Dictionary<long, CSys_Phan_Quyen_Chuc_Nang> Dic_Data_ID = new Dictionary<long, CSys_Phan_Quyen_Chuc_Nang>();
         private static Dictionary<string, CSys_Phan_Quyen_Chuc_Nang> Dic_Data_Code = new Dictionary<string, CSys_Phan_Quyen_Chuc_Nang>();
-     
+
         public static void Load_Cache_DM_Phan_Quyen_Chuc_Nang()
         {
             Arr_Data.Clear();

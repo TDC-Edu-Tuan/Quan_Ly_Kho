@@ -1,6 +1,5 @@
 ﻿using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
 
 
 namespace Quan_Ly_Kho_Data_Data_Access.Controller.Cache
@@ -77,6 +76,11 @@ namespace Quan_Ly_Kho_Data_Data_Access.Controller.Cache
                 return Dic_Data_Code[v_strKey];
 
             return null;
+        }
+
+        public static List<CDM_Don_Vi_Tinh> List_Data()
+        {
+            return Arr_Data.ToList();
         }
     }
 }

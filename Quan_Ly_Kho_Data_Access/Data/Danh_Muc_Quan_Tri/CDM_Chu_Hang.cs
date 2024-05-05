@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Data;
-using Quan_Ly_Kho_Data_Access.Utility;
+﻿using Quan_Ly_Kho_Data_Access.Utility;
 
 namespace Quan_Ly_Kho_Data
 {
@@ -198,6 +193,14 @@ namespace Quan_Ly_Kho_Data
             set
             {
                 m_strLast_Updated_By_Function = value.Trim();
+            }
+        }
+
+        public string Chu_Hang_Combo
+        {
+            get
+            {
+                return CUtility.Tao_Combo_Text(m_strMa_CH, m_strTen_CH);
             }
         }
     }

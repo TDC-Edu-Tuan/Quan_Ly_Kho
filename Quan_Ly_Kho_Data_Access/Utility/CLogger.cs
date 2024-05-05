@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quan_Ly_Kho_Data_Access.Utility
+﻿namespace Quan_Ly_Kho_Data_Access.Utility
 {
     public class CLogger
     {
@@ -24,7 +17,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
         public static void Save_Trace_Log(string p_strTitle, string p_strFunc_Code, string p_strFunction_Name, string p_strDescription, double p_dblTime_Second_Excute)
         {
             DateTime v_dtmNow = DateTime.Now;
-            string p_strFile_Path = Path.Combine(CConfig.Folder_File_Management_Path, $"Log{v_dtmNow.Day}{v_dtmNow.Month}{v_dtmNow.Year}.txt"); // Lưu log 1 ngày
+            string p_strFile_Path = Path.Combine(CConfig.Folder_File_Management_Path, "log_txt", $"Log{v_dtmNow:ddMMyyyy}.txt"); // Lưu log 1 ngày
 
             m_objLog.Reset_Data();
 

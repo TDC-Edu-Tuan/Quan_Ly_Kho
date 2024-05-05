@@ -1,12 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quan_Ly_Kho_Data_Access.DataLayer
 {
@@ -176,7 +170,7 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
                 v_objRes = ExecuteScalar(v_conn, v_trans, p_strStored_Name, p_arrParams);
 
                 v_trans.Commit();
-            
+
             }
             catch (Exception ex)
             {

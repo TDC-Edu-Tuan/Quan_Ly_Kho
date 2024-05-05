@@ -1,17 +1,17 @@
 ﻿using DevExpress.XtraBars.FluentDesignSystem;
 using DevExpress.XtraBars.Navigation;
-using DevExpress.XtraRichEdit.Fields;
 using Quan_Ly_Kho_Common;
-using Quan_Ly_Kho_Danh_Muc;
 using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
 using Quan_Ly_Kho_Data_Data_Access.Controller.Cache;
+using Quan_Ly_Kho_DM;
 using Quan_Ly_Kho_Sys;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -24,6 +24,7 @@ namespace Quan_Ly_Kho
         private List<CDM_Chu_Hang_User> m_arrCH_User = new();
         private CSys_Thanh_Vien m_objThanh_Vien = new();
         private bool m_bIs_First_Load = false;
+
         public FMain()
         {
             InitializeComponent();
@@ -37,41 +38,37 @@ namespace Quan_Ly_Kho
 
         private void FMain_Load(object sender, EventArgs e)
         {
+            DateTime v_dtmStart = DateTime.Now;
             do
             {
-                DateTime v_dtmStart = DateTime.Now;
-
                 try
                 {
+                    //Clear
+                    Container.Controls.Clear();
 
-
-                    // Ẩn form hiện tại
-                    Hide();
+                    //ẩn đi
+                    if (CSystem.State != (int)EStatus_Type.Success)
+                        Hide();
 
                     // Kiểm tra trạng thái đăng nhập
                     if (CSystem.State != (int)EStatus_Type.Success)
                     {
                         FDang_Nhap v_frmDang_Nhap = new FDang_Nhap();
                         v_frmDang_Nhap.ShowDialog();
+
+                        // Kiểm tra nếu người dùng đã thoát form đăng nhập
+                        if (CSystem.State == (int)EStatus_Type.Closed)
+                        {
+                            Close();
+                            return;
+                        }
                     }
 
-                    // Kiểm tra nếu người dùng đã thoát form đăng nhập
-                    if (CSystem.State == (int)EStatus_Type.Closed)
-                    {
-                        Close();
-                        return;
-                    }
                     //Dừng khoản 5s
                     Loading_Control.ShowWaitForm();
 
                     // Load dữ liệu và các tác vụ khởi động ở đây
                     m_objThanh_Vien = CSystem.Thanh_Vien; // Set thành viên để xử lý
-
-                    //Load cache
-                    if (m_bIs_First_Load == false)
-                    {
-                        CCommonFunction.Load_Cache();
-                    }
 
                     // Load cây chức năng
                     Load_Cay_Chuc_Nang_By_Nhom_Thanh_Vien(m_objThanh_Vien.Nhom_Thanh_Vien_ID);
@@ -84,7 +81,9 @@ namespace Quan_Ly_Kho
                     if ((m_arrKho_User.Count == 0 || m_arrCH_User.Count == 0) && m_objThanh_Vien.Ma_Dang_Nhap.ToLower() != "admin")
                     {
                         CSystem.Thanh_Vien = null;
+
                         CSystem.State = (int)EStatus_Type.Closed_And_Reload; // Đặt state
+
                         throw new Exception("Bạn không có quyền sử dụng chức năng này.");
                     }
 
@@ -101,7 +100,8 @@ namespace Quan_Ly_Kho
                     Loading_Control.CloseWaitForm();
 
                     // Hiển thị lại form chính
-                    Show();
+                    if (CSystem.State == (int)EStatus_Type.Success)
+                        Show();
 
                     m_bIs_First_Load = true;
                 }
@@ -195,8 +195,8 @@ namespace Quan_Ly_Kho
             {
                 Container.Controls.Clear();
                 p_usControl.User_Name = p_strActive_User_Name;
-                p_usControl.g_arrChu_Hang_Users = m_arrCH_User;
-                p_usControl.g_arrKho_Users = m_arrKho_User;
+                p_usControl.g_arrChu_Hang_Users = m_arrCH_User.ToList();
+                p_usControl.g_arrKho_Users = m_arrKho_User.ToList();
                 p_usControl.Dock = DockStyle.Fill;
                 Container.Controls.Add(p_usControl);
                 p_usControl.Function_Code = p_strFunction_Code;
@@ -299,12 +299,52 @@ namespace Quan_Ly_Kho
 
                 switch (v_strFunction_Code)
                 {
-                    case "Danh_Muc_Don_Vi_Tinh_Item":
+                    case "FDM_01_Don_Vi_Tinh":
                         v_objUS_Base = new FDM_01_01_Don_Vi_Tinh_List();
                         CSystem.State = (int)EStatus_Type.New;
                         break;
-                    case "Danh_Muc_Loai_San_Pham_Item":
+                    case "FDM_02_Loai_San_Pham":
                         v_objUS_Base = new FDM_02_01_Loai_San_Pham_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FDM_03_San_Pham":
+                        v_objUS_Base = new FDM_03_01_San_Pham_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FDM_04_Day_Ke":
+                        v_objUS_Base = new FDM_04_01_Day_Ke_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FDM_05_Vi_Tri":
+                        v_objUS_Base = new FDM_05_01_Vi_Tri_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FDM_06_NCC":
+                        v_objUS_Base = new FDM_06_01_NCC_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FDM_07_Noi_Xuat_Den":
+                        v_objUS_Base = new FDM_07_01_Noi_Xuat_Den_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FDM_08_Kho":
+                        v_objUS_Base = new FDM_08_01_Kho_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FDM_09_Kho_User":
+                        v_objUS_Base = new FDM_09_01_Kho_User_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FDM_10_Chu_Hang":
+                        v_objUS_Base = new FDM_10_01_Chu_Hang_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FDM_11_Chu_Hang_User":
+                        v_objUS_Base = new FDM_11_01_Chu_Hang_User_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FDM_12_Nhan_Vien_Kho":
+                        v_objUS_Base = new FDM_12_01_Nhan_Vien_Kho_List();
                         CSystem.State = (int)EStatus_Type.New;
                         break;
                     case "Dang_Xuat_Item":
@@ -327,8 +367,13 @@ namespace Quan_Ly_Kho
             }
 
         }
-        #endregion end event
 
+        private void Reload_Item_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            FMain_Load(sender, e);
+        }
+
+        #endregion end event
 
     }
 }

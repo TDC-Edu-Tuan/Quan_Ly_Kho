@@ -1,14 +1,6 @@
-﻿using DevExpress.ClipboardSource.SpreadsheetML;
-using DevExpress.XtraBars.Alerter;
-
-using DevExpress.XtraEditors.Repository;
+﻿using DevExpress.XtraBars.Alerter;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quan_Ly_Kho_Common
 {
@@ -47,25 +39,7 @@ namespace Quan_Ly_Kho_Common
         /// <param name="p_strField_Value"></param>
         /// <param name="p_strDisplay"></param>
 
-        public static void Load_Combo<T>(ComboBox p_objCombo, List<T> p_arrData, string p_strField_Value, string p_strDisplay)
-        {
-            T v_objData = p_arrData.FirstOrDefault();
-            if (v_objData == null)
-                return;
-
-            //Kiểm tra field có tồn tại trong obj không
-
-            PropertyInfo v_objValue_Field = v_objData.GetType().GetProperty(p_strField_Value);
-            PropertyInfo v_objDisplay_Field = v_objData.GetType().GetProperty(p_strDisplay);
-
-            if (v_objValue_Field == null || v_objDisplay_Field == null)
-                return;
-
-            p_objCombo.DataSource = p_arrData;
-            p_objCombo.DisplayMember = p_strDisplay;
-            p_objCombo.ValueMember = p_strField_Value;
-        }
-
+    
         public static DialogResult Show_Message_Box(string p_strHeader, string p_strCaption, int p_iType = 0)
         {
             DialogResult v_dlr = new DialogResult();
