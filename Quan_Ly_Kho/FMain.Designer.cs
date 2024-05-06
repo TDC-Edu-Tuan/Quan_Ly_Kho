@@ -54,8 +54,8 @@ namespace Quan_Ly_Kho
             FDM_06_NCC = new AccordionControlElement();
             FDM_07_Noi_Xuat_Den = new AccordionControlElement();
             Nhap_Hang = new AccordionControlElement();
-            Dev_Tool = new AccordionControlElement();
-            Tool_Menu_Item = new AccordionControlElement();
+            Tool_Quan_Tri = new AccordionControlElement();
+            FSys_001_Thanh_Vien = new AccordionControlElement();
             Xuat_Hang = new AccordionControlElement();
             Ton_Kho = new AccordionControlElement();
             Ca_Nhan = new AccordionControlElement();
@@ -80,7 +80,7 @@ namespace Quan_Ly_Kho
             Menu.Appearance.AccordionControl.ForeColor = System.Drawing.Color.FromArgb(110, 218, 218);
             Menu.Appearance.AccordionControl.Options.UseForeColor = true;
             Menu.Dock = System.Windows.Forms.DockStyle.Left;
-            Menu.Elements.AddRange(new AccordionControlElement[] { Danh_Muc, Nhap_Hang, Dev_Tool, Xuat_Hang, Ton_Kho, Ca_Nhan });
+            Menu.Elements.AddRange(new AccordionControlElement[] { Danh_Muc, Nhap_Hang, Tool_Quan_Tri, Xuat_Hang, Ton_Kho, Ca_Nhan });
             Menu.Location = new System.Drawing.Point(0, 39);
             Menu.Name = "Menu";
             Menu.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.True;
@@ -219,22 +219,22 @@ namespace Quan_Ly_Kho
             Nhap_Hang.Name = "Nhap_Hang";
             Nhap_Hang.Text = "Nhập Hàng";
             // 
-            // Dev_Tool
+            // Tool_Quan_Tri
             // 
-            Dev_Tool.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            Dev_Tool.Appearance.Default.Options.UseFont = true;
-            Dev_Tool.Elements.AddRange(new AccordionControlElement[] { Tool_Menu_Item });
-            Dev_Tool.Expanded = true;
-            Dev_Tool.Name = "Dev_Tool";
-            Dev_Tool.Text = "Tool";
+            Tool_Quan_Tri.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Tool_Quan_Tri.Appearance.Default.Options.UseFont = true;
+            Tool_Quan_Tri.Elements.AddRange(new AccordionControlElement[] { FSys_001_Thanh_Vien });
+            Tool_Quan_Tri.Expanded = true;
+            Tool_Quan_Tri.Name = "Tool_Quan_Tri";
+            Tool_Quan_Tri.Text = "Quản Trị";
             // 
-            // Tool_Menu_Item
+            // FSys_001_Thanh_Vien
             // 
-            Tool_Menu_Item.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            Tool_Menu_Item.Appearance.Default.Options.UseFont = true;
-            Tool_Menu_Item.Name = "Tool_Menu_Item";
-            Tool_Menu_Item.Style = ElementStyle.Item;
-            Tool_Menu_Item.Text = "Menu";
+            FSys_001_Thanh_Vien.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            FSys_001_Thanh_Vien.Appearance.Default.Options.UseFont = true;
+            FSys_001_Thanh_Vien.Name = "FSys_001_Thanh_Vien";
+            FSys_001_Thanh_Vien.Style = ElementStyle.Item;
+            FSys_001_Thanh_Vien.Text = "Thành Viên";
             // 
             // Xuat_Hang
             // 
@@ -353,7 +353,7 @@ namespace Quan_Ly_Kho
         private FluentDesignFormControl fluentDesignFormControl1;
         private FluentFormDefaultManager fluentFormDefaultManager1;
         private new FluentDesignFormContainer Container;
-        private AccordionControlElement Dev_Tool;
+        private AccordionControlElement Tool_Quan_Tri;
         private AccordionControlElement Danh_Muc;
         private AccordionControlElement Danh_Muc_Quan_Tri;
         private AccordionControlElement FDM_08_Kho;
@@ -367,7 +367,7 @@ namespace Quan_Ly_Kho
         private AccordionControlElement FDM_12_Nhan_Vien_Kho;
         private AccordionControlElement FDM_06_NCC;
         private AccordionControlElement FDM_07_Noi_Xuat_Den;
-        private AccordionControlElement Tool_Menu_Item;
+        private AccordionControlElement FSys_001_Thanh_Vien;
         private AccordionControlElement FDM_09_Kho_User;
         private AccordionControlElement FDM_11_Chu_Hang_User;
         private AccordionControlElement Nhap_Hang;

@@ -27,7 +27,6 @@ namespace Quan_Ly_Kho_DM
 
             FControl_LSP_Combo.Load_Combo(cbbLSP, m_arrLSP, "Auto_ID", "LSP_Combo");
             FControl_Don_Vi_Tinh_Combo.Load_Combo(cbbDVT, m_arrDVT, "Auto_ID", "Ten_Don_Vi_Tinh");
-
         }
 
         protected override void Load_Data()

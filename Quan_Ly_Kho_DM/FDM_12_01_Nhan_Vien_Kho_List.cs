@@ -14,6 +14,7 @@ namespace Quan_Ly_Kho_DM
         {
             InitializeComponent();
             g_bIs_View_Permission = true;
+            g_bIs_Updated_Permission = true;
             g_bIs_Deleted_Permission = true;
 
             // Chuyển đổi mã màu hex thành màu Color
@@ -45,17 +46,18 @@ namespace Quan_Ly_Kho_DM
             g_dicCol_Size.Add("Dien_Thoai", 200);
             g_dicCol_Size.Add("Ghi_Chu", 500);
 
-            FControl_Chu_Hang_Combo.Load_Combo(cbbChu_Hang, g_arrChu_Hang_Users, "Chu_Hang_ID", "Chu_Hang_Combo");
-            FControl_Kho_Combo.Load_Combo(cbbKho, g_arrKho_Users, "Kho_ID", "Kho_Combo");
+            FControl_Chu_Hang_User_Combo.Load_Combo(cbbChu_Hang, g_arrChu_Hang_Users, "Chu_Hang_ID", "Chu_Hang_Combo");
+            FControl_Kho_User_Combo.Load_Combo(cbbKho, g_arrKho_Users, "Kho_ID", "Kho_Combo");
+            cbbChu_Hang.SelectedValue = g_lngChu_Hang_ID;
+            cbbKho.SelectedValue = g_lngKho_ID;
         }
 
         protected override void Load_Data()
         {
             CDM_Nhan_Vien_Kho_Controller v_ctrlData = new();
             m_arrData = v_ctrlData.FQ_127_NVK_sp_sel_List_By_Created(g_lngKho_ID, dtmFrom.Value, dtmTo.Value);
-            grdData.DataSource = m_arrData;
-
-            Format_Grid();
+           
+            Format_Grid(m_arrData);
 
         }
 

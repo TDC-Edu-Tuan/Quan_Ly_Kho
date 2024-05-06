@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraBars.FluentDesignSystem;
 using DevExpress.XtraBars.Navigation;
 using Quan_Ly_Kho_Common;
+using Quan_Ly_Kho_Controls.Danh_Muc;
 using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
@@ -110,6 +111,9 @@ namespace Quan_Ly_Kho
                     TimeSpan v_span = DateTime.Now - v_dtmStart;
                     FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
                     CLogger.Save_Trace_Error_Log("System", "Load", "Main Load", ex.Message, v_span.TotalSeconds);
+
+                    Loading_Control.CloseWaitForm();
+
                 }
 
             } while (CSystem.State == (int)EStatus_Type.Closed_And_Reload); // Nếu người dùng rơi vào lỗi khác lỗi đóng thì cho phép đăng nhập lại
@@ -132,9 +136,7 @@ namespace Quan_Ly_Kho
                 case (int)ENhom_Thanh_Vien.Data:
                     Load_Data(v_arrChuc_Nang);
                     break;
-                case (int)ENhom_Thanh_Vien.Dev:
-                    Load_Dev(v_arrChuc_Nang);
-                    break;
+             
             }
 
 
@@ -197,6 +199,17 @@ namespace Quan_Ly_Kho
                 p_usControl.User_Name = p_strActive_User_Name;
                 p_usControl.g_arrChu_Hang_Users = m_arrCH_User.ToList();
                 p_usControl.g_arrKho_Users = m_arrKho_User.ToList();
+
+                if (m_arrKho_User.Count != CConst.INT_VALUE_NULL)
+                {
+                    p_usControl.g_lngKho_ID = m_arrKho_User.FirstOrDefault(it => it.Thanh_Vien_ID == m_objThanh_Vien.Auto_ID).Kho_ID;
+                }
+
+                if (m_arrCH_User.Count != CConst.INT_VALUE_NULL)
+                {
+                    p_usControl.g_lngChu_Hang_ID = m_arrCH_User.FirstOrDefault(it => it.Thanh_Vien_ID == m_objThanh_Vien.Auto_ID).Chu_Hang_ID;
+                }
+
                 p_usControl.Dock = DockStyle.Fill;
                 Container.Controls.Add(p_usControl);
                 p_usControl.Function_Code = p_strFunction_Code;
@@ -238,8 +251,8 @@ namespace Quan_Ly_Kho
         {
             p_arrChuc_Nang.Add(Danh_Muc);
             p_arrChuc_Nang.Add(Nhap_Hang);
+            p_arrChuc_Nang.Add(Tool_Quan_Tri);
             p_arrChuc_Nang.Add(Ton_Kho);
-            p_arrChuc_Nang.Add(Dev_Tool);
             p_arrChuc_Nang.Add(Xuat_Hang);
             p_arrChuc_Nang.Add(Ca_Nhan);
         }
@@ -274,15 +287,6 @@ namespace Quan_Ly_Kho
             p_arrChuc_Nang.Add(Ca_Nhan);
         }
 
-        private void Load_Dev(List<AccordionControlElement> p_arrChuc_Nang)
-        {
-            p_arrChuc_Nang.Add(Danh_Muc);
-            // p_arrChuc_Nang.Add(Nhap_Hang);
-            p_arrChuc_Nang.Add(Ton_Kho);
-            p_arrChuc_Nang.Add(Dev_Tool);
-            //  p_arrChuc_Nang.Add(Xuat_Hang);
-            p_arrChuc_Nang.Add(Ca_Nhan);
-        }
         #endregion End tool
 
         #region Event
@@ -345,6 +349,10 @@ namespace Quan_Ly_Kho
                         break;
                     case "FDM_12_Nhan_Vien_Kho":
                         v_objUS_Base = new FDM_12_01_Nhan_Vien_Kho_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FSys_001_Thanh_Vien":
+                        v_objUS_Base = new FSys_001_01_Thanh_Vien_List();
                         CSystem.State = (int)EStatus_Type.New;
                         break;
                     case "Dang_Xuat_Item":

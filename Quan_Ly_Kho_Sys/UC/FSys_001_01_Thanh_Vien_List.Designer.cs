@@ -1,6 +1,6 @@
 ﻿namespace Quan_Ly_Kho_DM
 {
-    partial class FDM_11_01_Chu_Hang_User_List
+    partial class FSys_001_01_Thanh_Vien_List
     {
         /// <summary> 
         /// Required designer variable.
@@ -35,10 +35,6 @@
             label1 = new Label();
             txtNoi_Dung_Tim_Kiem = new TextBox();
             panel2 = new Panel();
-            cbbChu_Hang = new ComboBox();
-            label6 = new Label();
-            cbbKho = new ComboBox();
-            label5 = new Label();
             btnImport = new Button();
             btnExport = new Button();
             btnAdd_Data = new Button();
@@ -86,10 +82,6 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(cbbChu_Hang);
-            panel2.Controls.Add(label6);
-            panel2.Controls.Add(cbbKho);
-            panel2.Controls.Add(label5);
             panel2.Controls.Add(btnImport);
             panel2.Controls.Add(btnExport);
             panel2.Controls.Add(btnAdd_Data);
@@ -103,42 +95,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1821, 125);
             panel2.TabIndex = 2;
-            // 
-            // cbbChu_Hang
-            // 
-            cbbChu_Hang.FormattingEnabled = true;
-            cbbChu_Hang.Location = new Point(1038, 33);
-            cbbChu_Hang.Name = "cbbChu_Hang";
-            cbbChu_Hang.Size = new Size(200, 28);
-            cbbChu_Hang.TabIndex = 11;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Times New Roman", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(940, 37);
-            label6.Name = "label6";
-            label6.Size = new Size(82, 19);
-            label6.TabIndex = 10;
-            label6.Text = "Chủ Hàng";
-            // 
-            // cbbKho
-            // 
-            cbbKho.FormattingEnabled = true;
-            cbbKho.Location = new Point(698, 34);
-            cbbKho.Name = "cbbKho";
-            cbbKho.Size = new Size(200, 28);
-            cbbKho.TabIndex = 9;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Times New Roman", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(642, 37);
-            label5.Name = "label5";
-            label5.Size = new Size(39, 19);
-            label5.TabIndex = 8;
-            label5.Text = "Kho";
             // 
             // btnImport
             // 
@@ -221,9 +177,6 @@
             // 
             // grdData
             // 
-            cbbChu_Hang.SelectedIndexChanged += Combobox_Selected_Index_Changed;
-            cbbKho.SelectedIndexChanged += Combobox_Selected_Index_Changed;
-
             grdData.AllowUserToAddRows = false;
             grdData.AllowUserToDeleteRows = false;
             grdData.AllowUserToResizeRows = false;
@@ -263,12 +216,12 @@
             grdData.Size = new Size(1424, 41);
             grdData.TabIndex = 1;
             // 
-            // FDM_08_01_Kho_List
+            // FSys_001_01_Thanh_Vien_List
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
-            Name = "FDM_08_01_Kho_List";
+            Name = "FSys_001_01_Thanh_Vien_List";
             Size = new Size(1821, 495);
             Load += Load_Form;
             panel1.ResumeLayout(false);
@@ -292,10 +245,6 @@
         private Label label3;
         private Button btnImport;
         private Button btnExport;
-        private ComboBox cbbChu_Hang;
-        private Label label6;
-        private ComboBox cbbKho;
-        private Label label5;
         private Label label1;
         private TextBox txtNoi_Dung_Tim_Kiem;
     }

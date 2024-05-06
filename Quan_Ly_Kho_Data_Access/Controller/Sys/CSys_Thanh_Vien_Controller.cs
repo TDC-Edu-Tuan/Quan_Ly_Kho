@@ -18,7 +18,7 @@ namespace Quan_Ly_Kho_Sys
                 p_dtmFrom = CUtility_Date.Convert_To_Dau_Ngay(p_dtmFrom);
                 p_dtmTo = CUtility_Date.Convert_To_Cuoi_Ngay(p_dtmTo);
 
-                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Sys_Conn_String, "FQ_531_TV_sp_sel_List_By_Created", p_dtmFrom, p_dtmTo);
+                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_531_TV_sp_sel_List_By_Created", p_dtmFrom, p_dtmTo);
 
                 foreach (DataRow v_row in v_dt.Rows)
                 {
@@ -47,7 +47,7 @@ namespace Quan_Ly_Kho_Sys
 
             try
             {
-                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Sys_Conn_String, "FQ_531_TV_sp_sel_List_For_Cache");
+                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_531_TV_sp_sel_List_For_Cache");
 
                 foreach (DataRow v_row in v_dt.Rows)
                 {
@@ -76,7 +76,7 @@ namespace Quan_Ly_Kho_Sys
 
             try
             {
-                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Sys_Conn_String, "FQ_531_TV_sp_sel_Get_By_ID", p_iID);
+                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_531_TV_sp_sel_Get_By_ID", p_iID);
 
                 if (v_dt.Rows.Count > 0)
                 {
@@ -104,7 +104,7 @@ namespace Quan_Ly_Kho_Sys
 
             try
             {
-                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Sys_Conn_String, "FQ_531_TV_sp_sel_Get_By_Ma_Dang_Nhap", p_strMa_Dang_Nhap);
+                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_531_TV_sp_sel_Get_By_Ma_Dang_Nhap", p_strMa_Dang_Nhap);
 
                 if (v_dt.Rows.Count > 0)
                 {
@@ -132,9 +132,9 @@ namespace Quan_Ly_Kho_Sys
 
             try
             {
-                v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(CConfig.Quan_Ly_Kho_Sys_Conn_String, "FQ_531_TV_sp_ins_Insert",
+                v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_531_TV_sp_ins_Insert",
                     p_objData.Ma_Dang_Nhap, p_objData.Mat_Khau, p_objData.Ho_Ten, p_objData.Email, p_objData.SDT,
-                    p_objData.Gioi_Tinh, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
+                    p_objData.Gioi_Tinh, p_objData.Nhom_Thanh_Vien_ID, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
             }
 
             catch (Exception)
@@ -151,9 +151,9 @@ namespace Quan_Ly_Kho_Sys
 
             try
             {
-                v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(p_conn, p_trans, CConfig.Quan_Ly_Kho_Sys_Conn_String, "FQ_531_TV_sp_ins_Insert",
+                v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_531_TV_sp_ins_Insert",
                     p_objData.Ma_Dang_Nhap, p_objData.Mat_Khau, p_objData.Ho_Ten, p_objData.Email, p_objData.SDT,
-                    p_objData.Gioi_Tinh, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
+                    p_objData.Gioi_Tinh, p_objData.Nhom_Thanh_Vien_ID, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
             }
 
             catch (Exception)
@@ -168,9 +168,9 @@ namespace Quan_Ly_Kho_Sys
         {
             try
             {
-                CSqlHelper.ExecuteNonquery(CConfig.Quan_Ly_Kho_Sys_Conn_String, "FQ_531_TV_sp_upd_Update", p_objData.Auto_ID,
+                CSqlHelper.ExecuteNonquery(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_531_TV_sp_upd_Update", p_objData.Auto_ID,
                     p_objData.Ma_Dang_Nhap, p_objData.Mat_Khau, p_objData.Ho_Ten, p_objData.Email, p_objData.SDT,
-                    p_objData.Gioi_Tinh, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
+                    p_objData.Gioi_Tinh, p_objData.Nhom_Thanh_Vien_ID, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
             }
 
             catch (Exception)
@@ -183,7 +183,7 @@ namespace Quan_Ly_Kho_Sys
         {
             try
             {
-                CSqlHelper.ExecuteNonquery(p_conn, p_trans, CConfig.Quan_Ly_Kho_Sys_Conn_String, "FQ_531_TV_sp_upd_Update", p_objData.Auto_ID,
+                CSqlHelper.ExecuteNonquery(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_531_TV_sp_upd_Update", p_objData.Auto_ID,
                     p_objData.Ma_Dang_Nhap, p_objData.Mat_Khau, p_objData.Ho_Ten, p_objData.Email, p_objData.SDT,
                     p_objData.Gioi_Tinh, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
             }
@@ -198,7 +198,7 @@ namespace Quan_Ly_Kho_Sys
         {
             try
             {
-                CSqlHelper.ExecuteNonquery(CConfig.Quan_Ly_Kho_Sys_Conn_String, "FQ_531_TV_sp_del_Delete_By_ID", p_iAuto_ID, p_strLast_Updated_By, p_strLast_Updated_By_Function);
+                CSqlHelper.ExecuteNonquery(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_531_TV_sp_del_Delete_By_ID", p_iAuto_ID, p_strLast_Updated_By, p_strLast_Updated_By_Function);
             }
 
             catch (Exception)

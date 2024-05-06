@@ -9,6 +9,7 @@ namespace Quan_Ly_Kho_Data
         private string m_strMa_Kho;
         private string m_strTen_Kho;
         private long m_lngThanh_Vien_ID;
+        private string m_strMa_Dang_Nhap;
 
         private int m_intdeleted;
         private DateTime? m_dtmCreated;
@@ -28,6 +29,7 @@ namespace Quan_Ly_Kho_Data
             m_lngAuto_ID = CConst.INT_VALUE_NULL;
             m_lngKho_ID = CConst.INT_VALUE_NULL;
             m_lngThanh_Vien_ID = CConst.INT_VALUE_NULL;
+            m_strMa_Dang_Nhap = CConst.STR_VALUE_NULL;
             m_intdeleted = CConst.INT_VALUE_NULL;
             m_dtmCreated = CConst.DTM_VALUE_NULL;
             m_strCreated_By = CConst.STR_VALUE_NULL;
@@ -168,5 +170,7 @@ namespace Quan_Ly_Kho_Data
                 return CUtility.Tao_Combo_Text(m_strMa_Kho, m_strTen_Kho);
             }
         }
+
+        public string Ma_Dang_Nhap { get => m_strMa_Dang_Nhap; set => m_strMa_Dang_Nhap = value.Trim(); }
     }
 }

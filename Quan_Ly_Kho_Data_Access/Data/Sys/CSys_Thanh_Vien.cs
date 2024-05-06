@@ -223,5 +223,25 @@ namespace Quan_Ly_Kho_Sys
                 m_iNhom_Thanh_Vien_ID = value;
             }
         }
+
+        public string Nhom_Thanh_Vien_Text
+        {
+            get
+            {
+                string v_strRes = CConst.STR_VALUE_NULL;
+                switch (m_iNhom_Thanh_Vien_ID)
+                {
+                    case (int)ENhom_Thanh_Vien.Quan_Tri:
+                        v_strRes = "Quản Trị"; break;
+                    case (int)ENhom_Thanh_Vien.Xuat_Kho:
+                        v_strRes = "Xuất Kho"; break;
+                    case (int)ENhom_Thanh_Vien.Nhap_Hang:
+                        v_strRes = "Nhập Hàng"; break;
+                    case (int)ENhom_Thanh_Vien.Data:
+                        v_strRes = "Data"; break;
+                }
+                return v_strRes;
+            }
+        }
     }
 }

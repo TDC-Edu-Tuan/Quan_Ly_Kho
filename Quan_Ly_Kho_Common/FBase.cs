@@ -60,9 +60,7 @@ namespace Quan_Ly_Kho_Common
 
             try
             {
-                g_lngChu_Hang_ID = CSystem.Chu_Hang_ID;
-                g_lngKho_ID = CSystem.Kho_ID;
-
+            
                 if (g_bIs_First_Load == false)
                 {
                     if (g_grdData == null)

@@ -52,7 +52,6 @@ namespace Quan_Ly_Kho_Common
 
             //Chuỗi kết nối
             CConfig.Quan_Ly_Kho_Data_Conn_String = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Quan_Ly_Kho_Data_Conn_String");
-            CConfig.Quan_Ly_Kho_Sys_Conn_String = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Quan_Ly_Kho_Sys_Conn_String");
 
             //Format time
             CConfig.Date_Format_String = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Date_Format_String");
@@ -77,7 +76,7 @@ namespace Quan_Ly_Kho_Common
             string v_strLog_Txt = Path.Combine(CConfig.Folder_File_Management_Path, "log_txt");
 
             //Kiểm tra nếu thư mục log chưa tồn tại thì tạo
-            if (!Directory.Exists(v_strLog_Excel))    
+            if (!Directory.Exists(v_strLog_Excel))
                 Directory.CreateDirectory(v_strLog_Excel);
 
             if (!Directory.Exists(v_strLog_Txt))

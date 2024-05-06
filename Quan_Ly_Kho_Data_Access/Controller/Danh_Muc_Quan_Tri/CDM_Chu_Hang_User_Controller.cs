@@ -40,6 +40,37 @@ namespace Quan_Ly_Kho_Data
             return v_arrRes;
         }
 
+
+        public List<CDM_Chu_Hang_User> FQ_107_CHU_sp_sel_List_Thanh_Vien_Khac_By_Chu_Hang_ID(long p_iChu_Hang_ID)
+        {
+            List<CDM_Chu_Hang_User> v_arrRes = new List<CDM_Chu_Hang_User>();
+            DataTable v_dt = new DataTable();
+
+            try
+            {
+             
+                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_107_CHU_sp_sel_List_Thanh_Vien_Khac_By_Chu_Hang_ID", p_iChu_Hang_ID);
+
+                foreach (DataRow v_row in v_dt.Rows)
+                {
+                    CDM_Chu_Hang_User v_objRes = CUtility.Map_Row_To_Entity<CDM_Chu_Hang_User>(v_row);
+                    v_arrRes.Add(v_objRes);
+                }
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
+            finally
+            {
+                v_dt.Dispose();
+            }
+
+            return v_arrRes;
+        }
+
         public List<CDM_Chu_Hang_User> FQ_107_CHU_sp_sel_List_For_Cache()
         {
             List<CDM_Chu_Hang_User> v_arrRes = new List<CDM_Chu_Hang_User>();

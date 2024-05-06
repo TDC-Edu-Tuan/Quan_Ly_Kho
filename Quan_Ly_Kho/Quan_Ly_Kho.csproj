@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Quan_Ly_Kho_Common\Quan_Ly_Kho_Common.csproj" />
+    <ProjectReference Include="..\Quan_Ly_Kho_Controls\Quan_Ly_Kho_Controls.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_Data_Access\Quan_Ly_Kho_Data_Access.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_DM\Quan_Ly_Kho_DM.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_Report\Quan_Ly_Kho_Report.csproj" />

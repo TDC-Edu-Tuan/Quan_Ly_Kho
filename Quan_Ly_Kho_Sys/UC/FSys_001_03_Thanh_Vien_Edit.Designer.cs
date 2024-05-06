@@ -1,6 +1,8 @@
-﻿namespace Quan_Ly_Kho_DM
+﻿using DevExpress.XtraMap.Native;
+
+namespace Quan_Ly_Kho_DM
 {
-    partial class FDM_12_03_Nhan_Vien_Kho_Edit
+    partial class FSys_001_03_Thanh_Vien_Edit
     {
         /// <summary>
         /// Required designer variable.
@@ -29,53 +31,60 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            cbbNhom_Thanh_Vien = new ComboBox();
             radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
-            txtCCCD = new DevExpress.XtraEditors.TextEdit();
+            txtEmail = new DevExpress.XtraEditors.TextEdit();
             label6 = new Label();
-            txtDia_Chi = new DevExpress.XtraEditors.TextEdit();
+            txtHo_Ten = new DevExpress.XtraEditors.TextEdit();
             label7 = new Label();
-            txtGhi_Chu = new DevExpress.XtraEditors.TextEdit();
             label5 = new Label();
             txtSDT = new DevExpress.XtraEditors.TextEdit();
             label4 = new Label();
-            txtTen_Nhan_Vien_Kho = new DevExpress.XtraEditors.TextEdit();
+            txtMat_Khau = new DevExpress.XtraEditors.TextEdit();
             label3 = new Label();
             btnSave = new Button();
             label2 = new Label();
-            txtMa_Nhan_Vien_Kho = new DevExpress.XtraEditors.TextEdit();
+            txtMa_Dang_Nhap = new DevExpress.XtraEditors.TextEdit();
             label1 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)radioGroup1.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtCCCD.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtDia_Chi.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtGhi_Chu.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtHo_Ten.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtSDT.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtTen_Nhan_Vien_Kho.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtMa_Nhan_Vien_Kho.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtMat_Khau.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtMa_Dang_Nhap.Properties).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
+            panel1.Controls.Add(cbbNhom_Thanh_Vien);
             panel1.Controls.Add(radioGroup1);
-            panel1.Controls.Add(txtCCCD);
+            panel1.Controls.Add(txtEmail);
             panel1.Controls.Add(label6);
-            panel1.Controls.Add(txtDia_Chi);
+            panel1.Controls.Add(txtHo_Ten);
             panel1.Controls.Add(label7);
-            panel1.Controls.Add(txtGhi_Chu);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(txtSDT);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(txtTen_Nhan_Vien_Kho);
+            panel1.Controls.Add(txtMat_Khau);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(btnSave);
             panel1.Controls.Add(label2);
-            panel1.Controls.Add(txtMa_Nhan_Vien_Kho);
+            panel1.Controls.Add(txtMa_Dang_Nhap);
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(729, 200);
             panel1.TabIndex = 0;
+            // 
+            // cbbNhom_Thanh_Vien
+            // 
+            cbbNhom_Thanh_Vien.FormattingEnabled = true;
+            cbbNhom_Thanh_Vien.Location = new Point(562, 87);
+            cbbNhom_Thanh_Vien.Name = "cbbNhom_Thanh_Vien";
+            cbbNhom_Thanh_Vien.Size = new Size(151, 24);
+            cbbNhom_Thanh_Vien.TabIndex = 16;
             // 
             // radioGroup1
             // 
@@ -87,12 +96,12 @@
             radioGroup1.Size = new Size(156, 31);
             radioGroup1.TabIndex = 15;
             // 
-            // txtCCCD
+            // txtEmail
             // 
-            txtCCCD.Location = new Point(557, 60);
-            txtCCCD.Name = "txtCCCD";
-            txtCCCD.Size = new Size(156, 22);
-            txtCCCD.TabIndex = 14;
+            txtEmail.Location = new Point(557, 60);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(156, 22);
+            txtEmail.TabIndex = 14;
             // 
             // label6
             // 
@@ -100,16 +109,16 @@
             label6.Font = new Font("Times New Roman", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
             label6.Location = new Point(408, 60);
             label6.Name = "label6";
-            label6.Size = new Size(61, 20);
+            label6.Size = new Size(54, 20);
             label6.TabIndex = 13;
-            label6.Text = "CCCD";
+            label6.Text = "Email";
             // 
-            // txtDia_Chi
+            // txtHo_Ten
             // 
-            txtDia_Chi.Location = new Point(557, 32);
-            txtDia_Chi.Name = "txtDia_Chi";
-            txtDia_Chi.Size = new Size(156, 22);
-            txtDia_Chi.TabIndex = 12;
+            txtHo_Ten.Location = new Point(557, 32);
+            txtHo_Ten.Name = "txtHo_Ten";
+            txtHo_Ten.Size = new Size(156, 22);
+            txtHo_Ten.TabIndex = 12;
             // 
             // label7
             // 
@@ -117,16 +126,9 @@
             label7.Font = new Font("Times New Roman", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
             label7.Location = new Point(408, 32);
             label7.Name = "label7";
-            label7.Size = new Size(64, 20);
+            label7.Size = new Size(67, 20);
             label7.TabIndex = 11;
-            label7.Text = "Địa chỉ";
-            // 
-            // txtGhi_Chu
-            // 
-            txtGhi_Chu.Location = new Point(557, 88);
-            txtGhi_Chu.Name = "txtGhi_Chu";
-            txtGhi_Chu.Size = new Size(156, 22);
-            txtGhi_Chu.TabIndex = 10;
+            label7.Text = "Họ Tên";
             // 
             // label5
             // 
@@ -134,9 +136,9 @@
             label5.Font = new Font("Times New Roman", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
             label5.Location = new Point(408, 88);
             label5.Name = "label5";
-            label5.Size = new Size(71, 20);
+            label5.Size = new Size(151, 20);
             label5.TabIndex = 9;
-            label5.Text = "Ghi chú";
+            label5.Text = "Nhóm Thành Viên";
             // 
             // txtSDT
             // 
@@ -156,12 +158,12 @@
             label4.TabIndex = 7;
             label4.Text = "SĐT";
             // 
-            // txtTen_Nhan_Vien_Kho
+            // txtMat_Khau
             // 
-            txtTen_Nhan_Vien_Kho.Location = new Point(161, 57);
-            txtTen_Nhan_Vien_Kho.Name = "txtTen_Nhan_Vien_Kho";
-            txtTen_Nhan_Vien_Kho.Size = new Size(156, 22);
-            txtTen_Nhan_Vien_Kho.TabIndex = 6;
+            txtMat_Khau.Location = new Point(161, 57);
+            txtMat_Khau.Name = "txtMat_Khau";
+            txtMat_Khau.Size = new Size(156, 22);
+            txtMat_Khau.TabIndex = 6;
             // 
             // label3
             // 
@@ -169,9 +171,9 @@
             label3.Font = new Font("Times New Roman", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
             label3.Location = new Point(12, 60);
             label3.Name = "label3";
-            label3.Size = new Size(69, 20);
+            label3.Size = new Size(89, 20);
             label3.TabIndex = 5;
-            label3.Text = "Tên NV";
+            label3.Text = "Mật Khẩu";
             // 
             // btnSave
             // 
@@ -194,12 +196,12 @@
             label2.TabIndex = 2;
             label2.Text = "Giới tính";
             // 
-            // txtMa_Nhan_Vien_Kho
+            // txtMa_Dang_Nhap
             // 
-            txtMa_Nhan_Vien_Kho.Location = new Point(161, 29);
-            txtMa_Nhan_Vien_Kho.Name = "txtMa_Nhan_Vien_Kho";
-            txtMa_Nhan_Vien_Kho.Size = new Size(156, 22);
-            txtMa_Nhan_Vien_Kho.TabIndex = 1;
+            txtMa_Dang_Nhap.Location = new Point(161, 29);
+            txtMa_Dang_Nhap.Name = "txtMa_Dang_Nhap";
+            txtMa_Dang_Nhap.Size = new Size(156, 22);
+            txtMa_Dang_Nhap.TabIndex = 1;
             // 
             // label1
             // 
@@ -207,11 +209,11 @@
             label1.Font = new Font("Times New Roman", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(12, 32);
             label1.Name = "label1";
-            label1.Size = new Size(66, 20);
+            label1.Size = new Size(128, 20);
             label1.TabIndex = 0;
-            label1.Text = "Mã NV";
+            label1.Text = "Mã Đăng Nhập";
             // 
-            // FDM_12_03_Nhan_Vien_Kho_Edit
+            // FSys_001_03_Thanh_Vien_Edit
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -221,19 +223,18 @@
             MaximizeBox = false;
             MdiChildCaptionFormatString = "{1} - {1}";
             MinimizeBox = false;
-            Name = "FDM_12_03_Nhan_Vien_Kho_Edit";
+            Name = "FSys_001_03_Thanh_Vien_Edit";
             StartPosition = FormStartPosition.CenterParent;
             Text = "FDM_02_03_Loai_San_Pham_Edit";
             Load += Load_Form;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)radioGroup1.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtCCCD.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtDia_Chi.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtGhi_Chu.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtHo_Ten.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtSDT.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtTen_Nhan_Vien_Kho.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtMa_Nhan_Vien_Kho.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtMat_Khau.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtMa_Dang_Nhap.Properties).EndInit();
             ResumeLayout(false);
         }
 
@@ -241,19 +242,19 @@
 
         private Panel panel1;
         private Button btnSave;
-        private Label label2;
-        private DevExpress.XtraEditors.TextEdit txtMa_Nhan_Vien_Kho;
+        private DevExpress.XtraEditors.TextEdit txtMa_Dang_Nhap;
         private Label label1;
-        private DevExpress.XtraEditors.TextEdit txtTen_Nhan_Vien_Kho;
+        private DevExpress.XtraEditors.TextEdit txtMat_Khau;
         private Label label3;
-        private DevExpress.XtraEditors.TextEdit txtGhi_Chu;
         private Label label5;
         private DevExpress.XtraEditors.TextEdit txtSDT;
         private Label label4;
-        private DevExpress.XtraEditors.RadioGroup radioGroup1;
-        private DevExpress.XtraEditors.TextEdit txtCCCD;
+        private DevExpress.XtraEditors.TextEdit txtEmail;
         private Label label6;
-        private DevExpress.XtraEditors.TextEdit txtDia_Chi;
+        private DevExpress.XtraEditors.TextEdit txtHo_Ten;
         private Label label7;
+        private DevExpress.XtraEditors.RadioGroup radioGroup1;
+        private Label label2;
+        private ComboBox cbbNhom_Thanh_Vien;
     }
 }

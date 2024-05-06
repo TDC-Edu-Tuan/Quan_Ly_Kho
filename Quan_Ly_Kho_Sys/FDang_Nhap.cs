@@ -47,8 +47,16 @@ namespace Quan_Ly_Kho_Sys
                 if (v_objData == null)
                     v_sbError.AppendLine("Mã đăng nhập không tồn tại.");
 
-                else if (v_objData.Mat_Khau.Equals(txtPassword.Text.Trim()) == false)
+                else if (!v_objData.Mat_Khau.Equals(txtPassword.Text) && v_objData.Ma_Dang_Nhap == "admin")
                     v_sbError.AppendLine("Mật khẩu không đúng.");
+
+                else if (!v_objData.Mat_Khau.Equals(txtPassword.Text) && v_objData.Ma_Dang_Nhap != "admin")
+                {
+                    //trường hợp user khác admin
+                    string v_strPass = CUtility.MD5_Encrypt(txtPassword.Text);
+                    if (!v_objData.Mat_Khau.Equals(v_strPass))
+                        v_sbError.AppendLine("Mật khẩu không đúng.");
+                }
 
                 if (v_sbError.ToString() != CConst.STR_VALUE_NULL)
                     throw new Exception(v_sbError.ToString());

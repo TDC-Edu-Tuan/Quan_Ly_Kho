@@ -4,7 +4,6 @@
     {
         //Thông tin chuỗi kết nối
         public static string Quan_Ly_Kho_Data_Conn_String = "";
-        public static string Quan_Ly_Kho_Sys_Conn_String = "";
 
         //Thông tin sản phẩm
         public static string Product_Name = "";

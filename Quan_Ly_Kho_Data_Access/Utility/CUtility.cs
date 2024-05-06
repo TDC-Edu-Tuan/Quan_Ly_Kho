@@ -8,6 +8,7 @@ namespace Quan_Ly_Kho_Data_Access.Utility
 {
     public class CUtility
     {
+        static Random m_rand = new();
         #region Nhóm convert
         public static T Convert_Json_To_Object<T>(string p_strJson_Path)
         {
@@ -319,5 +320,15 @@ namespace Quan_Ly_Kho_Data_Access.Utility
                 || p_type == typeof(long);
         }
 
+        public static long Create_Rand_ID(int p_iLenght)
+        {
+            string v_strRes = CConst.STR_VALUE_NULL;
+            for (int i = 0; i < p_iLenght; i++)
+            {
+                v_strRes += Convert_To_String(m_rand.Next(0, 10));
+            }
+
+            return Convert_To_Int64(v_strRes);
+        }
     }
 }

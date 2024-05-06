@@ -181,5 +181,15 @@ namespace Quan_Ly_Kho_Data
                 m_strLast_Updated_By_Function = value.Trim();
             }
         }
+
+
+        public string Kho_Combo
+        {
+            get
+            {
+                return CUtility.Tao_Combo_Text(m_strMa_Kho, m_strTen_Kho);
+            }
+
+        }
     }
 }

@@ -68,6 +68,36 @@ namespace Quan_Ly_Kho_Data
             return v_arrRes;
         }
 
+        public List<CDM_Kho_User> FQ_117_KU_sp_sel_List_Thanh_Vien_Khac_By_Kho_ID(long p_lngKho_ID)
+        {
+            List<CDM_Kho_User> v_arrRes = new List<CDM_Kho_User>();
+            DataTable v_dt = new DataTable();
+
+            try
+            {
+                v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_117_KU_sp_sel_List_Thanh_Vien_Khac_By_Kho_ID", p_lngKho_ID);
+
+                foreach (DataRow v_row in v_dt.Rows)
+                {
+                    CDM_Kho_User v_objRes = CUtility.Map_Row_To_Entity<CDM_Kho_User>(v_row);
+                    v_arrRes.Add(v_objRes);
+                }
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
+            finally
+            {
+                v_dt.Dispose();
+            }
+
+            return v_arrRes;
+        }
+
+
         public CDM_Kho_User FQ_117_KU_sp_sel_Get_By_ID(long p_iID)
         {
             CDM_Kho_User v_objRes = null;

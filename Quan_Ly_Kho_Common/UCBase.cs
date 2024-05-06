@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraRichEdit.Fields;
+﻿using DevExpress.CodeParser;
+using DevExpress.XtraRichEdit.Fields;
 using OfficeOpenXml;
 using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Utility;
@@ -29,7 +30,9 @@ namespace Quan_Ly_Kho_Common
         protected Dictionary<string, string> g_dicCol_Name = new();
 
         protected bool g_bIs_Deleted_Permission = CConst.IS_VALUE_NULL;
+        protected bool g_bIs_Updated_Permission = CConst.IS_VALUE_NULL;
         protected bool g_bIs_View_Permission = CConst.IS_VALUE_NULL;
+
         protected bool g_bIs_Update { get; set; } = CConst.IS_VALUE_NULL;
 
         #endregion
@@ -68,7 +71,6 @@ namespace Quan_Ly_Kho_Common
 
                     g_bIs_First_Load = true;
                 }
-                g_grdData.Columns.Clear();
 
                 Load_Data();
 
@@ -233,11 +235,14 @@ namespace Quan_Ly_Kho_Common
                 {
                     throw new Exception("Không tìm thấy lưới dữ liệu để phục vụ export excel vui lòng liên hệ nhà phát triển để xử lý");
                 }
+                string v_strExcel_Name = Function_Code + "_Export_" + CUtility.Create_Rand_ID(10) + '_' + ".xlsx";
 
-                Export_Excel_Entry(g_grdData, Function_Code + "_Export_" + ".xlsx");
-                FCommonFunction.Show_Message_Box("Thông báo", "Export thành công", (int)EMessage_Type.Success);
+                Export_Excel_Entry(g_grdData, v_strExcel_Name);
 
                 End_Loading();
+
+                FCommonFunction.Show_Message_Box("Thông báo", "Export thành công", (int)EMessage_Type.Success);
+
             }
             catch (Exception ex)
             {
@@ -265,8 +270,9 @@ namespace Quan_Ly_Kho_Common
             if (g_bIs_First_Load == true)
             {
                 Combobox_Selected_Index_Changed();
-                Load_Form(sender,e);
+                Load_Form(sender, e);
             }
+
         }
         #endregion
 
@@ -345,8 +351,12 @@ namespace Quan_Ly_Kho_Common
         /// <summary>
         /// Dùng để format lại grid view
         /// </summary>
-        protected void Format_Grid()
+        protected void Format_Grid<T>(List<T> p_arrData)
         {
+            g_grdData.Columns.Clear();
+
+            g_grdData.DataSource = p_arrData;
+
             //Load CSystem button
             Load_System_Button();
 
@@ -358,8 +368,6 @@ namespace Quan_Ly_Kho_Common
                     Col_Custom(v_item);
             }
 
-
-
             // Áp dụng định dạng cho ô dữ liệu
             Apply_Cell_Formatting();
         }
@@ -370,6 +378,8 @@ namespace Quan_Ly_Kho_Common
         protected void Disable_Default_Col()
         {
             g_arrCol_Hiden.Add("Auto_ID");
+            g_arrCol_Hiden.Add("Chu_Hang_ID");
+            g_arrCol_Hiden.Add("Kho_ID");
             g_arrCol_Hiden.Add("deleted");
             g_arrCol_Hiden.Add("Created");
             g_arrCol_Hiden.Add("Created_By");
@@ -433,7 +443,7 @@ namespace Quan_Ly_Kho_Common
 
         protected virtual void Combobox_Selected_Index_Changed()
         {
-            
+
         }
 
         #endregion
@@ -483,7 +493,7 @@ namespace Quan_Ly_Kho_Common
             Add_Button_Column("btnUpdated", v_objSet_Col, 2, v_objSetting_Icon);
             Add_Button_Column("btnDeleted", v_objDel_Col, 3, v_objDeleted_Icon);
 
-            g_grdData.Columns["btnUpdated"].Visible = g_bIs_Deleted_Permission;
+            g_grdData.Columns["btnUpdated"].Visible = g_bIs_Updated_Permission;
             g_grdData.Columns["btnDeleted"].Visible = g_bIs_Deleted_Permission;
             g_grdData.Columns["btnView"].Visible = g_bIs_View_Permission;
 
@@ -557,14 +567,13 @@ namespace Quan_Ly_Kho_Common
                 // Nếu không có đường dẫn được cung cấp, sử dụng thư mục Downloads mặc định
                 string v_strFile_Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", p_strExcel);
 
-                string v_strLog_Excel = Path.Combine(CConfig.Folder_File_Management_Path, "excel_log", p_strExcel);
-
                 // Lưu file
                 v_Package.SaveAs(new FileInfo(v_strFile_Path));
 
-                //Lưu log
-                v_Package.SaveAs(new FileInfo(v_strLog_Excel));
+                string v_strLog_Excel = Path.Combine(CConfig.Folder_File_Management_Path, "log_excel", p_strExcel);
 
+                // Lưu file vào thư mục "myfolder"
+                v_Package.SaveAs(new FileInfo(v_strLog_Excel));
 
                 //Hiện lại 3 cột đó trên grid
                 p_dgv.Columns["btnCheck"].Visible = false;
@@ -586,7 +595,7 @@ namespace Quan_Ly_Kho_Common
                 p_col.Visible = false; // Ẩn cột đó đi
             }
 
-            // Kiểm tra cột đã ẩn
+            // Kiểm tra cột hiện
             if (p_col.Visible)
             {
                 // Kiểm tra col có khai báo chỉnh độ rộng cột không 
@@ -634,7 +643,7 @@ namespace Quan_Ly_Kho_Common
         private void InitializeComponent()
         {
             Loading_Control = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(FLoading), true, true, typeof(UserControl));
-            Loading_Control.ClosingDelay = 500;       
+            Loading_Control.ClosingDelay = 500;
         }
 
         private DevExpress.XtraSplashScreen.SplashScreenManager Loading_Control;

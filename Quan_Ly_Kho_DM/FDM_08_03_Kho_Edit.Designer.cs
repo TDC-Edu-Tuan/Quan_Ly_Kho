@@ -87,9 +87,9 @@
             label3.Font = new Font("Times New Roman", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
             label3.Location = new Point(12, 60);
             label3.Name = "label3";
-            label3.Size = new Size(81, 20);
+            label3.Size = new Size(77, 20);
             label3.TabIndex = 5;
-            label3.Text = "Tên NXĐ";
+            label3.Text = "Tên Kho";
             // 
             // btnSave
             // 
@@ -115,9 +115,9 @@
             label1.Font = new Font("Times New Roman", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(12, 32);
             label1.Name = "label1";
-            label1.Size = new Size(78, 20);
+            label1.Size = new Size(74, 20);
             label1.TabIndex = 0;
-            label1.Text = "Mã NXĐ";
+            label1.Text = "Mã Kho";
             // 
             // FDM_08_03_Kho_Edit
             // 
