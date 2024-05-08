@@ -21,7 +21,7 @@ namespace Quan_Ly_Kho_DM
         protected override void Load_Data()
         {
             CDM_Chu_Hang_User_Controller v_objCtrlData = new();
-            m_arrData = v_objCtrlData.FQ_107_CHU_sp_sel_List_Thanh_Vien_Khac_By_Chu_Hang_ID(g_lngKho_ID);
+            m_arrData = v_objCtrlData.FQ_107_CHU_sp_sel_List_Thanh_Vien_Khac_By_Chu_Hang_ID(g_lngChu_Hang_ID);
 
             FControl_Chu_Hang_User_Combo.Load_Combo(cbbCH_User, m_arrData, "Thanh_Vien_ID", "Ma_Dang_Nhap");
         }
@@ -45,6 +45,11 @@ namespace Quan_Ly_Kho_DM
         protected override void Closed_Form()
         {
             Close();
+        }
+
+        private void cbbCH_User_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

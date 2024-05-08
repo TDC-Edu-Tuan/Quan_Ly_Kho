@@ -73,7 +73,7 @@ namespace Quan_Ly_Kho_DM
 
             //Add dữ liệu vào csdl
             m_objData.Auto_ID = g_lngAuto_ID = v_objCtrlData.FQ_165_SP_sp_ins_Insert(m_objData);
-            m_objData = v_objCtrlData.FQ_165_SP_sp_sel_Get_By_ID(g_lngKho_ID);
+            m_objData = v_objCtrlData.FQ_165_SP_sp_sel_Get_By_ID(g_lngAuto_ID);
 
             CCache_San_Pham.Add_Data(m_objData);
         }

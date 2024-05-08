@@ -19,9 +19,16 @@ namespace Quan_Ly_Kho_DM
             m_objData = v_objCtrlData.FQ_114_K_sp_sel_Get_By_ID(g_lngAuto_ID);
             Auto_ID.Text = CUtility.Convert_To_String(m_objData.Auto_ID);
 
+            // Gán giá trị từ đối tượng m_objData vào các TextBox tương ứng và đặt thuộc tính ReadOnly
             txtMa_Kho.Text = m_objData.Ma_Kho;
+            txtMa_Kho.ReadOnly = true;
+
             txtTen_Kho.Text = m_objData.Ten_Kho;
+            txtTen_Kho.ReadOnly = true;
+
             txtGhi_Chu.Text = m_objData.Ghi_Chu;
+            txtGhi_Chu.ReadOnly = true;
+
 
             Created.Text = CUtility.Convert_DateTime_To_String(m_objData.Created);
             Created_By.Text = m_objData.Created_By;

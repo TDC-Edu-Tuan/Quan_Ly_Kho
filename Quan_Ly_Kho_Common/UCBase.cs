@@ -4,6 +4,7 @@ using OfficeOpenXml;
 using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Utility;
 using System.IO;
+using System.Text;
 
 namespace Quan_Ly_Kho_Common
 {
@@ -100,7 +101,11 @@ namespace Quan_Ly_Kho_Common
 
             try
             {
-                Delete_Data(g_lngAuto_ID);
+                if (DialogResult.Yes == FCommonFunction.Show_Message_Box("Thông báo", "Bạn có muốn xóa dòng dữ liệu này", (int)EMessage_Type.Question))
+                {
+                    Delete_Data(g_lngAuto_ID);
+                    Load_Data();
+                }
             }
             catch (Exception ex)
             {
@@ -168,7 +173,6 @@ namespace Quan_Ly_Kho_Common
         {
             DateTime v_dtmStart = DateTime.Now;
             OpenFileDialog v_objFile_Dialog = new();
-
             int v_iCount_Success = CConst.INT_VALUE_NULL;
             int v_iCount_Error = CConst.INT_VALUE_NULL;
 
@@ -195,24 +199,26 @@ namespace Quan_Ly_Kho_Common
                     if (v_info.IsReadOnly == true)
                         throw new Exception("File này không thể đọc vui lòng kiểm tra lại");
 
+                    CExcel_Controller p_objExcel_Ctrl = new(v_info);
 
-                    Import_Excel_Entry(v_info, ref v_iCount_Success, ref v_iCount_Error);
-                    if (v_iCount_Error != CConst.INT_VALUE_NULL)
-                        throw new Exception($"Import excel không thành công với {v_iCount_Error} dòng lỗi");
 
+                    Import_Excel_Entry(p_objExcel_Ctrl, ref v_iCount_Success, ref v_iCount_Error);
 
                     FCommonFunction.Show_Message_Box("Thông báo", $"Import excel: {v_iCount_Success} dòng thành công ", (int)EMessage_Type.Success);
 
+                    CLogger.Save_Trace_Log("Import_Excel", Function_Code, "Import_Excel", "Import excel by: " + User_Name, (DateTime.Now - v_dtmStart).TotalSeconds);
                     End_Loading();//
                 }
             }
             catch (Exception ex)
             {
-                CLogger.Save_Trace_Error_Log("Import_Excel", Function_Code + ": Import_Excel", "Import excel by: " + User_Name, ex.Message + "\n" + ex.StackTrace, (DateTime.Now - v_dtmStart).TotalSeconds);
-
+                string v_strError = $"Import Excel không thành công với {v_iCount_Error} lỗi \n";
+                v_strError += ex.Message;
+                CLogger.Save_Trace_Error_Log("Import_Excel", Function_Code + ": Import_Excel", "Import excel by: " + User_Name, v_strError, (DateTime.Now - v_dtmStart).TotalSeconds);
+              
                 End_Loading();//
 
-                FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
+                FCommonFunction.Show_Message_Box("Thông báo", v_strError, (int)EMessage_Type.Error);
             }
             finally
             {
@@ -343,7 +349,7 @@ namespace Quan_Ly_Kho_Common
         /// <param name="p_objFile"></param>
         /// <param name="p_iCount_Success"></param>
         /// <param name="p_iCount_Error"></param>
-        protected virtual void Import_Excel_Entry(FileInfo p_objFile, ref int p_iCount_Success, ref int p_iCount_Error)
+        protected virtual void Import_Excel_Entry(CExcel_Controller p_objFile, ref int p_iCount_Success, ref int p_iCount_Error)
         {
 
         }

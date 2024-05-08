@@ -64,7 +64,6 @@ namespace Quan_Ly_Kho_DM
             v_objCtrlData.FQ_110_DVT_sp_upd_Update(m_objData);
 
             CCache_Don_Vi_Tinh.Update_Data(m_objData);
-
         }
 
         protected override void Closed_Form()

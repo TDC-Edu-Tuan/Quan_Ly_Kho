@@ -108,7 +108,7 @@ namespace Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban
             set { m_strGhi_Chu = value.Trim(); }
         }
 
-        public int Deleted
+        public int deleted
         {
             get { return m_intdeleted; }
             set { m_intdeleted = value; }

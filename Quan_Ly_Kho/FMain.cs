@@ -378,6 +378,8 @@ namespace Quan_Ly_Kho
 
         private void Reload_Item_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            CSystem.State = (int)EStatus_Type.Success;
+            CCommonFunction.Load_Cache();
             FMain_Load(sender, e);
         }
 

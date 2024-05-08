@@ -48,6 +48,7 @@
             dtmFrom = new DateTimePicker();
             label3 = new Label();
             grdData = new DataGridView();
+            cbbCH_User = new ComboBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grdData).BeginInit();
@@ -55,6 +56,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(cbbCH_User);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(txtNoi_Dung_Tim_Kiem);
             panel1.Controls.Add(panel2);
@@ -111,6 +113,7 @@
             cbbChu_Hang.Name = "cbbChu_Hang";
             cbbChu_Hang.Size = new Size(200, 28);
             cbbChu_Hang.TabIndex = 11;
+            cbbChu_Hang.SelectedIndexChanged += Combobox_Selected_Index_Changed;
             // 
             // label6
             // 
@@ -129,6 +132,7 @@
             cbbKho.Name = "cbbKho";
             cbbKho.Size = new Size(200, 28);
             cbbKho.TabIndex = 9;
+            cbbKho.SelectedIndexChanged += Combobox_Selected_Index_Changed;
             // 
             // label5
             // 
@@ -221,9 +225,6 @@
             // 
             // grdData
             // 
-            cbbChu_Hang.SelectedIndexChanged += Combobox_Selected_Index_Changed;
-            cbbKho.SelectedIndexChanged += Combobox_Selected_Index_Changed;
-
             grdData.AllowUserToAddRows = false;
             grdData.AllowUserToDeleteRows = false;
             grdData.AllowUserToResizeRows = false;
@@ -263,12 +264,21 @@
             grdData.Size = new Size(1424, 41);
             grdData.TabIndex = 1;
             // 
-            // FDM_08_01_Kho_List
+            // cbbCH_User
+            // 
+            cbbCH_User.FormattingEnabled = true;
+            cbbCH_User.Location = new Point(600, 173);
+            cbbCH_User.Name = "cbbCH_User";
+            cbbCH_User.Size = new Size(298, 28);
+            cbbCH_User.TabIndex = 16;
+            cbbCH_User.SelectedIndexChanged += cbbCH_User_SelectedIndexChanged;
+            // 
+            // FDM_11_01_Chu_Hang_User_List
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
-            Name = "FDM_08_01_Kho_List";
+            Name = "FDM_11_01_Chu_Hang_User_List";
             Size = new Size(1821, 495);
             Load += Load_Form;
             panel1.ResumeLayout(false);
@@ -298,5 +308,6 @@
         private Label label5;
         private Label label1;
         private TextBox txtNoi_Dung_Tim_Kiem;
+        private ComboBox cbbCH_User;
     }
 }

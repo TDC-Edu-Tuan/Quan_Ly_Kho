@@ -48,7 +48,7 @@ namespace Quan_Ly_Kho_Data
 
             try
             {
-             
+
                 v_dt = CSqlHelper.FillDataTable(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_107_CHU_sp_sel_List_Thanh_Vien_Khac_By_Chu_Hang_ID", p_iChu_Hang_ID);
 
                 foreach (DataRow v_row in v_dt.Rows)
@@ -127,6 +127,35 @@ namespace Quan_Ly_Kho_Data
 
             return v_objRes;
         }
+
+        public CDM_Chu_Hang_User FQ_107_CHU_sp_sel_Get_By_ID(SqlConnection p_conn, SqlTransaction p_trans, long p_iID)
+        {
+            CDM_Chu_Hang_User v_objRes = null;
+            DataTable v_dt = new DataTable();
+
+            try
+            {
+                v_dt = CSqlHelper.FillDataTable(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_107_CHU_sp_sel_Get_By_ID", p_iID);
+
+                if (v_dt.Rows.Count > 0)
+                {
+                    v_objRes = CUtility.Map_Row_To_Entity<CDM_Chu_Hang_User>(v_dt.Rows[0]);
+                }
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
+            finally
+            {
+                v_dt.Dispose();
+            }
+
+            return v_objRes;
+        }
+
 
         public long FQ_107_CHU_sp_ins_Insert(CDM_Chu_Hang_User p_objData)
         {

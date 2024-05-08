@@ -30,6 +30,10 @@ namespace Quan_Ly_Kho_DM
             Last_Updated.Text = CUtility.Convert_DateTime_To_String(m_objData.Last_Updated);
             Last_Updated_By.Text = m_objData.Last_Updated_By;
             Last_Updated_By_Function.Text = m_objData.Last_Updated_By_Function;
+
+            txtMa_LSP.ReadOnly = true;
+            txtTen_LSP.ReadOnly = true;
+            txtGhi_Chu.ReadOnly = true;
         }
     }
 }

@@ -1,9 +1,13 @@
-﻿using Quan_Ly_Kho_Common;
+﻿using Microsoft.Data.SqlClient;
+using Quan_Ly_Kho_Common;
 using Quan_Ly_Kho_Controls.Danh_Muc;
 using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban;
+using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
+using Quan_Ly_Kho_Data_Data_Access.Controller.Cache;
 using System.Data;
+using System.Text;
 
 namespace Quan_Ly_Kho_DM
 {
@@ -61,7 +65,7 @@ namespace Quan_Ly_Kho_DM
         {
             CDM_San_Pham_Controller v_ctrlData = new();
             m_arrData = v_ctrlData.FQ_165_SP_sp_sel_List_By_Created(g_lngChu_Hang_ID, dtmFrom.Value, dtmTo.Value);
-          
+
             Format_Grid(m_arrData);
 
         }
@@ -86,11 +90,104 @@ namespace Quan_Ly_Kho_DM
             v_objView.Show();
         }
 
-        protected override void Import_Excel_Entry(FileInfo p_objFile, ref int p_iCount_Success, ref int p_iCount_Error)
+        protected override void Import_Excel_Entry(CExcel_Controller v_objCtrlExcel, ref int p_iCount_Success, ref int p_iCount_Error)
         {
+            CDM_San_Pham_Controller v_objCtrData = new();
+            CDM_Don_Vi_Tinh v_objDVT = new();
+            CDM_Loai_San_Pham v_objLSP = new();
+            StringBuilder v_sbError = new StringBuilder();
+            SqlConnection v_conn = null;
+            SqlTransaction v_trans = null;
 
+            try
+            {
+                DataTable v_dt = v_objCtrlExcel.List_Range_Value_To_End(0, "A2", "F");
+
+                // Loại mấy dòng trống
+                for (int v_i = v_dt.Rows.Count - 1; v_i >= 0; v_i--)
+                    if (v_dt.Rows[v_i][0].ToString().Trim() == "")
+                        v_dt.Rows.RemoveAt(v_i);
+
+                int v_iCount = 1;
+
+                foreach (DataRow v_row in v_dt.Rows)
+                {
+                    v_iCount++;
+
+                    //tao ket noi transaction
+                    v_conn = CSqlHelper.CreateConnection(CConfig.Quan_Ly_Kho_Data_Conn_String);
+                    v_conn.Open();
+                    v_trans = v_conn.BeginTransaction();
+
+                    try
+                    {
+                        CDM_San_Pham v_objData = new CDM_San_Pham();
+                        v_objData.Chu_Hang_ID = g_lngChu_Hang_ID;
+                        v_objData.Ma_SP = CUtility.Convert_To_String(v_row[0]);
+                        v_objData.Ten_SP = CUtility.Convert_To_String(v_row[1]);
+
+                        string v_strDVT = CUtility.Convert_To_String(v_row[2]);
+                        if (v_strDVT == CConst.STR_VALUE_NULL)
+                            throw new Exception("Đơn vị tính không được rỗng");
+
+                        v_objDVT = CCache_Don_Vi_Tinh.Get_Data_By_Code(v_strDVT);
+                        if (v_objDVT == null)
+                            throw new Exception("Đơn vị tính không tồn tại");
+
+                        string v_strLSP = CUtility.Convert_To_String(v_row[3]);
+
+                        if (v_strLSP == CConst.STR_VALUE_NULL)
+                            throw new Exception("Loại sản phẩm không được rỗng");
+
+                        v_objLSP = CCache_Loai_San_Pham.Get_Data_By_Code(g_lngChu_Hang_ID, v_strLSP);
+                        if (v_objDVT == null)
+                            throw new Exception("Loại sản phẩm không tồn tại");
+
+                        v_objData.DVT_ID = v_objDVT.Auto_ID;
+                        v_objData.LSP_ID = v_objLSP.Auto_ID;
+
+                        v_objData.Ghi_Chu = CUtility.Convert_To_String(v_row[4]);
+                        v_objData.Last_Updated_By = User_Name;
+                        v_objData.Last_Updated_By_Function = Function_Code;
+
+                        v_objData.Auto_ID = v_objCtrData.FQ_165_SP_sp_ins_Insert(v_conn, v_trans, v_objData);
+
+                        v_objData = v_objCtrData.FQ_165_SP_sp_sel_Get_By_ID(v_conn, v_trans, v_objData.Auto_ID);
+
+                        p_iCount_Success++;
+
+                        v_trans.Commit();
+
+                        CCache_San_Pham.Add_Data(v_objData);
+                    }
+
+                    catch (Exception ex)
+                    {
+                        v_sbError.AppendLine("Dòng" + " " + v_iCount.ToString() + " " + "có lỗi" + ": " + ex.Message);
+                        if (v_trans != null)
+                            v_trans.Rollback();
+                    }
+
+                    finally
+                    {
+                        if (v_trans != null)
+                            v_trans.Dispose();
+
+                        if (v_conn != null)
+                            v_conn.Close();
+                    }
+                }
+
+                p_iCount_Error = v_dt.Rows.Count - p_iCount_Success;
+                if (v_sbError.ToString() != "")
+                    throw new(v_sbError.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-
         protected override void Tim_Kiem_By_Key()
         {
             string v_strKey_Word = txtNoi_Dung_Tim_Kiem.Text;
@@ -124,5 +221,12 @@ namespace Quan_Ly_Kho_DM
             g_lngKho_ID = CUtility.Convert_To_Int64(cbbKho.SelectedValue);
         }
 
+        protected override void Delete_Data(long p_lngAuto_ID)
+        {
+            CDM_San_Pham_Controller v_objCtrlData = new();
+            v_objCtrlData.FQ_165_SP_sp_del_Delete_By_ID(p_lngAuto_ID, User_Name, Function_Code);
+
+            CCache_San_Pham.Delete_Data(p_lngAuto_ID);
+        }
     }
 }

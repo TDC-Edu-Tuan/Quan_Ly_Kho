@@ -24,8 +24,8 @@ namespace Quan_Ly_Kho_Controls.Danh_Muc
 
             p_objCombo.ValueMember = p_strValue_Field;
             p_objCombo.DisplayMember = p_strValue_Display;
-            p_objCombo.DataSource = p_arrData;
 
+            p_objCombo.DataSource = p_arrData;
 
         }
     }

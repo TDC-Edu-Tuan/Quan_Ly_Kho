@@ -1,8 +1,12 @@
-﻿using Quan_Ly_Kho_Common;
+﻿using Microsoft.Data.SqlClient;
+using Quan_Ly_Kho_Common;
 using Quan_Ly_Kho_Controls.Danh_Muc;
 using Quan_Ly_Kho_Data;
+using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
+using Quan_Ly_Kho_Data_Data_Access.Controller.Cache;
 using System.Data;
+using System.Text;
 
 namespace Quan_Ly_Kho_DM
 {
@@ -50,7 +54,7 @@ namespace Quan_Ly_Kho_DM
         protected override void Load_Data()
         {
             CDM_Day_Ke_Controller v_ctrlData = new();
-            m_arrData = v_ctrlData.FQ_109_DK_sp_sel_List_By_Created(g_lngChu_Hang_ID, dtmFrom.Value, dtmTo.Value);
+            m_arrData = v_ctrlData.FQ_109_DK_sp_sel_List_By_Created(g_lngKho_ID, dtmFrom.Value, dtmTo.Value);
             Format_Grid(m_arrData);
 
         }
@@ -74,11 +78,78 @@ namespace Quan_Ly_Kho_DM
             v_objView.Show();
         }
 
-        protected override void Import_Excel_Entry(FileInfo p_objFile, ref int p_iCount_Success, ref int p_iCount_Error)
+        protected override void Import_Excel_Entry(CExcel_Controller v_objCtrlExcel, ref int p_iCount_Success, ref int p_iCount_Error)
         {
+            CDM_Day_Ke_Controller v_objCtrData = new();
 
+            StringBuilder v_sbError = new StringBuilder();
+            SqlConnection v_conn = null;
+            SqlTransaction v_trans = null;
+
+            try
+            {
+                DataTable v_dt = v_objCtrlExcel.List_Range_Value_To_End(0, "A2", "D");
+
+                // Loại mấy dòng trống
+                for (int v_i = v_dt.Rows.Count - 1; v_i >= 0; v_i--)
+                    if (v_dt.Rows[v_i][0].ToString().Trim() == "")
+                        v_dt.Rows.RemoveAt(v_i);
+
+                int v_iCount = 1;
+
+                foreach (DataRow v_row in v_dt.Rows)
+                {
+                    v_iCount++;
+
+                    //tao ket noi transaction
+                    v_conn = CSqlHelper.CreateConnection(CConfig.Quan_Ly_Kho_Data_Conn_String);
+                    v_conn.Open();
+                    v_trans = v_conn.BeginTransaction();
+
+                    try
+                    {
+                        CDM_Day_Ke v_objData = new CDM_Day_Ke();
+                        v_objData.Kho_ID = g_lngKho_ID;
+                        v_objData.Ma_Ke = CUtility.Convert_To_String(v_row[0]);
+                        v_objData.Ten_Ke = CUtility.Convert_To_String(v_row[1]);
+                        v_objData.Ghi_Chu = CUtility.Convert_To_String(v_row[2]);
+                        v_objData.Last_Updated_By = User_Name;
+                        v_objData.Last_Updated_By_Function = Function_Code;
+
+                        v_objData.Auto_ID = v_objCtrData.FQ_109_DK_sp_ins_Insert(v_conn, v_trans, v_objData);
+                        p_iCount_Success++;
+                        v_trans.Commit();
+
+                        CCache_Day_Ke.Add_Data(v_objData);
+                    }
+                    catch (Exception ex)
+                    {
+                        v_sbError.AppendLine("Dòng" + " " + v_iCount.ToString() + " " + "có lỗi" + ": " + ex.Message);
+
+                        if (v_trans != null)
+                            v_trans.Rollback();
+                    }
+
+                    finally
+                    {
+                        if (v_trans != null)
+                            v_trans.Dispose();
+
+                        if (v_conn != null)
+                            v_conn.Close();
+                    }
+                }
+
+                p_iCount_Error = v_dt.Rows.Count - p_iCount_Success;
+                if (v_sbError.ToString() != "")
+                    throw new(v_sbError.ToString());
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-
         protected override void Tim_Kiem_By_Key()
         {
             string v_strKey_Word = txtNoi_Dung_Tim_Kiem.Text;
@@ -106,6 +177,12 @@ namespace Quan_Ly_Kho_DM
             g_lngChu_Hang_ID = CUtility.Convert_To_Int64(cbbChu_Hang.SelectedValue);
             g_lngKho_ID = CUtility.Convert_To_Int64(cbbKho.SelectedValue);
         }
+        protected override void Delete_Data(long p_lngAuto_ID)
+        {
+            CDM_Day_Ke_Controller v_objCtrlData = new();
+            v_objCtrlData.FQ_109_DK_sp_del_Delete_By_ID(p_lngAuto_ID, User_Name, Function_Code);
 
+            CCache_Day_Ke.Delete_Data(p_lngAuto_ID);
+        }
     }
 }

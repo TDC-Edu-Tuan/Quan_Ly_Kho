@@ -31,6 +31,7 @@ namespace Quan_Ly_Kho_DM
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
@@ -51,6 +52,7 @@ namespace Quan_Ly_Kho_DM
             dtmFrom = new DateTimePicker();
             label3 = new Label();
             grdData = new DataGridView();
+            alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grdData).BeginInit();
@@ -300,5 +302,6 @@ namespace Quan_Ly_Kho_DM
         private Label label5;
         private Label label1;
         private TextBox txtNoi_Dung_Tim_Kiem;
+        private DevExpress.XtraBars.Alerter.AlertControl alertControl1;
     }
 }

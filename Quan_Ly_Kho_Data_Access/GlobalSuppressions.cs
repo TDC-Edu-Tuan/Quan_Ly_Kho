@@ -6,5 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Usage", "CA2200:Rethrow to preserve stack details", Justification = "<Pending>", Scope = "member", Target = "~M:Quan_Ly_Kho_Data_Access.DataLayer.CSqlHelper.FillDataTable(System.String,System.String,System.Object[])~System.Data.DataTable")]
-[assembly: SuppressMessage("Usage", "CA2200:Rethrow to preserve stack details", Justification = "<Pending>", Scope = "member", Target = "~M:Quan_Ly_Kho_Data_Access.DataLayer.CSqlHelper.ExecuteScarlar(System.String,System.String,System.Object[])~System.Object")]
 [assembly: SuppressMessage("Usage", "CA2200:Rethrow to preserve stack details", Justification = "<Pending>", Scope = "member", Target = "~M:Quan_Ly_Kho_Data_Access.DataLayer.CSqlHelper.ExecuteNonquery(System.String,System.String,System.Object[])")]

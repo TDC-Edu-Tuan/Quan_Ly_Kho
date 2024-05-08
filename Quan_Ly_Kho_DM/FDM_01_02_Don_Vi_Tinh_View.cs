@@ -21,7 +21,7 @@ namespace Quan_Ly_Kho_DM
 
             txtDVT.Text = m_objData.Ten_Don_Vi_Tinh;
             txtGhi_Chu.Text = m_objData.Ghi_Chu;
-
+            
             Created.Text = CUtility.Convert_DateTime_To_String(m_objData.Created);
             Created_By.Text = m_objData.Created_By;
             Created_By_Function.Text = m_objData.Created_By_Function;

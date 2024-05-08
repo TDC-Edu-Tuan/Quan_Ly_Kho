@@ -25,6 +25,13 @@ namespace Quan_Ly_Kho_Common
 
                     //Cache cơ bản
                     CCache_Don_Vi_Tinh.Load_Cache_DM_Don_Vi_Tinh();
+                    CCache_Loai_San_Pham.Load_Cache_DM_Loai_San_Pham();
+                    CCache_San_Pham.Load_Cache_DM_San_Pham();
+                    CCache_Day_Ke.Load_Cache_DM_Day_Ke();
+                    CCache_Vi_Tri.Load_Cache_DM_Vi_Tri();
+                    CCache_NCC.Load_Cache_DM_NCC();
+                    CCache_Noi_Xuat_Den.Load_Cache_DM_Noi_Xuat_Den();
+                    CCache_Nhan_Vien_Kho.Load_Cache_DM_Nhan_Vien_Kho();
 
                     v_bIs_First_Load_Cache = false; // Stop load cache
 

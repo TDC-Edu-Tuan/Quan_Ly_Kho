@@ -75,5 +75,9 @@ namespace Quan_Ly_Kho_Data_Data_Access.Controller.Cache
 
             return null;
         }
+
+        public static List<CDM_Chu_Hang> List_Data() {
+            return Arr_Data.ToList();
+}
     }
 }

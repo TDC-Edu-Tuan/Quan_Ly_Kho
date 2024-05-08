@@ -53,6 +53,7 @@
             cbbCH_User.Name = "cbbCH_User";
             cbbCH_User.Size = new Size(167, 24);
             cbbCH_User.TabIndex = 5;
+            cbbCH_User.SelectedIndexChanged += cbbCH_User_SelectedIndexChanged;
             // 
             // btnSave
             // 
