@@ -1,4 +1,4 @@
-﻿namespace Quan_Ly_Kho_DM
+﻿namespace Quan_Ly_Kho_Sys
 {
     partial class FSys_001_01_Thanh_Vien_List
     {

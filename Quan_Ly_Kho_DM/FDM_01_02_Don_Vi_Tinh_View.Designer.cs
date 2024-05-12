@@ -274,7 +274,7 @@
             Created_By_Function.TabIndex = 9;
             Created_By_Function.KeyPress += text_KeyPress;
             // 
-            // FDM_02_02_Loai_San_Pham_View
+            // FDM_01_02_Don_Vi_Tinh_View
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -283,7 +283,7 @@
             Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FDM_02_02_Loai_San_Pham_View";
+            Name = "FDM_01_02_Don_Vi_Tinh_View";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Chi Tiết";
             Load += Load_Form;

@@ -17,12 +17,15 @@
     <ProjectReference Include="..\Quan_Ly_Kho_Controls\Quan_Ly_Kho_Controls.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_Data_Access\Quan_Ly_Kho_Data_Access.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_DM\Quan_Ly_Kho_DM.csproj" />
+    <ProjectReference Include="..\Quan_Ly_Kho_Nhap_Kho\Quan_Ly_Kho_Nhap_Kho.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_Report\Quan_Ly_Kho_Report.csproj" />
     <ProjectReference Include="..\Quan_Ly_Kho_Sys\Quan_Ly_Kho_Sys.csproj" />
+    <ProjectReference Include="..\Quan_Ly_Kho_Ton_Kho\Quan_Ly_Kho_Ton_Kho.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="FileManamangent\Excel\" />
+    <Folder Include="FileManamangent\images\icon\" />
     <Folder Include="FileManamangent\Template\" />
     <Folder Include="Reports\" />
   </ItemGroup>

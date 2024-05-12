@@ -1,11 +1,11 @@
 ﻿using Microsoft.Data.SqlClient;
+using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
 using System.Data;
 
 
-namespace Quan_Ly_Kho_Data
+namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Co_Ban
 {
     public class CDM_Vi_Tri_Controller
     {

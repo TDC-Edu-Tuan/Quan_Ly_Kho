@@ -1,13 +1,11 @@
-﻿using DevExpress.XtraEditors;
-using Quan_Ly_Kho_Common;
+﻿using Quan_Ly_Kho_Common;
 using Quan_Ly_Kho_Controls;
-using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Controller.Cache;
+using Quan_Ly_Kho_Data_Access.Controller.Sys;
+using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
-using Quan_Ly_Kho_Data_Data_Access.Controller.Cache;
-using Quan_Ly_Kho_Sys;
 
-namespace Quan_Ly_Kho_DM
+namespace Quan_Ly_Kho_Sys
 {
     public partial class FSys_001_03_Thanh_Vien_Edit : FBase
     {
@@ -72,6 +70,7 @@ namespace Quan_Ly_Kho_DM
             m_objData.SDT = txtSDT.Text;
             m_objData.Ho_Ten = txtHo_Ten.Text;
             m_objData.Email = txtEmail.Text;
+            m_objData.Nhom_Thanh_Vien_ID = CUtility.Convert_To_Int32(cbbNhom_Thanh_Vien.SelectedValue);
             m_objData.Last_Updated_By = User_Name;
             m_objData.Last_Updated_By_Function = Function_Code;
 
@@ -88,7 +87,7 @@ namespace Quan_Ly_Kho_DM
             //Gán lại dữ liệu
 
             //Nếu mật khẩu khác đã được nhập
-           
+
             m_objData.Ma_Dang_Nhap = txtMa_Dang_Nhap.Text;
 
             if (m_strMat_Khau != CUtility.MD5_Encrypt(txtMat_Khau.Text))
@@ -98,6 +97,7 @@ namespace Quan_Ly_Kho_DM
             m_objData.SDT = txtSDT.Text;
             m_objData.Ho_Ten = txtHo_Ten.Text;
             m_objData.Email = txtEmail.Text;
+            m_objData.Nhom_Thanh_Vien_ID = CUtility.Convert_To_Int32(cbbNhom_Thanh_Vien.SelectedValue);
             m_objData.Last_Updated_By = User_Name;
             m_objData.Last_Updated_By_Function = Function_Code;
 
@@ -111,11 +111,6 @@ namespace Quan_Ly_Kho_DM
         protected override void Closed_Form()
         {
             Close();
-        }
-
-        private void txtSDT_EditValueChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Quan_Ly_Kho_Data_Access.DataLayer
     {
         public static SqlConnection CreateConnection(string p_strConnection_String)
         {
-            SqlConnection v_conn = new(p_strConnection_String);
-
+            SqlConnection v_conn = new();
+            v_conn.ConnectionString = p_strConnection_String.Trim();
             if (v_conn == null)
                 throw new Exception("Chuỗi kết nối có vấn đề.");
 

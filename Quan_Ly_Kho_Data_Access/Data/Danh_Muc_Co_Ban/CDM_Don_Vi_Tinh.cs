@@ -1,6 +1,6 @@
 ﻿using Quan_Ly_Kho_Data_Access.Utility;
 
-namespace Quan_Ly_Kho_Data
+namespace Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban
 {
     public class CDM_Don_Vi_Tinh
     {

@@ -1,9 +1,9 @@
 ﻿using Quan_Ly_Kho_Common;
-using Quan_Ly_Kho_Data;
+using Quan_Ly_Kho_Data_Access.Controller.Sys;
+using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
-using Quan_Ly_Kho_Sys;
 
-namespace Quan_Ly_Kho_DM
+namespace Quan_Ly_Kho_Sys
 {
     public partial class FSys_001_02_Thanh_Vien_View : FBase
     {

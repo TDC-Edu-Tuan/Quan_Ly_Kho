@@ -1,13 +1,4 @@
-﻿using Quan_Ly_Kho_Data;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban;
 
 namespace Quan_Ly_Kho_Controls.Danh_Muc
 {
@@ -25,7 +16,7 @@ namespace Quan_Ly_Kho_Controls.Danh_Muc
             if (g_bIs_Success == false)
                 return;
 
-            p_objCombo.DataSource = p_arrData;
+            p_objCombo.DataSource = p_arrData.ToList();
             p_objCombo.ValueMember = p_strValue_Field;
             p_objCombo.DisplayMember = p_strValue_Display;
 

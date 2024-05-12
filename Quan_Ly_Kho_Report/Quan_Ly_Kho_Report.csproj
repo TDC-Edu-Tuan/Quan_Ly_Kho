@@ -11,4 +11,8 @@
     <PackageReference Include="DevExpress.Reporting.Core" Version="22.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Quan_Ly_Kho_Data_Access\Quan_Ly_Kho_Data_Access.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -54,8 +54,11 @@ namespace Quan_Ly_Kho
             FDM_06_NCC = new AccordionControlElement();
             FDM_07_Noi_Xuat_Den = new AccordionControlElement();
             Nhap_Hang = new AccordionControlElement();
+            FXNK_001_Ke_Hoach_Nhap = new AccordionControlElement();
+            FXNK_002_Quan_Ly_NK = new AccordionControlElement();
             Tool_Quan_Tri = new AccordionControlElement();
             FSys_001_Thanh_Vien = new AccordionControlElement();
+            FSys_002_Frozen_Column = new AccordionControlElement();
             Xuat_Hang = new AccordionControlElement();
             Ton_Kho = new AccordionControlElement();
             Ca_Nhan = new AccordionControlElement();
@@ -66,6 +69,7 @@ namespace Quan_Ly_Kho
             Reload_Item = new DevExpress.XtraBars.BarButtonItem();
             fluentFormDefaultManager1 = new FluentFormDefaultManager(components);
             Container = new FluentDesignFormContainer();
+            FXNK_001_Vi_Tri_Co_Hang = new AccordionControlElement();
             ((ISupportInitialize)Menu).BeginInit();
             ((ISupportInitialize)fluentDesignFormControl1).BeginInit();
             ((ISupportInitialize)fluentFormDefaultManager1).BeginInit();
@@ -95,7 +99,6 @@ namespace Quan_Ly_Kho
             Danh_Muc.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Danh_Muc.Appearance.Default.Options.UseFont = true;
             Danh_Muc.Elements.AddRange(new AccordionControlElement[] { Danh_Muc_Quan_Tri, Danh_Muc_Co_Ban });
-            Danh_Muc.Expanded = true;
             Danh_Muc.Name = "Danh_Muc";
             Danh_Muc.Text = "Danh Mục";
             // 
@@ -104,7 +107,6 @@ namespace Quan_Ly_Kho
             Danh_Muc_Quan_Tri.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Danh_Muc_Quan_Tri.Appearance.Default.Options.UseFont = true;
             Danh_Muc_Quan_Tri.Elements.AddRange(new AccordionControlElement[] { FDM_08_Kho, FDM_09_Kho_User, FDM_10_Chu_Hang, FDM_11_Chu_Hang_User, FDM_12_Nhan_Vien_Kho });
-            Danh_Muc_Quan_Tri.Expanded = true;
             Danh_Muc_Quan_Tri.Name = "Danh_Muc_Quan_Tri";
             Danh_Muc_Quan_Tri.Text = "Quản Trị";
             // 
@@ -216,15 +218,31 @@ namespace Quan_Ly_Kho
             // 
             Nhap_Hang.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Nhap_Hang.Appearance.Default.Options.UseFont = true;
+            Nhap_Hang.Elements.AddRange(new AccordionControlElement[] { FXNK_001_Ke_Hoach_Nhap, FXNK_002_Quan_Ly_NK });
             Nhap_Hang.Name = "Nhap_Hang";
             Nhap_Hang.Text = "Nhập Hàng";
+            // 
+            // FXNK_001_Ke_Hoach_Nhap
+            // 
+            FXNK_001_Ke_Hoach_Nhap.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            FXNK_001_Ke_Hoach_Nhap.Appearance.Default.Options.UseFont = true;
+            FXNK_001_Ke_Hoach_Nhap.Name = "FXNK_001_Ke_Hoach_Nhap";
+            FXNK_001_Ke_Hoach_Nhap.Style = ElementStyle.Item;
+            FXNK_001_Ke_Hoach_Nhap.Text = "Kế hoạch";
+            // 
+            // FXNK_002_Quan_Ly_NK
+            // 
+            FXNK_002_Quan_Ly_NK.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            FXNK_002_Quan_Ly_NK.Appearance.Default.Options.UseFont = true;
+            FXNK_002_Quan_Ly_NK.Name = "FXNK_002_Quan_Ly_NK";
+            FXNK_002_Quan_Ly_NK.Style = ElementStyle.Item;
+            FXNK_002_Quan_Ly_NK.Text = "Quản lý phiếu nhập";
             // 
             // Tool_Quan_Tri
             // 
             Tool_Quan_Tri.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Tool_Quan_Tri.Appearance.Default.Options.UseFont = true;
-            Tool_Quan_Tri.Elements.AddRange(new AccordionControlElement[] { FSys_001_Thanh_Vien });
-            Tool_Quan_Tri.Expanded = true;
+            Tool_Quan_Tri.Elements.AddRange(new AccordionControlElement[] { FSys_001_Thanh_Vien, FSys_002_Frozen_Column });
             Tool_Quan_Tri.Name = "Tool_Quan_Tri";
             Tool_Quan_Tri.Text = "Quản Trị";
             // 
@@ -235,6 +253,14 @@ namespace Quan_Ly_Kho
             FSys_001_Thanh_Vien.Name = "FSys_001_Thanh_Vien";
             FSys_001_Thanh_Vien.Style = ElementStyle.Item;
             FSys_001_Thanh_Vien.Text = "Thành Viên";
+            // 
+            // FSys_002_Frozen_Column
+            // 
+            FSys_002_Frozen_Column.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            FSys_002_Frozen_Column.Appearance.Default.Options.UseFont = true;
+            FSys_002_Frozen_Column.Name = "FSys_002_Frozen_Column";
+            FSys_002_Frozen_Column.Style = ElementStyle.Item;
+            FSys_002_Frozen_Column.Text = "Đóng Băng Cột";
             // 
             // Xuat_Hang
             // 
@@ -248,6 +274,7 @@ namespace Quan_Ly_Kho
             // 
             Ton_Kho.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Ton_Kho.Appearance.Default.Options.UseFont = true;
+            Ton_Kho.Elements.AddRange(new AccordionControlElement[] { FXNK_001_Vi_Tri_Co_Hang });
             Ton_Kho.Expanded = true;
             Ton_Kho.Name = "Ton_Kho";
             Ton_Kho.Text = "Tồn Kho";
@@ -325,6 +352,12 @@ namespace Quan_Ly_Kho
             Container.Size = new System.Drawing.Size(720, 434);
             Container.TabIndex = 0;
             // 
+            // FXNK_001_Vi_Tri_Co_Hang
+            // 
+            FXNK_001_Vi_Tri_Co_Hang.Name = "FXNK_001_Vi_Tri_Co_Hang";
+            FXNK_001_Vi_Tri_Co_Hang.Style = ElementStyle.Item;
+            FXNK_001_Vi_Tri_Co_Hang.Text = "Vị Trí Có Hàng";
+            // 
             // FMain
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -381,6 +414,10 @@ namespace Quan_Ly_Kho
         private AccordionControlElement Dang_Xuat_Item;
         private DevExpress.XtraSplashScreen.SplashScreenManager Loading_Control;
         private DevExpress.XtraBars.BarButtonItem Reload_Item;
+        private AccordionControlElement FXNK_001_Ke_Hoach_Nhap;
+        private AccordionControlElement FSys_002_Frozen_Column;
+        private AccordionControlElement FXNK_002_Quan_Ly_NK;
+        private AccordionControlElement FXNK_001_Vi_Tri_Co_Hang;
     }
 }
 

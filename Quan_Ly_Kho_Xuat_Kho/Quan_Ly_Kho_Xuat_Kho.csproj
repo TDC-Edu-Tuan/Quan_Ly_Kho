@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Win.Design" Version="22.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Quan_Ly_Kho_Common\Quan_Ly_Kho_Common.csproj" />
+    <ProjectReference Include="..\Quan_Ly_Kho_Controls\Quan_Ly_Kho_Controls.csproj" />
+    <ProjectReference Include="..\Quan_Ly_Kho_Data_Access\Quan_Ly_Kho_Data_Access.csproj" />
+    <ProjectReference Include="..\Quan_Ly_Kho_Report\Quan_Ly_Kho_Report.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Xuat_Kho\FXNK_001_02_Ke_Hoach_Xuat_View.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Xuat_Kho\FXNK_001_03_Chinh_Sua_Detail_Phieu_Xuat_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Xuat_Kho\FXNK_001_03_Ke_Hoach_Xuat_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Xuat_Kho\FXNK_001_03_Them_Detail_Xuat_Kho_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Xuat_Kho\FXNK_001_03_Update_Info_Phieu_Xuat_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Xuat_Kho\FXNK_001_03_Update_XK_Details_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

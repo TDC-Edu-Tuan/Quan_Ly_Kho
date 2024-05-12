@@ -1,7 +1,5 @@
 ﻿using Quan_Ly_Kho_Common;
-using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
-using Quan_Ly_Kho_Sys;
 using System;
 using System.Windows.Forms;
 

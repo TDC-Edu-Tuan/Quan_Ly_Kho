@@ -149,6 +149,16 @@ namespace Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban
             get { return m_strLast_Updated_By_Function; }
             set { m_strLast_Updated_By_Function = value.Trim(); }
         }
+
+        public string San_Pham_Combo
+        {
+            get
+            {
+                return CUtility.Tao_Combo_Text(m_strMa_SP, m_strTen_SP);
+
+            }
+
+        }
     }
 
 }

@@ -1,6 +1,6 @@
 ﻿using Quan_Ly_Kho_Data_Access.Utility;
 
-namespace Quan_Ly_Kho_Sys
+namespace Quan_Ly_Kho_Data_Access.Data.Sys
 {
     public class CSys_Thanh_Vien
     {

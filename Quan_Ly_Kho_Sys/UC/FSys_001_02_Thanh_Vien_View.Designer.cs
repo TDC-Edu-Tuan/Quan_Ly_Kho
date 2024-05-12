@@ -1,6 +1,6 @@
 ﻿using DevExpress.DXTemplateGallery.Extensions;
 
-namespace Quan_Ly_Kho_DM
+namespace Quan_Ly_Kho_Sys
 {
     partial class FSys_001_02_Thanh_Vien_View
     {

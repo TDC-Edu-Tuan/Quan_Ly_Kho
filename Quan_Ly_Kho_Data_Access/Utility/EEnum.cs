@@ -29,8 +29,28 @@
         Success = 1004,
         Reload = 1005,
         New = 1006,
-
-
         None = 0,
+    }
+
+    public enum ETrang_Thai_Nhap_Kho
+    {
+        New = 0,
+        Da_Nhan = 1,
+        Dang_Vao_Ton = 2,
+        Hoan_Thanh_Vao_Ton = 3,
+
+
+    }
+    public enum ETrang_Thai_TK_ID
+    { 
+        New = 1,
+        Dang_Xuat = 2,
+        Da_Xuat = 3,
+
+    }
+
+    public enum ETrang_Thai_Xuat_Kho
+    {
+        New = 1,
     }
 }

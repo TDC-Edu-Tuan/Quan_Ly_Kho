@@ -1,9 +1,9 @@
-﻿using Quan_Ly_Kho_Data;
+﻿using Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Co_Ban;
 using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban;
 using Quan_Ly_Kho_Data_Access.Utility;
 
 
-namespace Quan_Ly_Kho_Data_Data_Access.Controller.Cache
+namespace Quan_Ly_Kho_Data_Access.Controller.Cache
 {
     public class CCache_San_Pham
     {

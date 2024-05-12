@@ -1,9 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
+using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Quan_Tri;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
 using System.Data;
 
-namespace Quan_Ly_Kho_Data
+namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Quan_Tri
 {
     public class CDM_Kho_User_Controller
     {
@@ -126,7 +127,7 @@ namespace Quan_Ly_Kho_Data
             return v_objRes;
         }
 
-        public CDM_Kho_User FQ_117_KU_sp_sel_Get_By_ID(SqlConnection p_conn,SqlTransaction p_trans,long p_iID)
+        public CDM_Kho_User FQ_117_KU_sp_sel_Get_By_ID(SqlConnection p_conn, SqlTransaction p_trans, long p_iID)
         {
             CDM_Kho_User v_objRes = null;
             DataTable v_dt = new DataTable();

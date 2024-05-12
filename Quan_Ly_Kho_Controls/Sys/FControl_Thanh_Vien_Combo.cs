@@ -1,10 +1,5 @@
-﻿using Quan_Ly_Kho_Data;
-using Quan_Ly_Kho_Sys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Quan_Ly_Kho_Data_Access.Data.Sys;
 
 namespace Quan_Ly_Kho_Controls.Sys
 {
@@ -22,7 +17,7 @@ namespace Quan_Ly_Kho_Controls.Sys
             if (g_bIs_Success == false)
                 return;
 
-            p_objCombo.DataSource = p_arrData;
+            p_objCombo.DataSource = p_arrData.ToList();
             p_objCombo.ValueMember = p_strValue_Field;
             p_objCombo.DisplayMember = p_strValue_Display;
 

@@ -1,6 +1,7 @@
-﻿using Quan_Ly_Kho_Data;
+﻿using Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Quan_Tri;
+using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Quan_Tri;
 using Quan_Ly_Kho_Data_Access.Utility;
-namespace Quan_Ly_Kho_Data_Data_Access.Controller.Cache
+namespace Quan_Ly_Kho_Data_Access.Controller.Cache
 {
     public class CCache_Chu_Hang
     {
@@ -76,8 +77,9 @@ namespace Quan_Ly_Kho_Data_Data_Access.Controller.Cache
             return null;
         }
 
-        public static List<CDM_Chu_Hang> List_Data() {
+        public static List<CDM_Chu_Hang> List_Data()
+        {
             return Arr_Data.ToList();
-}
+        }
     }
 }

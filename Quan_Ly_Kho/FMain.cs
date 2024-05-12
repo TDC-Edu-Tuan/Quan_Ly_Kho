@@ -1,11 +1,10 @@
 ﻿using DevExpress.XtraBars.FluentDesignSystem;
 using DevExpress.XtraBars.Navigation;
 using Quan_Ly_Kho_Common;
-using Quan_Ly_Kho_Controls.Danh_Muc;
-using Quan_Ly_Kho_Data;
+using Quan_Ly_Kho_Data_Access.Controller.Cache;
+using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Quan_Tri;
 using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
-using Quan_Ly_Kho_Data_Data_Access.Controller.Cache;
 using Quan_Ly_Kho_DM;
 using Quan_Ly_Kho_Sys;
 using System;
@@ -136,7 +135,7 @@ namespace Quan_Ly_Kho
                 case (int)ENhom_Thanh_Vien.Data:
                     Load_Data(v_arrChuc_Nang);
                     break;
-             
+
             }
 
 
@@ -303,6 +302,7 @@ namespace Quan_Ly_Kho
 
                 switch (v_strFunction_Code)
                 {
+                    #region Danh mục
                     case "FDM_01_Don_Vi_Tinh":
                         v_objUS_Base = new FDM_01_01_Don_Vi_Tinh_List();
                         CSystem.State = (int)EStatus_Type.New;
@@ -351,14 +351,42 @@ namespace Quan_Ly_Kho
                         v_objUS_Base = new FDM_12_01_Nhan_Vien_Kho_List();
                         CSystem.State = (int)EStatus_Type.New;
                         break;
+                    #endregion
+
+                    #region Nhập Kho
+                    case "FXNK_001_Ke_Hoach_Nhap":
+                        v_objUS_Base = new FXNK_001_01_Ke_Hoach_Nhap_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FXNK_002_Quan_Ly_NK":
+                        v_objUS_Base = new FXNK_002_01_Quan_Ly_Nhap_Kho_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+
+                    #endregion
+                    #region
+                    case "FXNK_001_Vi_Tri_Co_Hang":
+                        v_objUS_Base = new FXNK_001_01_Vi_Tri_Co_Hang();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    #endregion
+                    #region Sys
                     case "FSys_001_Thanh_Vien":
                         v_objUS_Base = new FSys_001_01_Thanh_Vien_List();
                         CSystem.State = (int)EStatus_Type.New;
                         break;
+
+                    case "FSys_002_Frozen_Column":
+                        v_objUS_Base = new FSys_002_01_Frozen_Column_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    #endregion
+
+                    #region Tool
                     case "Dang_Xuat_Item":
                         CSystem.State = (int)EStatus_Type.Closed_And_Reload;
                         break;
-
+                        #endregion
                 }
                 //Load control
                 switch (CSystem.State)

@@ -1,6 +1,4 @@
-﻿using DevExpress.XtraBars.Alerter;
-using Quan_Ly_Kho_Data_Access.Utility;
-using System.Reflection;
+﻿using Quan_Ly_Kho_Data_Access.Utility;
 
 namespace Quan_Ly_Kho_Common
 {
@@ -39,7 +37,7 @@ namespace Quan_Ly_Kho_Common
         /// <param name="p_strField_Value"></param>
         /// <param name="p_strDisplay"></param>
 
-    
+
         public static DialogResult Show_Message_Box(string p_strHeader, string p_strCaption, int p_iType = 0)
         {
             DialogResult v_dlr = new DialogResult();
@@ -67,21 +65,6 @@ namespace Quan_Ly_Kho_Common
             return v_dlr;
         }
 
-
-        #region Start load Alert
-        public static void Show_Alert(AlertControl p_objAlert, Form p_objForm, string title, string message)
-        {
-            // Set properties for the alert control
-            p_objAlert.AutoFormDelay = 1;
-            p_objAlert.FormLocation = AlertFormLocation.BottomRight; // Set alert location
-
-            // Disable pin button (optional)
-            p_objAlert.ShowPinButton = false;
-
-            AlertInfo info = new AlertInfo(title, message);
-            p_objAlert.Show(p_objForm, info);
-        }
-        #endregion Stop load alert
 
     }
 }

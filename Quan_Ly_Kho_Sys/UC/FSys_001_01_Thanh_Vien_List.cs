@@ -1,16 +1,14 @@
-﻿using DevExpress.Map.Native;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Quan_Ly_Kho_Common;
-using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Controller.Cache;
+using Quan_Ly_Kho_Data_Access.Controller.Sys;
+using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
-using Quan_Ly_Kho_Sys;
 using System.Data;
-using System.IO;
 using System.Text;
 
-namespace Quan_Ly_Kho_DM
+namespace Quan_Ly_Kho_Sys
 {
     public partial class FSys_001_01_Thanh_Vien_List : UCBase
     {
@@ -20,6 +18,7 @@ namespace Quan_Ly_Kho_DM
         {
             InitializeComponent();
             g_bIs_View_Permission = true;
+            g_bIs_Updated_Permission = true;
             g_bIs_Deleted_Permission = true;
 
             // Chuyển đổi mã màu hex thành màu Color

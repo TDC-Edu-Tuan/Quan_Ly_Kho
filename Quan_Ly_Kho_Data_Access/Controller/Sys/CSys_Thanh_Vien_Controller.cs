@@ -1,10 +1,11 @@
 ﻿using Microsoft.Data.SqlClient;
+using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
 using System.Data;
 
 
-namespace Quan_Ly_Kho_Sys
+namespace Quan_Ly_Kho_Data_Access.Controller.Sys
 {
     public class CSys_Thanh_Vien_Controller
     {

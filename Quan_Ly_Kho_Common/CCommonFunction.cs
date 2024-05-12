@@ -1,5 +1,5 @@
-﻿using Quan_Ly_Kho_Data_Access.Utility;
-using Quan_Ly_Kho_Data_Data_Access.Controller.Cache;
+﻿using Quan_Ly_Kho_Data_Access.Controller.Cache;
+using Quan_Ly_Kho_Data_Access.Utility;
 using System.IO;
 
 namespace Quan_Ly_Kho_Common
@@ -17,6 +17,10 @@ namespace Quan_Ly_Kho_Common
                 v_bIs_First_Load_Cache = true; // Start load cache
                 try
                 {
+                    //Sys
+                    CCache_Thanh_Vien.Load_Thanh_Vien();
+                    CCache_Frozen_Column.Load_Frozen_Column();
+
                     //Cache quản trị
                     CCache_Kho.Load_Cache_DM_Kho();
                     CCache_Kho_User.Load_Cache_DM_Kho_User();

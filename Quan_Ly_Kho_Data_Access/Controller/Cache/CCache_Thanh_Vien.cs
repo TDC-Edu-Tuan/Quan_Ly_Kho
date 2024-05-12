@@ -1,12 +1,13 @@
-﻿using Quan_Ly_Kho_Data_Access.Utility;
-using Quan_Ly_Kho_Sys;
+﻿using Quan_Ly_Kho_Data_Access.Controller.Sys;
+using Quan_Ly_Kho_Data_Access.Data.Sys;
+using Quan_Ly_Kho_Data_Access.Utility;
 
 namespace Quan_Ly_Kho_Data_Access.Controller.Cache
 {
     public class CCache_Thanh_Vien
     {
         private static List<CSys_Thanh_Vien> Arr_Data = new();
-        private static Dictionary<string, CSys_Thanh_Vien> Dic_Code = new();
+        private static Dictionary<string, CSys_Thanh_Vien> Dic_Code = new Dictionary<string, CSys_Thanh_Vien>();
 
         public static void Load_Thanh_Vien()
         {
@@ -18,8 +19,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Cache
 
         public static void Add_Data(CSys_Thanh_Vien p_objData)
         {
-            if (p_objData == null)
-                return;
+
 
             //Kiểm tra trên mảng
             if (Arr_Data.FirstOrDefault(it => it.Ma_Dang_Nhap == p_objData.Ma_Dang_Nhap) != null)
@@ -54,10 +54,9 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Cache
 
         public static void Update_Data(CSys_Thanh_Vien p_objData)
         {
-            if (p_objData == null)
-                return;
+            string v_strKey = CUtility.Tao_Key(p_objData.Ma_Dang_Nhap);
 
-            if (Arr_Data.FirstOrDefault(it => it.Auto_ID == p_objData.Auto_ID) == null)
+            if (Dic_Code.ContainsKey(v_strKey) == false)
                 return;
 
             Delete_Data(p_objData.Auto_ID);

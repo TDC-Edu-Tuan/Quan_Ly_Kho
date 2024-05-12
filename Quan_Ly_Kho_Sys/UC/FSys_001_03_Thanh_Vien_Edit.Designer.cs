@@ -1,6 +1,6 @@
 ﻿using DevExpress.XtraMap.Native;
 
-namespace Quan_Ly_Kho_DM
+namespace Quan_Ly_Kho_Sys
 {
     partial class FSys_001_03_Thanh_Vien_Edit
     {
@@ -146,8 +146,7 @@ namespace Quan_Ly_Kho_DM
             txtSDT.Name = "txtSDT";
             txtSDT.Size = new Size(156, 22);
             txtSDT.TabIndex = 8;
-            txtSDT.EditValueChanged += txtSDT_EditValueChanged;
-            // 
+             // 
             // label4
             // 
             label4.AutoSize = true;

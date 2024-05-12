@@ -1,17 +1,17 @@
-﻿using DevExpress.CodeParser;
-using DevExpress.XtraRichEdit.Fields;
-using OfficeOpenXml;
-using Quan_Ly_Kho_Data;
+﻿using OfficeOpenXml;
+using Quan_Ly_Kho_Data_Access.Controller.Cache;
+using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Quan_Tri;
+using Quan_Ly_Kho_Data_Access.Data.Sys;
 using Quan_Ly_Kho_Data_Access.Utility;
 using System.IO;
-using System.Text;
 
 namespace Quan_Ly_Kho_Common
 {
     public partial class UCBase : UserControl
     {
         #region Các biến control system
-        private bool g_bIs_First_Load = CConst.IS_VALUE_NULL;
+
+        private bool m_bIs_First_Load_Completed = CConst.IS_VALUE_NULL;
 
         public string Function_Code { get; set; } = CConst.STR_VALUE_NULL;
         public string User_Name { get; set; } = CConst.STR_VALUE_NULL;
@@ -29,10 +29,15 @@ namespace Quan_Ly_Kho_Common
 
         protected Dictionary<string, int> g_dicCol_Size = new();
         protected Dictionary<string, string> g_dicCol_Name = new();
+        protected Dictionary<string, int> g_dicCol_Index = new();
+        protected Dictionary<int, long> g_dicCheck = new(); // Danh sách các chỉ mục của các dòng được chọn
+
 
         protected bool g_bIs_Deleted_Permission = CConst.IS_VALUE_NULL;
         protected bool g_bIs_Updated_Permission = CConst.IS_VALUE_NULL;
         protected bool g_bIs_View_Permission = CConst.IS_VALUE_NULL;
+        protected bool g_bIs_Print_Permission = CConst.IS_VALUE_NULL;
+
 
         protected bool g_bIs_Update { get; set; } = CConst.IS_VALUE_NULL;
 
@@ -64,13 +69,17 @@ namespace Quan_Ly_Kho_Common
             try
             {
 
-                if (g_bIs_First_Load == false)
+                if (m_bIs_First_Load_Completed == false)
                 {
                     Load_Init();
+                    m_bIs_First_Load_Completed = true;
 
-                    g_grdData.CellContentClick += Cell_Content_Click;
+                    if (g_grdData != null)
+                    {
+                        g_grdData.CellContentClick += Cell_Content_Click;
+                        g_grdData.Scroll += Frozen_Columns;
+                    }
 
-                    g_bIs_First_Load = true;
                 }
 
                 Load_Data();
@@ -95,7 +104,7 @@ namespace Quan_Ly_Kho_Common
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected virtual void Delete_Data_Entry(object sender, EventArgs e)
+        protected void Delete_Data_Entry(long p_lngAuto_ID)
         {
             DateTime v_dtmStart = DateTime.Now;
 
@@ -103,8 +112,14 @@ namespace Quan_Ly_Kho_Common
             {
                 if (DialogResult.Yes == FCommonFunction.Show_Message_Box("Thông báo", "Bạn có muốn xóa dòng dữ liệu này", (int)EMessage_Type.Question))
                 {
-                    Delete_Data(g_lngAuto_ID);
+                    Delete_Data(p_lngAuto_ID);
                     Load_Data();
+
+                    var pairToRemove = g_dicCheck.FirstOrDefault(it => it.Value.Equals(p_lngAuto_ID));
+                    if (!pairToRemove.Equals(default(KeyValuePair<int, ValueType>)))
+                    {
+                        g_dicCheck.Remove(pairToRemove.Key);
+                    }
                 }
             }
             catch (Exception ex)
@@ -133,6 +148,9 @@ namespace Quan_Ly_Kho_Common
                     Add_Data();
 
                 End_Loading();
+
+                Closed_Form();
+
             }
             catch (Exception ex)
             {
@@ -150,8 +168,8 @@ namespace Quan_Ly_Kho_Common
         /// <param name="e"></param>
         protected void Open_Edit(object sender, EventArgs e)
         {
-            Open_Edit_Data(g_lngAuto_ID);
-            Load_Form(sender, e);
+            Open_Edit_Data(0);
+            Load_Data();
         }
 
         /// <summary>
@@ -215,7 +233,7 @@ namespace Quan_Ly_Kho_Common
                 string v_strError = $"Import Excel không thành công với {v_iCount_Error} lỗi \n";
                 v_strError += ex.Message;
                 CLogger.Save_Trace_Error_Log("Import_Excel", Function_Code + ": Import_Excel", "Import excel by: " + User_Name, v_strError, (DateTime.Now - v_dtmStart).TotalSeconds);
-              
+
                 End_Loading();//
 
                 FCommonFunction.Show_Message_Box("Thông báo", v_strError, (int)EMessage_Type.Error);
@@ -260,6 +278,11 @@ namespace Quan_Ly_Kho_Common
             }
         }
 
+        protected void Open_Print_Report(long p_lngAuto_ID)
+        {
+            Open_Print_Data(p_lngAuto_ID);
+
+        }
 
         /// <summary>
         /// Hàm tìm kiếm theo keys
@@ -273,7 +296,7 @@ namespace Quan_Ly_Kho_Common
 
         protected void Combobox_Selected_Index_Changed(object sender, EventArgs e)
         {
-            if (g_bIs_First_Load == true)
+            if (m_bIs_First_Load_Completed == true)
             {
                 Combobox_Selected_Index_Changed();
                 Load_Form(sender, e);
@@ -343,6 +366,12 @@ namespace Quan_Ly_Kho_Common
 
         }
 
+        protected virtual void Open_Print_Data(long p_lngAuto_ID)
+        {
+
+        }
+
+
         /// <summary>
         /// Hàm xử lý data import excel
         /// </summary>
@@ -354,28 +383,75 @@ namespace Quan_Ly_Kho_Common
 
         }
 
+        protected virtual void Tim_Kiem_By_Key()
+        {
+
+        }
+
+        protected virtual void Closed_Form()
+        {
+
+        }
+
+        protected virtual void Combobox_Selected_Index_Changed()
+        {
+
+        }
+
         /// <summary>
         /// Dùng để format lại grid view
         /// </summary>
         protected void Format_Grid<T>(List<T> p_arrData)
         {
-            g_grdData.Columns.Clear();
-
-            g_grdData.DataSource = p_arrData;
-
-            //Load CSystem button
-            Load_System_Button();
-
-            // Tính toán lại chiều dài các cột và thiết lập kiểu cho từng cột
-            foreach (DataGridViewColumn v_item in g_grdData.Columns)
+            try
             {
-                if (v_item.Name != "btnUpdated" && v_item.Name != "btnView" && v_item.Name != "btnDeleted")
+                g_grdData.CellContentClick -= Cell_Content_Click;
+                g_grdData.Scroll -= Frozen_Columns;
+
+                g_grdData.DataSource = null;
+                g_grdData.Columns.Clear();
+                g_grdData.Rows.Clear();
+
+                System.Reflection.PropertyInfo[] v_arrProperties = typeof(T).GetProperties();
+                if (v_arrProperties.Length == 0)
+                    return;
+
+                g_grdData.DataSource = p_arrData.ToList();
+
+                // Tính toán lại chiều dài các cột và thiết lập kiểu cho từng cột
+                foreach (DataGridViewColumn v_item in g_grdData.Columns)
+                {
                     // Gọi phương thức Col_Custom để thiết lập kiểu cho cột
                     Col_Custom(v_item);
-            }
+                }
 
-            // Áp dụng định dạng cho ô dữ liệu
-            Apply_Cell_Formatting();
+                //4 cột của hệ thống check, deleted, view, update
+                //Đổi vị trí cột
+                if (g_dicCol_Index.Count > 0)
+                {
+                    foreach (string v_strCol_Name in g_dicCol_Index.Keys)
+                    {
+                        // Đổi vị trí cột trong DataGridView
+                        if (g_grdData.Columns[v_strCol_Name] != CConst.OBJ_VALUE_NULL)
+                            g_grdData.Columns[v_strCol_Name].DisplayIndex = g_dicCol_Index[v_strCol_Name];
+                    }
+                }
+
+                //Load CSystem button
+                Load_System_Button();
+
+                // Áp dụng định dạng cho ô dữ liệu
+                Apply_Cell_Formatting();
+
+
+                g_grdData.CellContentClick += Cell_Content_Click;
+                g_grdData.Scroll += Frozen_Columns;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -410,7 +486,7 @@ namespace Quan_Ly_Kho_Common
                 DataGridViewImageColumn v_ImgCol = new();
                 v_ImgCol.Resizable = DataGridViewTriState.False;
                 v_ImgCol.Name = p_strName;
-                v_ImgCol.Width = 40;
+                v_ImgCol.Width = 60;
                 v_ImgCol.Image = p_icon;
                 v_ImgCol.ImageLayout = DataGridViewImageCellLayout.Zoom; // Zoom ảnh trong ô
                 v_colRes = v_ImgCol;
@@ -420,21 +496,16 @@ namespace Quan_Ly_Kho_Common
                 DataGridViewCheckBoxColumn v_checkBoxCol = new();
                 v_checkBoxCol.Resizable = DataGridViewTriState.False;
                 v_checkBoxCol.Name = p_strName;
-                v_checkBoxCol.Width = 40;
+                v_checkBoxCol.Width = 60;
                 v_colRes = v_checkBoxCol;
             }
 
             g_grdData.Columns.Insert(p_intIndex, v_colRes);
         }
 
-        protected virtual void Tim_Kiem_By_Key()
-        {
-
-        }
-
         protected void Start_Loading()
         {
-            if (g_bIs_First_Load == false)
+            if (m_bIs_First_Load_Completed == false)
             {
                 InitializeComponent();
             }
@@ -446,11 +517,42 @@ namespace Quan_Ly_Kho_Common
             Loading_Control.CloseWaitForm();
         }
 
-
-        protected virtual void Combobox_Selected_Index_Changed()
+        protected void text_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            e.Handled = true; // Ngăn chặn sự kiện KeyPress được xử lý
         }
+
+        protected void Col_Custom(DataGridViewColumn p_col)
+        {
+            // Căn giữa header của cột
+            p_col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // Kiểm tra col có trong danh sách cột ẩn không
+            if (g_arrCol_Hiden.Contains(p_col.HeaderText))
+            {
+                p_col.Visible = false; // Ẩn cột đó đi
+            }
+
+            // Kiểm tra cột hiện
+            if (p_col.Visible)
+            {
+                // Kiểm tra col có khai báo chỉnh độ rộng cột không 
+                if (g_dicCol_Size.ContainsKey(p_col.Name))
+                {
+                    p_col.Width = g_dicCol_Size[p_col.Name]; // Set độ rộng bằng khai báo
+                }
+
+                // Kiểm tra col có trong danh sách thay đổi tên cột không 
+                if (g_dicCol_Name.ContainsKey(p_col.Name))
+                {
+                    p_col.HeaderText = g_dicCol_Name[p_col.Name];
+                }
+            }
+
+            // Ngăn người dùng điều chỉnh độ rộng của cột
+            p_col.Resizable = DataGridViewTriState.False;
+        }
+
 
         #endregion
 
@@ -480,38 +582,49 @@ namespace Quan_Ly_Kho_Common
         {
             string v_strDelete_Icon_Path = CUtility.Find_File_In_Solution("delete.png");
             string v_strSettings_Icon_Path = CUtility.Find_File_In_Solution("settings.png");
-
             string v_strView_Icon_Path = CUtility.Find_File_In_Solution("view.png");
+            string v_strPrinting_Icon_Path = CUtility.Find_File_In_Solution("printing.png");
+
 
             // Load hình ảnh từ tệp và tạo đối tượng Image
             Image v_objDeleted_Icon = Image.FromFile(v_strDelete_Icon_Path);
             Image v_objSetting_Icon = Image.FromFile(v_strSettings_Icon_Path);
             Image v_objView_Icon = Image.FromFile(v_strView_Icon_Path);
+            Image v_objPrint_Icon = Image.FromFile(v_strPrinting_Icon_Path);
+
 
             //Thêm check box, view, deleted
             DataGridViewImageColumn v_objView_Col = new();
             DataGridViewImageColumn v_objDel_Col = new();
             DataGridViewImageColumn v_objSet_Col = new();
+            DataGridViewImageColumn v_objPrint_Col = new();
+
             DataGridViewCheckBoxColumn v_objCheck_Col = new();
 
             Add_Button_Column("btnCheck", v_objCheck_Col, 0);
             Add_Button_Column("btnView", v_objView_Col, 1, v_objView_Icon);
             Add_Button_Column("btnUpdated", v_objSet_Col, 2, v_objSetting_Icon);
             Add_Button_Column("btnDeleted", v_objDel_Col, 3, v_objDeleted_Icon);
+            Add_Button_Column("btnPrint", v_objPrint_Col, 4, v_objPrint_Icon);
+
 
             g_grdData.Columns["btnUpdated"].Visible = g_bIs_Updated_Permission;
             g_grdData.Columns["btnDeleted"].Visible = g_bIs_Deleted_Permission;
             g_grdData.Columns["btnView"].Visible = g_bIs_View_Permission;
+            g_grdData.Columns["btnPrint"].Visible = g_bIs_Print_Permission;
 
             g_grdData.Columns["btnUpdated"].HeaderText = "Cập nhật";
             g_grdData.Columns["btnDeleted"].HeaderText = "Xóa";
             g_grdData.Columns["btnView"].HeaderText = "View";
             g_grdData.Columns["btnCheck"].HeaderText = "";
+            g_grdData.Columns["btnPrint"].HeaderText = "In";
+
 
             Col_Custom(g_grdData.Columns["btnUpdated"]);
             Col_Custom(g_grdData.Columns["btnDeleted"]);
             Col_Custom(g_grdData.Columns["btnView"]);
             Col_Custom(g_grdData.Columns["btnCheck"]);
+            Col_Custom(g_grdData.Columns["btnPrint"]);
 
 
         }
@@ -536,6 +649,8 @@ namespace Quan_Ly_Kho_Common
                 p_dgv.Columns["btnUpdated"].Visible = false;
                 p_dgv.Columns["btnView"].Visible = false;
                 p_dgv.Columns["btnDeleted"].Visible = false;
+                p_dgv.Columns["btnPrint"].Visible = false;
+
 
 
                 // Thêm tiêu đề của cột vào worksheet
@@ -582,67 +697,68 @@ namespace Quan_Ly_Kho_Common
                 v_Package.SaveAs(new FileInfo(v_strLog_Excel));
 
                 //Hiện lại 3 cột đó trên grid
-                p_dgv.Columns["btnCheck"].Visible = false;
-                p_dgv.Columns["btnUpdated"].Visible = false;
-                p_dgv.Columns["btnView"].Visible = false;
-                p_dgv.Columns["btnDeleted"].Visible = false;
+                p_dgv.Columns["btnCheck"].Visible = true;
+                p_dgv.Columns["btnUpdated"].Visible = true;
+                p_dgv.Columns["btnView"].Visible = true;
+                p_dgv.Columns["btnDeleted"].Visible = true;
+                p_dgv.Columns["btnPrint"].Visible = true;
+
 
             }
-        }
-
-        private void Col_Custom(DataGridViewColumn p_col)
-        {
-            // Căn giữa header của cột
-            p_col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            // Kiểm tra col có trong danh sách cột ẩn không
-            if (g_arrCol_Hiden.Contains(p_col.HeaderText))
-            {
-                p_col.Visible = false; // Ẩn cột đó đi
-            }
-
-            // Kiểm tra cột hiện
-            if (p_col.Visible)
-            {
-                // Kiểm tra col có khai báo chỉnh độ rộng cột không 
-                if (g_dicCol_Size.ContainsKey(p_col.Name))
-                {
-                    p_col.Width = g_dicCol_Size[p_col.Name]; // Set độ rộng bằng khai báo
-                }
-
-                // Kiểm tra col có trong danh sách thay đổi tên cột không 
-                if (g_dicCol_Name.ContainsKey(p_col.Name))
-                {
-                    p_col.HeaderText = g_dicCol_Name[p_col.Name];
-                }
-            }
-
-            // Ngăn người dùng điều chỉnh độ rộng của cột
-            p_col.Resizable = DataGridViewTriState.False;
         }
 
         private void Cell_Content_Click(object? sender, DataGridViewCellEventArgs e)
         {
-            // Kiểm tra xem cột được click 
-            if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
+            // Kiểm tra xem sự kiện được kích hoạt từ ô checkbox
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0 && g_grdData.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
             {
                 // Lấy giá trị của cột Auto_ID từ hàng được click
-                g_lngAuto_ID = CUtility.Convert_To_Int64(g_grdData.Rows[e.RowIndex].Cells["Auto_ID"].Value);
+                long v_lngAuto_ID = CUtility.Convert_To_Int64(g_grdData.Rows[e.RowIndex].Cells["Auto_ID"].Value);
+                int v_IntRow_Index = e.RowIndex;
+
+                // Kiểm tra xem dòng được click đã được chọn hay chưa
+                if (!g_dicCheck.ContainsKey(v_IntRow_Index))
+                {
+                    // Nếu dòng chưa được chọn, thêm chỉ mục của dòng vào danh sách
+                    g_dicCheck.Add(v_IntRow_Index, v_lngAuto_ID);
+                }
+                else
+                {
+                    // Nếu dòng đã được chọn, loại bỏ chỉ mục của dòng khỏi danh sách
+                    g_dicCheck.Remove(v_IntRow_Index);
+                }
+
+                foreach (int v_item in g_dicCheck.Keys)
+                {
+                    DataGridViewCheckBoxCell v_cbkCell = g_grdData.Rows[v_item].Cells[e.ColumnIndex] as DataGridViewCheckBoxCell;
+                    v_cbkCell.Value = true; // Đặt giá trị của ô checkbox là true nếu dòng đã được chọn, ngược lại là false
+                }
+
+            }
+            else if (e.ColumnIndex >= 0 && e.RowIndex >= 0 && g_grdData.Rows.Count != CConst.INT_VALUE_NULL) // Nếu không phải là ô checkbox, xử lý các sự kiện khác như bạn đã làm trước đó
+            {
+                // Lấy giá trị của cột Auto_ID từ hàng được click
+                object value = g_grdData.Rows[e.RowIndex].Cells["Auto_ID"].Value;
+                long v_lngAuto_ID = CUtility.Convert_To_Int64(g_grdData.Rows[e.RowIndex].Cells["Auto_ID"].Value);
 
                 string v_strCol_Name = g_grdData.Columns[e.ColumnIndex].Name;
 
                 switch (v_strCol_Name)
                 {
                     case "btnView":
-                        Open_View(sender, e);
+                        Open_View_Data(v_lngAuto_ID);
                         break;
                     case "btnUpdated":
-                        Open_Edit(sender, e);
+                        Open_Edit_Data(v_lngAuto_ID);
                         break;
                     case "btnDeleted":
-                        Delete_Data_Entry(sender, e);
+                        Delete_Data_Entry(v_lngAuto_ID);
+                        break;
+                    case "btnPrint":
+                        Open_Print_Report(v_lngAuto_ID);
                         break;
                 }
+                Load_Data();
             }
         }
 
@@ -654,8 +770,24 @@ namespace Quan_Ly_Kho_Common
 
         private DevExpress.XtraSplashScreen.SplashScreenManager Loading_Control;
 
+        private void Frozen_Columns(object? sender, ScrollEventArgs e)
+        {
+
+            if (e.ScrollOrientation == System.Windows.Forms.ScrollOrientation.HorizontalScroll)
+            {
+                foreach (DataGridViewColumn v_col in g_grdData.Columns)
+                {
+                    //Kiểm tra khai báo đóng băng cột chưa
+                    CSys_Frozen_Column v_objFrozen_Col = CCache_Frozen_Column.Get_Data_By_Code(Function_Code, v_col.HeaderText);
+
+                    if (v_objFrozen_Col != null)
+                    {
+                        v_col.Frozen = true;
+                    }
+                }
+            }
+        }
 
         #endregion
-
     }
 }

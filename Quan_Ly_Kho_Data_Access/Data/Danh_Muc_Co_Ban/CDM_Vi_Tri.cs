@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Data;
-using Quan_Ly_Kho_Data_Access.Utility;
+﻿using Quan_Ly_Kho_Data_Access.Utility;
 
-namespace Quan_Ly_Kho_Data
+namespace Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban
 {
     public class CDM_Vi_Tri
     {
@@ -185,6 +180,15 @@ namespace Quan_Ly_Kho_Data
             {
                 m_strLast_Updated_By_Function = value.Trim();
             }
+        }
+
+        public string Vi_Tri_Combo
+        {
+            get
+            {
+                return CUtility.Tao_Combo_Text(m_strMa_Vi_Tri, m_strTen_Vi_Tri);
+            }
+
         }
     }
 }
