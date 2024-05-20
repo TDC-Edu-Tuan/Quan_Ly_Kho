@@ -125,15 +125,8 @@ namespace Quan_Ly_Kho_Data_Access.Utility
         public static string Find_File_In_Solution(string p_strFileName)
         {
             string v_strRes = CConst.STR_VALUE_NULL;
-            // Lấy đường dẫn đến thư mục gốc của solution
-            string v_strSolutionDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 
-            // Tìm tất cả các tệp tin có tên fileName trong solution
-            string[] v_arrFiles = Directory.GetFiles(v_strSolutionDirectory, p_strFileName, SearchOption.AllDirectories);
-
-            // Nếu tìm thấy ít nhất một tệp tin, trả về đường dẫn của tệp tin đầu tiên
-            if (v_arrFiles.Length > 0)
-                v_strRes = v_arrFiles[0];
+            v_strRes = Path.GetFullPath(p_strFileName);
 
             return v_strRes;
         }

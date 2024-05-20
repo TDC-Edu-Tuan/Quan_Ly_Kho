@@ -242,5 +242,5 @@ namespace Quan_Ly_Kho_Data_Access.Data.Nhap_Kho
         public string So_Phieu_Nhap { get => m_strSo_Phieu_Nhap; set => m_strSo_Phieu_Nhap = value.Trim(); }
         public string Ma_SP { get => m_strMa_SP; set => m_strMa_SP = value.Trim(); }
         public string Ten_SP { get => m_strTen_SP; set => m_strTen_SP = value.Trim(); }
-     }
+    }
 }

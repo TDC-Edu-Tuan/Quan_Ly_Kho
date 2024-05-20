@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Data;
-using Quan_Ly_Kho_Data_Access.Utility;
+﻿using Quan_Ly_Kho_Data_Access.Utility;
 
-namespace Quan_Ly_Kho_Data
+namespace Quan_Ly_Kho_Data_Access.Data.Xuat_kho
 {
     public class CXNK_Xuat_Kho
     {
@@ -282,7 +277,7 @@ namespace Quan_Ly_Kho_Data
 
                 return v_strRes;
             }
-          
+
         }
 
 

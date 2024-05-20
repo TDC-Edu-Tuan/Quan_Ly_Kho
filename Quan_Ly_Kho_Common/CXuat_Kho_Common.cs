@@ -1,7 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
-using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Controller.Cache;
+using Quan_Ly_Kho_Data_Access.Controller.Ton_Kho;
+using Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho;
 using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban;
+using Quan_Ly_Kho_Data_Access.Data.Ton_Kho;
+using Quan_Ly_Kho_Data_Access.Data.Xuat_kho;
 using Quan_Ly_Kho_Data_Access.Utility;
 
 namespace Quan_Ly_Kho_Common

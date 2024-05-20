@@ -42,7 +42,7 @@ namespace Quan_Ly_Kho_Common
                 }
                 catch (Exception)
                 {
-
+                    CLogger.Save_Trace_Error_Log("Load Cache", "Load_Cache", "Load Cache ", "Cache load quá lâu", v_span.TotalSeconds);
                 }
 
                 v_span = DateTime.Now - v_dtmStart;

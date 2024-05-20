@@ -1,4 +1,8 @@
-﻿namespace Quan_Ly_Kho_Xuat_Kho.Xuat_Kho
+﻿using Quan_Ly_Kho_Data_Access.Controller.Ton_Kho;
+using Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho;
+using Quan_Ly_Kho_Data_Access.Data.Xuat_kho;
+
+namespace Quan_Ly_Kho_Xuat_Kho.Xuat_Kho
 {
     public partial class FXNK_001_03_Update_XK_Details_Edit : FBase
     {

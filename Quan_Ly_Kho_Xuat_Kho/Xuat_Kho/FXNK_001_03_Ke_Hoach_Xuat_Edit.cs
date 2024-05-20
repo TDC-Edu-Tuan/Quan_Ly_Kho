@@ -1,4 +1,6 @@
-﻿using Quan_Ly_Kho_Xuat_Kho.Xuat_Kho;
+﻿using Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho;
+using Quan_Ly_Kho_Data_Access.Data.Xuat_kho;
+using Quan_Ly_Kho_Xuat_Kho.Xuat_Kho;
 
 namespace Quan_Ly_Kho_DM
 {

@@ -1,13 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
-using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Controller.Nhap_Kho;
+using Quan_Ly_Kho_Data_Access.Controller.Ton_Kho;
 using Quan_Ly_Kho_Data_Access.Data.Nhap_Kho;
+using Quan_Ly_Kho_Data_Access.Data.Ton_Kho;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quan_Ly_Kho_Common
 {
@@ -39,7 +35,7 @@ namespace Quan_Ly_Kho_Common
                 v_objRaw.Last_Updated_By_Function = p_objData.Last_Updated_By_Function;
 
                 //Update raw data của phiếu
-                v_objCtrlRaw_Data.FQ_719_NKRD_sp_upd_Update(p_conn,p_trans, v_objRaw);
+                v_objCtrlRaw_Data.FQ_719_NKRD_sp_upd_Update(p_conn, p_trans, v_objRaw);
 
                 //Update tồn
                 v_objCtrlData.FQ_722_TK_sp_upd_Update(p_conn, p_trans, p_objData);

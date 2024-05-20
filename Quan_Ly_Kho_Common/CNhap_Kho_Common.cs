@@ -1,9 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
-using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Controller.Cache;
 using Quan_Ly_Kho_Data_Access.Controller.Nhap_Kho;
+using Quan_Ly_Kho_Data_Access.Controller.Ton_Kho;
 using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban;
 using Quan_Ly_Kho_Data_Access.Data.Nhap_Kho;
+using Quan_Ly_Kho_Data_Access.Data.Ton_Kho;
 using Quan_Ly_Kho_Data_Access.Utility;
 
 namespace Quan_Ly_Kho_Common
@@ -211,7 +212,7 @@ namespace Quan_Ly_Kho_Common
 
                 //Kiêm tra trong tồn
                 CXNK_Ton_Kho v_objTK = p_objCtrl_TK.FQ_722_TK_sp_sel_Get_By_Raw_Data_ID(p_conn, p_trans, p_lngNK_Raw_ID);
-               
+
                 if (v_objTK != null)
                 {
                     //Nếu nó khác trạng thái new tức là đã xuất thì k cho xóa

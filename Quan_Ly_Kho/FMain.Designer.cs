@@ -61,6 +61,7 @@ namespace Quan_Ly_Kho
             FSys_002_Frozen_Column = new AccordionControlElement();
             Xuat_Hang = new AccordionControlElement();
             Ton_Kho = new AccordionControlElement();
+            FXNK_001_Vi_Tri_Co_Hang = new AccordionControlElement();
             Ca_Nhan = new AccordionControlElement();
             Dang_Xuat_Item = new AccordionControlElement();
             fluentDesignFormControl1 = new FluentDesignFormControl();
@@ -69,7 +70,6 @@ namespace Quan_Ly_Kho
             Reload_Item = new DevExpress.XtraBars.BarButtonItem();
             fluentFormDefaultManager1 = new FluentFormDefaultManager(components);
             Container = new FluentDesignFormContainer();
-            FXNK_001_Vi_Tri_Co_Hang = new AccordionControlElement();
             ((ISupportInitialize)Menu).BeginInit();
             ((ISupportInitialize)fluentDesignFormControl1).BeginInit();
             ((ISupportInitialize)fluentFormDefaultManager1).BeginInit();
@@ -275,9 +275,14 @@ namespace Quan_Ly_Kho
             Ton_Kho.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Ton_Kho.Appearance.Default.Options.UseFont = true;
             Ton_Kho.Elements.AddRange(new AccordionControlElement[] { FXNK_001_Vi_Tri_Co_Hang });
-            Ton_Kho.Expanded = true;
             Ton_Kho.Name = "Ton_Kho";
             Ton_Kho.Text = "Tồn Kho";
+            // 
+            // FXNK_001_Vi_Tri_Co_Hang
+            // 
+            FXNK_001_Vi_Tri_Co_Hang.Name = "FXNK_001_Vi_Tri_Co_Hang";
+            FXNK_001_Vi_Tri_Co_Hang.Style = ElementStyle.Item;
+            FXNK_001_Vi_Tri_Co_Hang.Text = "Vị Trí Có Hàng";
             // 
             // Ca_Nhan
             // 
@@ -351,12 +356,6 @@ namespace Quan_Ly_Kho
             Container.Name = "Container";
             Container.Size = new System.Drawing.Size(720, 434);
             Container.TabIndex = 0;
-            // 
-            // FXNK_001_Vi_Tri_Co_Hang
-            // 
-            FXNK_001_Vi_Tri_Co_Hang.Name = "FXNK_001_Vi_Tri_Co_Hang";
-            FXNK_001_Vi_Tri_Co_Hang.Style = ElementStyle.Item;
-            FXNK_001_Vi_Tri_Co_Hang.Text = "Vị Trí Có Hàng";
             // 
             // FMain
             // 

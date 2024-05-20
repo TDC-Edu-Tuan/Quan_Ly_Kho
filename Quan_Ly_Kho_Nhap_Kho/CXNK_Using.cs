@@ -20,7 +20,5 @@ global using System.Drawing;
 global using System.Linq;
 global using System.Text;
 global using System.Windows.Forms;
-global using Quan_Ly_Kho_Data;
-
 //Chỉ đinh using control
 global using ComboBox = System.Windows.Forms.ComboBox;

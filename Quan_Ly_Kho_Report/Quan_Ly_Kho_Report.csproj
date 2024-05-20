@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="DevExpress.Reporting.Core" Version="22.2.3" />
+    <PackageReference Include="DevExpress.Win.Design" Version="22.2.3" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
   </ItemGroup>
 
   <ItemGroup>

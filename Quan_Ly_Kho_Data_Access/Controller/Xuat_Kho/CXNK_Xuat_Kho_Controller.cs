@@ -1,11 +1,11 @@
 ﻿using Microsoft.Data.SqlClient;
+using Quan_Ly_Kho_Data_Access.Data.Xuat_kho;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
 using System.Data;
 
 
-namespace Quan_Ly_Kho_Data
+namespace Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho
 {
     public class CXNK_Xuat_Kho_Controller
     {
@@ -232,7 +232,7 @@ namespace Quan_Ly_Kho_Data
         {
             try
             {
-                CSqlHelper.ExecuteNonquery(p_conn,p_trans,"FQ_728_XK_sp_del_Delete_By_ID", p_iAuto_ID, p_strLast_Updated_By, p_strLast_Updated_By_Function);
+                CSqlHelper.ExecuteNonquery(p_conn, p_trans, "FQ_728_XK_sp_del_Delete_By_ID", p_iAuto_ID, p_strLast_Updated_By, p_strLast_Updated_By_Function);
             }
 
             catch (Exception)

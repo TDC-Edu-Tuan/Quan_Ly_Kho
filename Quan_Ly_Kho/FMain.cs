@@ -300,6 +300,10 @@ namespace Quan_Ly_Kho
                 string v_strFunction_Code = v_objClicked.Name;
                 string v_strFunction_Name = v_objClicked.Text;
 
+                //Nếu không khai báo mã chức năng thì đóng mẹ nó đi
+                if (v_strFunction_Code == CConst.STR_VALUE_NULL)
+                    return;
+
                 switch (v_strFunction_Code)
                 {
                     #region Danh mục
@@ -364,12 +368,14 @@ namespace Quan_Ly_Kho
                         break;
 
                     #endregion
-                    #region
+
+                    #region Tồn Kho
                     case "FXNK_001_Vi_Tri_Co_Hang":
                         v_objUS_Base = new FXNK_001_01_Vi_Tri_Co_Hang();
                         CSystem.State = (int)EStatus_Type.New;
                         break;
                     #endregion
+
                     #region Sys
                     case "FSys_001_Thanh_Vien":
                         v_objUS_Base = new FSys_001_01_Thanh_Vien_List();

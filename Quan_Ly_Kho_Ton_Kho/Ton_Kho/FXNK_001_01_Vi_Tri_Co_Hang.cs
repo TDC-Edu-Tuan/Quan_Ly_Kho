@@ -1,6 +1,7 @@
 ﻿using Quan_Ly_Kho_Common;
 using Quan_Ly_Kho_Controls.Danh_Muc;
-using Quan_Ly_Kho_Data;
+using Quan_Ly_Kho_Data_Access.Controller.Ton_Kho;
+using Quan_Ly_Kho_Data_Access.Data.Ton_Kho;
 using Quan_Ly_Kho_Data_Access.Utility;
 using Quan_Ly_Kho_Ton_Kho.Ton_Kho;
 using System.Data;

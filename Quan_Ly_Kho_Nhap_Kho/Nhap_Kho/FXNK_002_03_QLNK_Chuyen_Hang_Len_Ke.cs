@@ -1,4 +1,7 @@
-﻿namespace Quan_Ly_Kho_Nhap_Kho.Nhap_Kho
+﻿using Quan_Ly_Kho_Data_Access.Controller.Ton_Kho;
+using Quan_Ly_Kho_Data_Access.Data.Ton_Kho;
+
+namespace Quan_Ly_Kho_Nhap_Kho.Nhap_Kho
 {
     public partial class FXNK_002_03_QLNK_Chuyen_Hang_Len_Ke : FBase
     {

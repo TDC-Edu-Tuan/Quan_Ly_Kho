@@ -1,20 +1,12 @@
-﻿using DevExpress.XtraEditors;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Quan_Ly_Kho_Common;
 using Quan_Ly_Kho_Controls.Danh_Muc;
-using Quan_Ly_Kho_Data;
 using Quan_Ly_Kho_Data_Access.Controller.Cache;
+using Quan_Ly_Kho_Data_Access.Controller.Ton_Kho;
 using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban;
+using Quan_Ly_Kho_Data_Access.Data.Ton_Kho;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Quan_Ly_Kho_Ton_Kho.Ton_Kho
 {

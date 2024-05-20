@@ -1,4 +1,6 @@
-﻿using Quan_Ly_Kho_Xuat_Kho.Xuat_Kho;
+﻿using Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho;
+using Quan_Ly_Kho_Data_Access.Data.Xuat_kho;
+using Quan_Ly_Kho_Xuat_Kho.Xuat_Kho;
 
 namespace Quan_Ly_Kho_DM
 {
@@ -237,7 +239,7 @@ namespace Quan_Ly_Kho_DM
                 v_conn.Open();
                 v_trans = v_conn.BeginTransaction();
 
-              //  CXuat_Kho_Common.Xoa_Phieu_Xuat(v_conn, v_trans, v_objCtrlNK, v_objCtrlNK_Raw, p_lngAuto_ID, User_Name, Function_Code);
+                //  CXuat_Kho_Common.Xoa_Phieu_Xuat(v_conn, v_trans, v_objCtrlNK, v_objCtrlNK_Raw, p_lngAuto_ID, User_Name, Function_Code);
 
                 v_trans.Commit();
             }

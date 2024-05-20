@@ -1,10 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
+using Quan_Ly_Kho_Data_Access.Data.Ton_Kho;
 using Quan_Ly_Kho_Data_Access.DataLayer;
 using Quan_Ly_Kho_Data_Access.Utility;
-using System;
 using System.Data;
 
-namespace Quan_Ly_Kho_Data
+namespace Quan_Ly_Kho_Data_Access.Controller.Ton_Kho
 {
     public class CXNK_Ton_Kho_Controller
     {

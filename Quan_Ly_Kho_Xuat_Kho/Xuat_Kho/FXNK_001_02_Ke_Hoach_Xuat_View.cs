@@ -1,4 +1,7 @@
-﻿namespace Quan_Ly_Kho_DM
+﻿using Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho;
+using Quan_Ly_Kho_Data_Access.Data.Xuat_kho;
+
+namespace Quan_Ly_Kho_DM
 {
     public partial class FXNK_001_02_Ke_Hoach_Xuat_View : FBase
     {

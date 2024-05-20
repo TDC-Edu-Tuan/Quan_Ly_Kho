@@ -265,6 +265,8 @@ namespace Quan_Ly_Kho_Common
 
                 End_Loading();
 
+                Load_Data();
+
                 FCommonFunction.Show_Message_Box("Thông báo", "Export thành công", (int)EMessage_Type.Success);
 
             }
@@ -281,7 +283,7 @@ namespace Quan_Ly_Kho_Common
         protected void Open_Print_Report(long p_lngAuto_ID)
         {
             Open_Print_Data(p_lngAuto_ID);
-
+            Load_Data();
         }
 
         /// <summary>
