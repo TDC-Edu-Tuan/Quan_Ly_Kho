@@ -40,6 +40,37 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Ton_Kho
             return v_arrRes;
         }
 
+
+        public List<CXNK_Ton_Kho> FQ_722_TK_sp_sel_List_By_San_Pham_ID(SqlConnection p_conn,SqlTransaction p_trans,long p_iSan_Pham_ID,long p_iChu_Hang_ID, long p_iKho_ID)
+        {
+            List<CXNK_Ton_Kho> v_arrRes = new List<CXNK_Ton_Kho>();
+            DataTable v_dt = new DataTable();
+
+            try
+            {
+                v_dt = CSqlHelper.FillDataTable(p_conn, p_trans, "FQ_722_TK_sp_sel_List_By_San_Pham_ID", p_iSan_Pham_ID, p_iChu_Hang_ID, p_iKho_ID);
+
+                foreach (DataRow v_row in v_dt.Rows)
+                {
+                    CXNK_Ton_Kho v_objRes = CUtility.Map_Row_To_Entity<CXNK_Ton_Kho>(v_row);
+                    v_arrRes.Add(v_objRes);
+                }
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
+            finally
+            {
+                v_dt.Dispose();
+            }
+
+            return v_arrRes;
+        }
+
+
         public CXNK_Ton_Kho FQ_722_TK_sp_sel_Get_By_ID(long p_iID)
         {
             CXNK_Ton_Kho v_objRes = null;

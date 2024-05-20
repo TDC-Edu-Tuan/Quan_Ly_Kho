@@ -376,6 +376,18 @@ namespace Quan_Ly_Kho
                         break;
                     #endregion
 
+                    #region Tồn Kho
+                    case "FXNK_001_Ke_Hoach_Xuat":
+                        v_objUS_Base = new FXNK_001_01_Ke_Hoach_Xuat_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    case "FXNK_002_Quan_Ly_Phieu_Xuat":
+                        v_objUS_Base = new FXNK_002_01_Quan_Ly_Xuat_Kho_List();
+                        CSystem.State = (int)EStatus_Type.New;
+                        break;
+                    #endregion
+
+
                     #region Sys
                     case "FSys_001_Thanh_Vien":
                         v_objUS_Base = new FSys_001_01_Thanh_Vien_List();
@@ -412,9 +424,19 @@ namespace Quan_Ly_Kho
 
         private void Reload_Item_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            CSystem.State = (int)EStatus_Type.Success;
-            CCommonFunction.Load_Cache();
+            try
+            {
+                CCommonFunction.Load_Cache();
+                CSystem.State = (int)EStatus_Type.Success;
+
+            }
+            catch (Exception)
+            {
+                CSystem.State = (int)EStatus_Type.Error;
+            }
             FMain_Load(sender, e);
+
+
         }
 
         #endregion end event

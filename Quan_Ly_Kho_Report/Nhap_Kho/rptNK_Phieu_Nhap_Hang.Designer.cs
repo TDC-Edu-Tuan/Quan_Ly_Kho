@@ -641,7 +641,7 @@
             this.Nhap_Kho_ID.Type = typeof(long);
             this.Nhap_Kho_ID.ValueInfo = "0";
             // 
-            // XtraReport1
+            // rptNK_Phieu_Nhap_Hang
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
             this.Detail,

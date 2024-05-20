@@ -74,6 +74,7 @@ namespace Quan_Ly_Kho_DM
         protected override void Open_Edit_Data(long p_lngAuto_ID)
         {
             FDM_03_03_San_Pham_Edit v_objEdit = new();
+            v_objEdit.g_lngKho_ID = g_lngKho_ID;
             v_objEdit.g_lngChu_Hang_ID = g_lngChu_Hang_ID;
 
             v_objEdit.g_lngAuto_ID = p_lngAuto_ID;

@@ -29,6 +29,7 @@
         Success = 1004,
         Reload = 1005,
         New = 1006,
+        Error = 1006,
         None = 0,
     }
 
@@ -52,5 +53,6 @@
     public enum ETrang_Thai_Xuat_Kho
     {
         New = 1,
+        Shipped = 2,
     }
 }

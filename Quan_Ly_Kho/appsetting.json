@@ -14,6 +14,18 @@
 
   //File
   "Folder_File_Management_Path": "C:\\File_Management",
-  "Time_Out": "300"
+  "Time_Out": "300",
+
+  "Host": "",
+
+  /* SMTP config cho việc gởi mail */
+  "Smtp_Host": "smtp.gmail.com",
+  "Smtp_UseDefaultCredentials": false,
+  "Smtp_Port": 587,
+  "Smtp_User": "tuan01218353867@gmail.com",
+  "Smtp_Pass": "bamsdmhqtinaeatc",
+  "Smtp_EnableSsl": true,
+  "Email_From": "tuan01218353867@gmail.com"
+
 
 }

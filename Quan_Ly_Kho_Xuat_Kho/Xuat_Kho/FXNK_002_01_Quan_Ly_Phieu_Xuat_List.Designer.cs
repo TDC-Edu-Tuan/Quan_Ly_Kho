@@ -1,7 +1,6 @@
-﻿
-namespace Quan_Ly_Kho_DM
+﻿namespace Quan_Ly_Kho_DM
 {
-    partial class FXNK_001_01_Ke_Hoach_Xuat_List
+    partial class FXNK_002_01_Quan_Ly_Xuat_Kho_List
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,11 +28,10 @@ namespace Quan_Ly_Kho_DM
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             panel1 = new Panel();
-            btnXac_Nhan = new Button();
             label1 = new Label();
             txtNoi_Dung_Tim_Kiem = new TextBox();
             panel2 = new Panel();
@@ -41,9 +39,7 @@ namespace Quan_Ly_Kho_DM
             label6 = new Label();
             cbbKho = new ComboBox();
             label5 = new Label();
-            btnImport = new Button();
             btnExport = new Button();
-            btnAdd_Data = new Button();
             btnTim_Kiem = new Button();
             dtmTo = new DateTimePicker();
             label4 = new Label();
@@ -57,7 +53,6 @@ namespace Quan_Ly_Kho_DM
             // 
             // panel1
             // 
-            panel1.Controls.Add(btnXac_Nhan);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(txtNoi_Dung_Tim_Kiem);
             panel1.Controls.Add(panel2);
@@ -67,17 +62,6 @@ namespace Quan_Ly_Kho_DM
             panel1.Name = "panel1";
             panel1.Size = new Size(1821, 495);
             panel1.TabIndex = 0;
-            // 
-            // btnXac_Nhan
-            // 
-            btnXac_Nhan.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnXac_Nhan.Location = new Point(1492, 173);
-            btnXac_Nhan.Name = "btnXac_Nhan";
-            btnXac_Nhan.Size = new Size(117, 38);
-            btnXac_Nhan.TabIndex = 16;
-            btnXac_Nhan.Text = "Xác Nhận Xuất";
-            btnXac_Nhan.UseVisualStyleBackColor = true;
-            btnXac_Nhan.Click += btnPick_Hang_Click;
             // 
             // label1
             // 
@@ -104,9 +88,7 @@ namespace Quan_Ly_Kho_DM
             panel2.Controls.Add(label6);
             panel2.Controls.Add(cbbKho);
             panel2.Controls.Add(label5);
-            panel2.Controls.Add(btnImport);
             panel2.Controls.Add(btnExport);
-            panel2.Controls.Add(btnAdd_Data);
             panel2.Controls.Add(btnTim_Kiem);
             panel2.Controls.Add(dtmTo);
             panel2.Controls.Add(label4);
@@ -156,17 +138,6 @@ namespace Quan_Ly_Kho_DM
             label5.TabIndex = 8;
             label5.Text = "Kho";
             // 
-            // btnImport
-            // 
-            btnImport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnImport.Location = new Point(1515, 24);
-            btnImport.Name = "btnImport";
-            btnImport.Size = new Size(94, 46);
-            btnImport.TabIndex = 7;
-            btnImport.Text = "Import";
-            btnImport.UseVisualStyleBackColor = true;
-            btnImport.Click += Import_Excel;
-            // 
             // btnExport
             // 
             btnExport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -177,17 +148,6 @@ namespace Quan_Ly_Kho_DM
             btnExport.Text = "Export";
             btnExport.UseVisualStyleBackColor = true;
             btnExport.Click += Export_Excel;
-            // 
-            // btnAdd_Data
-            // 
-            btnAdd_Data.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdd_Data.Location = new Point(1349, 24);
-            btnAdd_Data.Name = "btnAdd_Data";
-            btnAdd_Data.Size = new Size(94, 46);
-            btnAdd_Data.TabIndex = 5;
-            btnAdd_Data.Text = "Thêm";
-            btnAdd_Data.UseVisualStyleBackColor = true;
-            btnAdd_Data.Click += Open_Edit;
             // 
             // btnTim_Kiem
             // 
@@ -242,34 +202,34 @@ namespace Quan_Ly_Kho_DM
             grdData.AllowUserToResizeRows = false;
             grdData.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             grdData.BackgroundColor = SystemColors.ButtonHighlight;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            grdData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            grdData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             grdData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            grdData.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            grdData.DefaultCellStyle = dataGridViewCellStyle2;
             grdData.GridColor = SystemColors.ButtonFace;
             grdData.Location = new Point(185, 229);
             grdData.Name = "grdData";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            grdData.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            grdData.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             grdData.RowHeadersVisible = false;
             grdData.RowHeadersWidth = 51;
             grdData.RowTemplate.Height = 29;
@@ -277,12 +237,12 @@ namespace Quan_Ly_Kho_DM
             grdData.TabIndex = 1;
             grdData.CellContentClick += grdData_CellContentClick;
             // 
-            // FXNK_001_01_Ke_Hoach_Xuat_List
+            // FXNK_002_01_Quan_Ly_Xuat_Kho_List
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
-            Name = "FXNK_001_01_Ke_Hoach_Xuat_List";
+            Name = "FXNK_002_01_Quan_Ly_Xuat_Kho_List";
             Size = new Size(1821, 495);
             Load += Load_Form;
             panel1.ResumeLayout(false);
@@ -298,13 +258,11 @@ namespace Quan_Ly_Kho_DM
         private Panel panel1;
         private DataGridView grdData;
         private Panel panel2;
-        private Button btnAdd_Data;
         private Button btnTim_Kiem;
         private DateTimePicker dtmTo;
         private Label label4;
         private DateTimePicker dtmFrom;
         private Label label3;
-        private Button btnImport;
         private Button btnExport;
         private ComboBox cbbChu_Hang;
         private Label label6;
@@ -312,6 +270,5 @@ namespace Quan_Ly_Kho_DM
         private Label label5;
         private Label label1;
         private TextBox txtNoi_Dung_Tim_Kiem;
-        private Button btnXac_Nhan;
     }
 }

@@ -59,14 +59,14 @@ namespace Quan_Ly_Kho_Common
 
         public static void Load_Config()
         {
-            string v_strJson_Path = CUtility.Find_File_In_Solution("appsetting.json");
-
             //Chuỗi kết nối
+            string v_strJson_Path = CUtility.Find_File_In_Solution("appsetting.json");
             CConfig.Quan_Ly_Kho_Data_Conn_String = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Quan_Ly_Kho_Data_Conn_String");
 
             //Format time
             CConfig.Date_Format_String = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Date_Format_String");
 
+            //Timeout
             CConfig.Time_Out = CUtility.Convert_To_Int32(CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Time_Out"));
 
             //Thông tin sản phẩm
@@ -75,6 +75,15 @@ namespace Quan_Ly_Kho_Common
             CConfig.Product_Auth = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Product_Auth");
             CConfig.Created = CUtility.Convert_String_To_Datetime(CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Created"));
             CConfig.Created_By = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Created_By");
+
+            //Thông tin cấu hình mail port
+            CConfig.Smtp_Host = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Smtp_Host");
+            CConfig.Smtp_UseDefaultCredentials = CUtility.Convert_To_Bool(CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Smtp_UseDefaultCredentials"));
+            CConfig.Smtp_Port = CUtility.Convert_To_Int32(CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Smtp_Port"));
+            CConfig.Smtp_User = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Smtp_User");
+            CConfig.Smtp_Pass = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Smtp_Pass");
+            CConfig.Smtp_EnableSsl = CUtility.Convert_To_Bool(CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Smtp_EnableSsl"));
+            CConfig.Email_From = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Email_From");
 
             //Tạo thư mục file Manamangent
             CConfig.Folder_File_Management_Path = CUtility.Map_Json_To_Entity_Field(v_strJson_Path, "Folder_File_Management_Path");

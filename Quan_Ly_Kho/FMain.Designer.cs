@@ -60,6 +60,8 @@ namespace Quan_Ly_Kho
             FSys_001_Thanh_Vien = new AccordionControlElement();
             FSys_002_Frozen_Column = new AccordionControlElement();
             Xuat_Hang = new AccordionControlElement();
+            FXNK_001_Ke_Hoach_Xuat = new AccordionControlElement();
+            FXNK_002_Quan_Ly_Phieu_Xuat = new AccordionControlElement();
             Ton_Kho = new AccordionControlElement();
             FXNK_001_Vi_Tri_Co_Hang = new AccordionControlElement();
             Ca_Nhan = new AccordionControlElement();
@@ -266,9 +268,25 @@ namespace Quan_Ly_Kho
             // 
             Xuat_Hang.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Xuat_Hang.Appearance.Default.Options.UseFont = true;
-            Xuat_Hang.Expanded = true;
+            Xuat_Hang.Elements.AddRange(new AccordionControlElement[] { FXNK_001_Ke_Hoach_Xuat, FXNK_002_Quan_Ly_Phieu_Xuat });
             Xuat_Hang.Name = "Xuat_Hang";
             Xuat_Hang.Text = "Xuất Hàng";
+            // 
+            // FXNK_001_Ke_Hoach_Xuat
+            // 
+            FXNK_001_Ke_Hoach_Xuat.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            FXNK_001_Ke_Hoach_Xuat.Appearance.Default.Options.UseFont = true;
+            FXNK_001_Ke_Hoach_Xuat.Name = "FXNK_001_Ke_Hoach_Xuat";
+            FXNK_001_Ke_Hoach_Xuat.Style = ElementStyle.Item;
+            FXNK_001_Ke_Hoach_Xuat.Text = "Kế Hoạch Xuất";
+            // 
+            // FXNK_002_Quan_Ly_Phieu_Xuat
+            // 
+            FXNK_002_Quan_Ly_Phieu_Xuat.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            FXNK_002_Quan_Ly_Phieu_Xuat.Appearance.Default.Options.UseFont = true;
+            FXNK_002_Quan_Ly_Phieu_Xuat.Name = "FXNK_002_Quan_Ly_Phieu_Xuat";
+            FXNK_002_Quan_Ly_Phieu_Xuat.Style = ElementStyle.Item;
+            FXNK_002_Quan_Ly_Phieu_Xuat.Text = "Quản Lý Phiếu Xuất";
             // 
             // Ton_Kho
             // 
@@ -280,6 +298,8 @@ namespace Quan_Ly_Kho
             // 
             // FXNK_001_Vi_Tri_Co_Hang
             // 
+            FXNK_001_Vi_Tri_Co_Hang.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            FXNK_001_Vi_Tri_Co_Hang.Appearance.Default.Options.UseFont = true;
             FXNK_001_Vi_Tri_Co_Hang.Name = "FXNK_001_Vi_Tri_Co_Hang";
             FXNK_001_Vi_Tri_Co_Hang.Style = ElementStyle.Item;
             FXNK_001_Vi_Tri_Co_Hang.Text = "Vị Trí Có Hàng";
@@ -289,7 +309,6 @@ namespace Quan_Ly_Kho
             Ca_Nhan.Appearance.Default.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Ca_Nhan.Appearance.Default.Options.UseFont = true;
             Ca_Nhan.Elements.AddRange(new AccordionControlElement[] { Dang_Xuat_Item });
-            Ca_Nhan.Expanded = true;
             Ca_Nhan.Name = "Ca_Nhan";
             Ca_Nhan.Text = "Cá Nhân";
             // 
@@ -417,6 +436,8 @@ namespace Quan_Ly_Kho
         private AccordionControlElement FSys_002_Frozen_Column;
         private AccordionControlElement FXNK_002_Quan_Ly_NK;
         private AccordionControlElement FXNK_001_Vi_Tri_Co_Hang;
+        private AccordionControlElement FXNK_001_Ke_Hoach_Xuat;
+        private AccordionControlElement FXNK_002_Quan_Ly_Phieu_Xuat;
     }
 }
 

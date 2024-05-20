@@ -66,6 +66,9 @@ namespace Quan_Ly_Kho_DM
             v_objEdit.g_lngAuto_ID = p_lngAuto_ID;
             v_objEdit.User_Name = User_Name;
             v_objEdit.Function_Code = Function_Code;
+            v_objEdit.g_lngKho_ID = g_lngKho_ID;
+            v_objEdit.g_lngChu_Hang_ID = g_lngChu_Hang_ID;
+
             v_objEdit.ShowDialog();
         }
 

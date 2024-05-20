@@ -10,9 +10,11 @@ using System.ComponentModel;
 [HighlightedClass]
 public class rptNhap_Kho
 {
-    public List<object> rptHeader()
+    [HighlightedMember]
+    public CReport_Header rptReport_Header()
     {
-        return new List<object>() { CConfig.Product_Version, CConfig.Product_Name, CConfig.Product_Auth, CConfig.Created_By, CConfig.Created };
+        CReport_Header v_objHeader = new();
+        return v_objHeader;
     }
 
     [HighlightedMember]
@@ -30,16 +32,12 @@ public class rptNhap_Kho
 
             }
         }
-
         CXNK_Nhap_Kho_Raw_Data_Controller v_objCtrlRaw_Data = new();
-
         List<CXNK_Nhap_Kho_Raw_Data> v_arrRes = v_objCtrlRaw_Data.FQ_719_NKRD_sp_sel_List_By_Nhap_Kho_ID(p_lngAuto_ID);
-
         v_objData.Details = v_arrRes.ToList();
         return v_objData;
-
-
     }
+
     [HighlightedMember]
     public List<CXNK_Nhap_Kho> rpt_XNK_NK_Phieu_Nhap_Hang_Multi(long[] p_arrNhap_Kho_ID)
     {
@@ -60,4 +58,13 @@ public class rptNhap_Kho
 
         return v_arrRes;
     }
+}
+
+public class CReport_Header
+{
+    public string Product_Version { get; set; } = CConfig.Product_Version;
+    public string Product_Name { get; set; } = CConfig.Product_Name;
+    public string Product_Auth { get; set; } = CConfig.Product_Auth;
+    public string Created_By { get; set; } = CConfig.Created_By;
+    public DateTime? Created { get; set; } = CConfig.Created;
 }

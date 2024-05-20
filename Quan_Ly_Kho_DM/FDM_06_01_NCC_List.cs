@@ -46,6 +46,7 @@ namespace Quan_Ly_Kho_DM
             g_dicCol_Size.Add("Ma_NCC", 200);
             g_dicCol_Size.Add("Ten_NCC", 300);
             g_dicCol_Size.Add("Dien_Thoai", 300);
+            g_dicCol_Size.Add("Email", 200);
             g_dicCol_Size.Add("Dia_Chi", 400);
             g_dicCol_Size.Add("Ghi_Chu", 500);
 
@@ -69,7 +70,9 @@ namespace Quan_Ly_Kho_DM
         protected override void Open_Edit_Data(long p_lngAuto_ID)
         {
             FDM_06_03_NCC_Edit v_objEdit = new();
+            v_objEdit.g_lngKho_ID = g_lngKho_ID;
             v_objEdit.g_lngChu_Hang_ID = g_lngChu_Hang_ID;
+
             v_objEdit.g_lngAuto_ID = p_lngAuto_ID;
             v_objEdit.User_Name = User_Name;
             v_objEdit.Function_Code = Function_Code;

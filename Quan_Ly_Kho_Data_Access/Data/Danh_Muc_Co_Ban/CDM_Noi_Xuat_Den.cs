@@ -209,5 +209,14 @@ namespace Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban
                 m_strLast_Updated_By_Function = value.Trim();
             }
         }
+
+        public string NXD_Combo
+        {
+            get
+            {
+                return CUtility.Tao_Combo_Text(m_strMa_NXD, m_strTen_NXD);
+            }
+
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace Quan_Ly_Kho_DM
             CXNK_Xuat_Kho_Raw_Data_Controller v_objCtrlRaw_Data = new();
 
             m_objData = v_objCtrlData.FQ_728_XK_sp_sel_Get_By_ID(g_lngAuto_ID);
-            m_objData = new();
+    
             Auto_ID.Text = CUtility.Convert_To_String(m_objData.Auto_ID);
 
             // Gán giá trị từ đối tượng m_objData vào các TextBox tương ứng và đặt thuộc tính ReadOnly

@@ -1,5 +1,7 @@
 ﻿
 
+using Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Quan_Tri;
+
 namespace Quan_Ly_Kho_DM
 {
     public partial class FXNK_001_01_Ke_Hoach_Nhap_List : UCBase
@@ -300,6 +302,8 @@ namespace Quan_Ly_Kho_DM
             XtraReport1 v_report = new();
             long[] v_arrNK_ID = g_dicCheck.Values.ToArray();
             v_report.Parameters["p_arrNhap_kho_ID"].Value = v_arrNK_ID;
+            v_report.Parameters["p_arrNhap_kho_ID"].Visible = false;
+
             v_report.ShowPreviewDialog();
         }
 
@@ -312,7 +316,8 @@ namespace Quan_Ly_Kho_DM
             CXNK_Nhap_Kho_Controller v_objCtrlData = new();
             CXNK_Nhap_Kho v_objData = new();
             long v_iCount_Success = CConst.INT_VALUE_NULL;
-            string v_strError = "";
+            string v_strError = CConst.STR_VALUE_NULL;
+            string v_strRes = CConst.STR_VALUE_NULL;
             try
             {
                 v_conn = CSqlHelper.CreateConnection(CConfig.Quan_Ly_Kho_Data_Conn_String);
@@ -336,6 +341,38 @@ namespace Quan_Ly_Kho_DM
                         if (v_objData.Trang_Thai_Nhap_Kho_ID != (int)ETrang_Thai_Nhap_Kho.New)
                             throw new Exception($"Phiếu nhập [{v_objData.So_Phieu_Nhap}] khác trạng thái kế hoạch");
 
+                        //Gửi mail cho ncc là hàng đã được nhập
+                        CDM_NCC v_objNCC = CCache_NCC.Get_Data_By_ID(v_objData.NCC_ID);
+                        CDM_Kho v_objKho = CCache_Kho.Get_Data_By_ID(g_lngKho_ID);
+                        CDM_Chu_Hang v_objCH = CCache_Chu_Hang.Get_Data_By_ID(g_lngChu_Hang_ID);
+
+                        if (v_objNCC != null && v_objCH != null && v_objKho != null)
+                        {
+                            DateTime v_dtmStart = DateTime.Now;
+                            string v_strSubject = "[Quản Lý Kho] xác nhận. \n";
+                            string v_strMess = $"Hàng của bạn đã được nhập vào kho {v_objKho.Ma_Kho} với chủ hàng {v_objCH.Ma_CH}. \n";
+                            string v_strAttach = "";
+
+                            if (v_objNCC.Email != CConst.STR_VALUE_NULL)
+                            {
+                                if (CUtility.Send_Mail_Use_SMTP(v_objNCC.Email, v_strSubject, v_strMess, v_strAttach))
+                                {
+                                    v_strRes = $"Gửi mail thành công cho nhà cung cấp {v_objNCC.Ma_NCC}";
+                                    CLogger.Save_Trace_Log("SendMail", Function_Code, "btnNhap_Hang_Click", "", (DateTime.Now - v_dtmStart).TotalSeconds);
+                                }
+                            }
+
+                            if (v_objCH.Email != CConst.STR_VALUE_NULL)
+                            {
+                                if (CUtility.Send_Mail_Use_SMTP(v_objCH.Email, v_strSubject, v_strMess, v_strAttach))
+                                {
+                                    v_strRes = "Gửi mail thành công cho chủ hàng";
+                                    CLogger.Save_Trace_Log("SendMail", Function_Code, "btnNhap_Hang_Click", "", (DateTime.Now - v_dtmStart).TotalSeconds);
+                                }
+                            }
+                        }
+
+
                         v_objData.Trang_Thai_Nhap_Kho_ID = (int)ETrang_Thai_Nhap_Kho.Da_Nhan;
                         v_objData.Last_Updated_By = User_Name;
                         v_objData.Last_Updated_By_Function = Function_Code;
@@ -356,8 +393,8 @@ namespace Quan_Ly_Kho_DM
                 v_trans.Commit();
 
                 End_Loading();
-
-                FCommonFunction.Show_Message_Box("Thông báo", $"Nhập kho với {v_iCount_Success} phiếu thành công.", (int)EMessage_Type.Success);
+                v_strRes += $"Nhập kho với {v_iCount_Success} phiếu thành công.";
+                FCommonFunction.Show_Message_Box("Thông báo", v_strRes, (int)EMessage_Type.Success);
                 Load_Data();
             }
             catch (Exception ex)

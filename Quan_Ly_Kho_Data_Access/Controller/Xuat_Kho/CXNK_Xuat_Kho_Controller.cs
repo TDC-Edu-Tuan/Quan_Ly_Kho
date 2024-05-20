@@ -156,7 +156,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho
 
             try
             {
-                v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_728_XK_sp_ins_Insert",
+                v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(p_conn, p_trans, "FQ_728_XK_sp_ins_Insert",
                     p_objData.Chu_Hang_ID, p_objData.Kho_ID, p_objData.NXD_ID, p_objData.So_Phieu_Xuat, p_objData.Ngay_Xuat_Kho,
                     p_objData.Tong_SL, p_objData.Tong_Tri_Gia, p_objData.Trang_Thai_XK_ID, p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
             }
@@ -188,7 +188,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho
         {
             try
             {
-                CSqlHelper.ExecuteNonquery(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_728_XK_sp_upd_Update", p_objData.Auto_ID,
+                CSqlHelper.ExecuteNonquery(p_conn, p_trans, "FQ_728_XK_sp_upd_Update", p_objData.Auto_ID,
                     p_objData.Chu_Hang_ID, p_objData.Kho_ID, p_objData.NXD_ID, p_objData.So_Phieu_Xuat, p_objData.Ngay_Xuat_Kho,
                     p_objData.Tong_SL, p_objData.Tong_Tri_Gia, p_objData.Trang_Thai_XK_ID, p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
             }
@@ -199,11 +199,11 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho
             }
         }
 
-        public void FQ_728_NK_sp_upd_Update_Totals_Phieu(SqlConnection p_conn, SqlTransaction p_trans, CXNK_Xuat_Kho p_objData)
+        public void FQ_728_XK_sp_upd_Update_Totals_Phieu(SqlConnection p_conn, SqlTransaction p_trans, CXNK_Xuat_Kho p_objData)
         {
             try
             {
-                CSqlHelper.ExecuteNonquery(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_728_NK_sp_upd_Update_Totals_Phieu", p_objData.Auto_ID,
+                CSqlHelper.ExecuteNonquery(p_conn, p_trans, "FQ_728_XK_sp_upd_Update_Totals_Phieu", p_objData.Auto_ID,
 
                     p_objData.Tong_SL, p_objData.Tong_Tri_Gia, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
             }
@@ -213,6 +213,23 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho
                 throw;
             }
         }
+
+        public void FQ_728_NK_sp_upd_Update_Status_XK(SqlConnection p_conn, SqlTransaction p_trans, CXNK_Xuat_Kho p_objData)
+        {
+            try
+            {
+                CSqlHelper.ExecuteNonquery(p_conn, p_trans, "FQ_728_NK_sp_upd_Update_Status_XK", p_objData.Auto_ID,
+
+                    p_objData.Trang_Thai_XK_ID, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
 
 
         public void FQ_728_XK_sp_del_Delete_By_ID(long p_iAuto_ID, string p_strLast_Updated_By, string p_strLast_Updated_By_Function)

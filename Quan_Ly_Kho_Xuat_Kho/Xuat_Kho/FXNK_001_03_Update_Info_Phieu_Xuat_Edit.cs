@@ -6,7 +6,7 @@ namespace Quan_Ly_Kho_Xuat_Kho.Xuat_Kho
     public partial class FXNK_001_03_Update_Info_Phieu_Xuat_Edit : FBase
     {
         private CXNK_Xuat_Kho m_objData = new();
-        private List<CDM_NCC> m_arrNCC = new();
+        private List<CDM_Noi_Xuat_Den> m_arrNXD = new();
 
         public FXNK_001_03_Update_Info_Phieu_Xuat_Edit()
         {
@@ -16,8 +16,8 @@ namespace Quan_Ly_Kho_Xuat_Kho.Xuat_Kho
         protected override void Load_Init()
         {
 
-            m_arrNCC = CCache_NCC.List_Data_By_Chu_Hang_ID(g_lngChu_Hang_ID);
-            FControl_NCC_Combo.Load_Combo(cbbNXD, m_arrNCC, "Auto_ID", "NCC_Combo");
+            m_arrNXD = CCache_Noi_Xuat_Den.List_Data_By_Chu_Hang_ID(g_lngChu_Hang_ID);
+            FControl_Noi_Xuat_Den_Combo.Load_Combo(cbbNXD, m_arrNXD, "Auto_ID", "NXD_Combo");
         }
 
         protected override void Load_Data()

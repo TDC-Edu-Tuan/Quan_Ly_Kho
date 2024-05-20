@@ -20,5 +20,14 @@
 
         //
         public static int Time_Out = 0;
-    }
+
+
+        public static string Smtp_Host = "";
+        public static bool Smtp_UseDefaultCredentials = false;
+        public static int Smtp_Port = 0;
+        public static string Smtp_User = "";
+        public static string Smtp_Pass = "";
+        public static bool Smtp_EnableSsl = false;
+        public static string Email_From = "";
+      }
 }

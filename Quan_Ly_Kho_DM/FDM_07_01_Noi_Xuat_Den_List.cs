@@ -70,6 +70,8 @@ namespace Quan_Ly_Kho_DM
         {
             FDM_07_03_Noi_Xuat_Den_Edit v_objEdit = new();
             v_objEdit.g_lngKho_ID = g_lngKho_ID;
+            v_objEdit.g_lngChu_Hang_ID = g_lngChu_Hang_ID;
+
             v_objEdit.g_lngAuto_ID = p_lngAuto_ID;
             v_objEdit.User_Name = User_Name;
             v_objEdit.Function_Code = Function_Code;

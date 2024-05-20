@@ -178,7 +178,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho
 
             try
             {
-                v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_734_XKRD_sp_ins_Insert",
+                v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(p_conn, p_trans,  "FQ_734_XKRD_sp_ins_Insert",
                     p_objData.Chu_Hang_ID, p_objData.Kho_ID, p_objData.Xuat_Kho_ID, p_objData.San_Pham_ID, p_objData.So_Luong,
                     p_objData.Don_Gia, p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
             }
@@ -210,7 +210,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho
         {
             try
             {
-                CSqlHelper.ExecuteNonquery(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_734_XKRD_sp_upd_Update", p_objData.Auto_ID,
+                CSqlHelper.ExecuteNonquery(p_conn, p_trans, "FQ_734_XKRD_sp_upd_Update", p_objData.Auto_ID,
                     p_objData.Chu_Hang_ID, p_objData.Kho_ID, p_objData.Xuat_Kho_ID, p_objData.San_Pham_ID, p_objData.So_Luong,
                     p_objData.Don_Gia, p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
             }

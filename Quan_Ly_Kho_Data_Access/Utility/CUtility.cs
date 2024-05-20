@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Data;
 using System.Globalization;
+using System.Net.Mail;
 using System.Reflection;
 using System.Text;
 
@@ -322,6 +323,56 @@ namespace Quan_Ly_Kho_Data_Access.Utility
             }
 
             return Convert_To_Int64(v_strRes);
+        }
+
+        public static bool Send_Mail_Use_SMTP(string p_strFrom, string p_strTo, string p_strSubject,
+                                            string p_strMessage, string p_strHost, bool p_bUseDefaultCredentials, int p_iPort,
+                                            string p_strUser, string p_strPass, bool p_bEnableSsl, string p_strAttach)
+        {
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
+
+            bool result = regex.IsMatch(p_strFrom);
+            if (result == false)
+            {
+                throw new Exception("Email không hợp lệ!!!");
+            }
+            else
+            {
+                System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+                SmtpClient smtp = new SmtpClient(p_strHost);
+
+                mail.From = new MailAddress(p_strFrom);
+
+                p_strTo = p_strTo.Replace(",", ";");
+                string[] v_arrMail_To = p_strTo.Split(';');
+
+                foreach (string v_strTemp in v_arrMail_To)
+                {
+                    if (v_strTemp.Trim() != "")
+                        mail.To.Add(v_strTemp.Trim());
+                }
+
+                mail.Subject = p_strSubject;
+                mail.Body = p_strMessage;
+                mail.IsBodyHtml = true;
+
+                smtp.UseDefaultCredentials = p_bUseDefaultCredentials;
+                smtp.Port = p_iPort;
+                smtp.Credentials = new System.Net.NetworkCredential(p_strUser, p_strPass);
+                smtp.EnableSsl = p_bEnableSsl;
+
+                if (p_strAttach != "")
+                    mail.Attachments.Add(new Attachment(p_strAttach));
+
+                smtp.Send(mail);
+                return true;
+            }
+        }
+
+        public static bool Send_Mail_Use_SMTP(string p_strTo, string p_strSubject, string p_strMessage, string p_strAttach)
+        {
+            return Send_Mail_Use_SMTP(CConfig.Email_From, p_strTo, p_strSubject, p_strMessage, CConfig.Smtp_Host, CConfig.Smtp_UseDefaultCredentials, CConfig.Smtp_Port,
+                CConfig.Email_From, CConfig.Smtp_Pass, CConfig.Smtp_EnableSsl, p_strAttach);
         }
     }
 }

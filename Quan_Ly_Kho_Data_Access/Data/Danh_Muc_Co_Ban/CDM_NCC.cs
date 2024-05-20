@@ -10,6 +10,7 @@ namespace Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban
         private string m_strTen_NCC;
         private string m_strDia_Chi;
         private string m_strDien_Thoai;
+        private string m_strEmail;
         private string m_strGhi_Chu;
         private int m_intdeleted;
         private DateTime? m_dtmCreated;
@@ -40,6 +41,8 @@ namespace Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban
             m_dtmLast_Updated = CConst.DTM_VALUE_NULL;
             m_strLast_Updated_By = CConst.STR_VALUE_NULL;
             m_strLast_Updated_By_Function = CConst.STR_VALUE_NULL;
+
+            m_strEmail = CConst.STR_VALUE_NULL;
         }
 
         public long Auto_ID
@@ -217,5 +220,7 @@ namespace Quan_Ly_Kho_Data_Access.Data.Danh_Muc_Co_Ban
                 return CUtility.Tao_Combo_Text(m_strMa_NCC, m_strTen_NCC);
             }
         }
+
+        public string Email { get => m_strEmail; set => m_strEmail = value.Trim(); }
     }
 }

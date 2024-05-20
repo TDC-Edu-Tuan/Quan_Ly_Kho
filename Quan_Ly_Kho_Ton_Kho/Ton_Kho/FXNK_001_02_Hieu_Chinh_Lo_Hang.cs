@@ -49,6 +49,8 @@ namespace Quan_Ly_Kho_Ton_Kho.Ton_Kho
                 v_trans = v_conn.BeginTransaction();
 
                 m_objData.San_Pham_ID = CUtility.Convert_To_Int64(cbbSan_Pham.SelectedValue);
+
+                m_objData.So_Luong = CUtility.Convert_To_Double(txtSL.Text);
                 m_objData.Ghi_Chu = txtGhi_Chu.Text;
                 m_objData.Last_Updated_By = User_Name;
                 m_objData.Last_Updated_By_Function = Function_Code;

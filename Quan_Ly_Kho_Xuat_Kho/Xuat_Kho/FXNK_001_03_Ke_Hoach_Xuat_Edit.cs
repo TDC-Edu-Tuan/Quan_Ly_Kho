@@ -8,7 +8,7 @@ namespace Quan_Ly_Kho_DM
     {
         private CXNK_Xuat_Kho m_objData = new();
         private List<CXNK_Xuat_Kho_Raw_Data> m_arrRaw = new();
-        private List<CDM_NCC> m_arrNCC = new();
+        private List<CDM_Noi_Xuat_Den> m_arrNXD = new();
         public FXNK_001_03_Ke_Hoach_Xuat_Edit()
         {
             InitializeComponent();
@@ -41,8 +41,8 @@ namespace Quan_Ly_Kho_DM
 
             Disable_Default_Col();
 
-            m_arrNCC = CCache_NCC.List_Data_By_Chu_Hang_ID(g_lngChu_Hang_ID);
-            FControl_NCC_Combo.Load_Combo(cbbNXD, m_arrNCC, "Auto_ID", "NCC_Combo");
+            m_arrNXD = CCache_Noi_Xuat_Den.List_Data_By_Chu_Hang_ID(g_lngChu_Hang_ID);
+            FControl_Noi_Xuat_Den_Combo.Load_Combo(cbbNXD, m_arrNXD, "Auto_ID", "NXD_Combo");
         }
 
         protected override void Load_Data()
@@ -70,6 +70,10 @@ namespace Quan_Ly_Kho_DM
                 m_objData.So_Phieu_Xuat = txtSo_Phieu_Xuat.Text;
                 m_objData.Ngay_Xuat_Kho = dtmNgay_Xuat_kho.Value;
                 m_objData.NXD_ID = CUtility.Convert_To_Int64(cbbNXD.SelectedValue);
+
+                if (m_objData.NXD_ID == CConst.INT_VALUE_NULL)
+                    throw new Exception("Vui lòng chọn nơi xuất đến.");
+
                 m_objData.Ghi_Chu = txtGhi_Chu.Text;
                 m_objData.Trang_Thai_XK_ID = (int)ETrang_Thai_Xuat_Kho.New;
                 m_objData.Details = m_arrRaw.ToList();

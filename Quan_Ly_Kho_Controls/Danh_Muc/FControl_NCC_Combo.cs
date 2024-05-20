@@ -20,9 +20,6 @@ namespace Quan_Ly_Kho_Controls.Danh_Muc
             p_objCombo.DisplayMember = p_strValue_Display;
             p_objCombo.DataSource = p_arrData.ToList();
 
-
-
-
         }
     }
 }

@@ -1,23 +1,20 @@
-﻿using Quan_Ly_Kho_Data_Access.Controller.Ton_Kho;
+﻿using DevExpress.Map.Native;
 using Quan_Ly_Kho_Data_Access.Controller.Xuat_Kho;
 using Quan_Ly_Kho_Data_Access.Data.Xuat_kho;
 using Quan_Ly_Kho_Xuat_Kho.Xuat_Kho;
 
 namespace Quan_Ly_Kho_DM
 {
-    public partial class FXNK_001_01_Ke_Hoach_Xuat_List : UCBase
+    public partial class FXNK_002_01_Quan_Ly_Xuat_Kho_List : UCBase
     {
         private List<CXNK_Xuat_Kho> m_arrData = new();
 
-        public FXNK_001_01_Ke_Hoach_Xuat_List()
+        public FXNK_002_01_Quan_Ly_Xuat_Kho_List()
         {
             InitializeComponent();
             g_bIs_View_Permission = true;
-            g_bIs_Updated_Permission = true;
-            g_bIs_Deleted_Permission = true;
-            g_bIs_Print_Permission = false;
-
-
+            g_bIs_Updated_Permission = false;
+            g_bIs_Deleted_Permission = false;
             // Chuyển đổi mã màu hex thành màu Color
             Color navColor = ColorTranslator.FromHtml("#d8bfd8");
 
@@ -39,8 +36,8 @@ namespace Quan_Ly_Kho_DM
 
             g_dicCol_Name.Add("Ma_NXD", "Mã NXD");
             g_dicCol_Name.Add("Ten_NXD", "Tên NXD");
-            g_dicCol_Name.Add("So_Phieu_Xuat", "Số Phiếu Xuất");
-            g_dicCol_Name.Add("Ngay_Xuat_Kho", "Ngày Xuất Kho");
+            g_dicCol_Name.Add("So_Phieu_Xuat", "Số Phiếu Nhập");
+            g_dicCol_Name.Add("Ngay_Xuat_Kho", "Ngày Nhập Kho");
             g_dicCol_Name.Add("Tong_SL", "Tổng SL");
             g_dicCol_Name.Add("Tong_Tri_Gia", "Tổng Trị Giá");
             g_dicCol_Name.Add("Ghi_Chu", "Ghi Chú");
@@ -67,44 +64,23 @@ namespace Quan_Ly_Kho_DM
         protected override void Load_Data()
         {
             CXNK_Xuat_Kho_Controller v_ctrlData = new();
-            m_arrData = v_ctrlData.FQ_728_XK_sp_sel_List_By_Created_Trang_Thai_XK_ID(g_lngChu_Hang_ID, g_lngKho_ID, (int)ETrang_Thai_Xuat_Kho.New, dtmFrom.Value, dtmTo.Value);
+            m_arrData = v_ctrlData.FQ_728_XK_sp_sel_List_By_Created(g_lngChu_Hang_ID, g_lngKho_ID, dtmFrom.Value, dtmTo.Value);
 
             Format_Grid(m_arrData);
 
-            string v_strSettings_Icon_Path = CUtility.Find_File_In_Solution("settings.png");
-            Image v_objSetting_Icon = Image.FromFile(v_strSettings_Icon_Path);
-            DataGridViewImageColumn v_objSet_Col = new();
-            Add_Button_Column("btnUpdate_Detail_Phieu_Xuat", v_objSet_Col, 2, v_objSetting_Icon);
-            g_grdData.Columns["btnUpdate_Detail_Phieu_Xuat"].Visible = g_bIs_Updated_Permission;
-            g_grdData.Columns["btnUpdate_Detail_Phieu_Xuat"].HeaderText = "Chi tiết";
-            Col_Custom(g_grdData.Columns["btnUpdate_Detail_Phieu_Xuat"]);
         }
 
         //Hàm đc gọi khi ấn vào nút thêm hoặc edit
         protected override void Open_Edit_Data(long p_lngAuto_ID)
         {
-            if (p_lngAuto_ID == CConst.INT_VALUE_NULL)
-            {
-                FXNK_001_03_Ke_Hoach_Xuat_Edit v_objEdit = new();
-                v_objEdit.g_lngAuto_ID = p_lngAuto_ID;
-                v_objEdit.g_lngKho_ID = g_lngKho_ID;
-                v_objEdit.g_lngChu_Hang_ID = g_lngChu_Hang_ID;
-                v_objEdit.User_Name = User_Name;
-                v_objEdit.Function_Code = Function_Code;
+            FXNK_001_03_Update_Info_Phieu_Xuat_Edit v_objEdit = new();
+            v_objEdit.g_lngAuto_ID = p_lngAuto_ID;
+            v_objEdit.g_lngKho_ID = g_lngKho_ID;
+            v_objEdit.g_lngChu_Hang_ID = g_lngChu_Hang_ID;
+            v_objEdit.User_Name = User_Name;
+            v_objEdit.Function_Code = Function_Code;
 
-                v_objEdit.ShowDialog();
-            }
-            else
-            {
-                FXNK_001_03_Update_Info_Phieu_Xuat_Edit v_objEdit = new();
-                v_objEdit.g_lngAuto_ID = p_lngAuto_ID;
-                v_objEdit.g_lngKho_ID = g_lngKho_ID;
-                v_objEdit.g_lngChu_Hang_ID = g_lngChu_Hang_ID;
-                v_objEdit.User_Name = User_Name;
-                v_objEdit.Function_Code = Function_Code;
-
-                v_objEdit.ShowDialog();
-            }
+            v_objEdit.ShowDialog();
         }
 
         //Hàm đc gọi khi ấn vào nút view
@@ -112,8 +88,8 @@ namespace Quan_Ly_Kho_DM
         {
             FXNK_001_02_Ke_Hoach_Xuat_View v_objView = new();
             v_objView.g_lngAuto_ID = p_lngAuto_ID;
-            v_objView.User_Name = User_Name;
             v_objView.Function_Code = Function_Code;
+
             v_objView.Show();
         }
 
@@ -240,7 +216,7 @@ namespace Quan_Ly_Kho_DM
                 v_conn.Open();
                 v_trans = v_conn.BeginTransaction();
 
-                 CXuat_Kho_Common.Xoa_Phieu_Xuat(v_conn, v_trans, v_objCtrlNK, v_objCtrlNK_Raw, p_lngAuto_ID, User_Name, Function_Code);
+                CXuat_Kho_Common.Xoa_Phieu_Xuat(v_conn, v_trans, v_objCtrlNK, v_objCtrlNK_Raw, p_lngAuto_ID, User_Name, Function_Code);
 
                 v_trans.Commit();
             }
@@ -248,6 +224,7 @@ namespace Quan_Ly_Kho_DM
             {
                 if (v_trans != null)
                     v_trans.Rollback();
+
                 throw ex;
             }
             finally
@@ -260,136 +237,21 @@ namespace Quan_Ly_Kho_DM
             }
         }
 
-        private void Open_Update_Detail(long p_lngAuto_ID)
-        {
-            FXNK_001_03_Update_XK_Details_Edit v_objEdit = new();
-            v_objEdit.g_lngAuto_ID = p_lngAuto_ID;
-            v_objEdit.g_lngKho_ID = g_lngKho_ID;
-            v_objEdit.g_lngChu_Hang_ID = g_lngChu_Hang_ID;
-            v_objEdit.ShowDialog();
-        }
 
         private void grdData_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            // Kiểm tra xem cột được click 
-            if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
-            {
-                // Lấy giá trị của cột Auto_ID từ hàng được click
-                long v_lngAuto_ID = CUtility.Convert_To_Int64(g_grdData.Rows[e.RowIndex].Cells["Auto_ID"].Value);
 
-                string v_strCol_Name = g_grdData.Columns[e.ColumnIndex].Name;
-
-                switch (v_strCol_Name)
-                {
-                    case "btnUpdate_Detail_Phieu_Xuat":
-                        Open_Update_Detail(v_lngAuto_ID);
-                        break;
-                }
-                if (v_lngAuto_ID != CConst.INT_VALUE_NULL)
-                    Load_Data();
-            }
-        }
-
-        protected override void Open_Print_Data(long p_lngAuto_ID)
-        {
-            //rptNK_Phieu_Xuat_Hang v_report = new();
-            //v_report.Parameters["Auto_ID"].Value = p_lngAuto_ID;
-            //v_report.ShowPreviewDialog();
-
-        }
-
-
-
-        private void btnIn_Click(object sender, EventArgs e)
-        {
-            //XtraReport1 v_report = new();
-            //long[] v_arrNK_ID = g_dicCheck.Values.ToArray();
-            //v_report.Parameters["p_arrXuat_kho_ID"].Value = v_arrNK_ID;
-            //v_report.ShowPreviewDialog();
-        }
-
-        private void btnPick_Hang_Click(object sender, EventArgs e)
-        {
-            Start_Loading();
-            SqlConnection v_conn = null;
-            SqlTransaction v_trans = null;
-
-            CXNK_Xuat_Kho_Controller v_objCtrlData = new();
-            CXNK_Xuat_Kho_Raw_Data_Controller v_objCtrlRawData = new();
-            CXNK_Ton_Kho_Controller v_oblCtrl_TK = new();
-            CXNK_Xuat_Kho v_objData = new();
-            long v_iCount_Success = CConst.INT_VALUE_NULL;
-            string v_strError = "";
-            try
-            {
-                v_conn = CSqlHelper.CreateConnection(CConfig.Quan_Ly_Kho_Data_Conn_String);
-                v_conn.Open();
-                v_trans = v_conn.BeginTransaction();
-
-                long[] v_arrNK_ID = g_dicCheck.Values.ToArray();
-
-                if (v_arrNK_ID.Count() == CConst.INT_VALUE_NULL)
-                    throw new Exception("Vui lòng chọn phiếu.");
-
-                for (int i = 0; i < v_arrNK_ID.Length; i++)
-                {
-                    try
-                    {
-                        v_objData = v_objCtrlData.FQ_728_XK_sp_sel_Get_By_ID(v_conn, v_trans, v_arrNK_ID[i]);
-
-                        if (v_objData == null)
-                            throw new Exception($"Phiếu xuất không tồn tại");
-
-                        if (v_objData.Trang_Thai_XK_ID != (int)ETrang_Thai_Xuat_Kho.New)
-                            throw new Exception($"Phiếu xuất [{v_objData.So_Phieu_Xuat}] khác trạng thái kế hoạch");
-
-                         v_objData.Last_Updated_By = User_Name;
-                        v_objData.Last_Updated_By_Function = Function_Code;
-                        v_objData.Details = v_objCtrlRawData.FQ_734_XKRD_sp_sel_List_By_Xuat_kho_ID(v_conn, v_trans, v_arrNK_ID[i]);
-                     
-                        CXuat_Kho_Common.Xuat_Kho_To_NXD_By_XK_ID(v_conn, v_trans, v_objCtrlData, v_objCtrlRawData, v_oblCtrl_TK,v_objData);
-
-                        v_objData.Trang_Thai_XK_ID = (int)ETrang_Thai_Xuat_Kho.Shipped;
-                        v_objCtrlData.FQ_728_NK_sp_upd_Update_Status_XK(v_conn, v_trans, v_objData);
-
-                        v_iCount_Success++;
-                    }
-                    catch (Exception ex)
-                    {
-                        v_strError += ex.Message + "\n";
-                    }
-                }
-
-                if (v_strError != CConst.STR_VALUE_NULL)
-                    throw new Exception(v_strError);
-
-                v_trans.Commit();
-
-                End_Loading();
-
-                FCommonFunction.Show_Message_Box("Thông báo", $"Xuất hàng với {v_iCount_Success} phiếu thành công.", (int)EMessage_Type.Success);
-                Load_Data();
-            }
-            catch (Exception ex)
-            {
-
-                if (v_trans != null)
-                    v_trans.Rollback();
-
-                End_Loading();
-                FCommonFunction.Show_Message_Box("Thông báo", ex.Message, (int)EMessage_Type.Error);
-
-            }
-            finally
-            {
-                if (v_conn != null)
-                    v_conn.Close();
-
-                if (v_trans != null)
-                    v_trans.Dispose();
-            }
         }
     }
+
+
+    //private void btnIn_Click(object sender, EventArgs e)
+    //{
+    //    XtraReport1 v_report = new();
+    //    long[] v_arrNK_ID = g_dicCheck.Values.ToArray();
+    //    v_report.Parameters["p_arrXuat_kho_ID"].Value = v_arrNK_ID;
+    //    v_report.ShowPreviewDialog();
+    //}
 }
 

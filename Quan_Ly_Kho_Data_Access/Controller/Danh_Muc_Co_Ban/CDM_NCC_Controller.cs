@@ -106,7 +106,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Co_Ban
             {
                 v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_123_N_sp_ins_Insert",
                     p_objData.Chu_Hang_ID, p_objData.Ma_NCC, p_objData.Ten_NCC, p_objData.Dia_Chi, p_objData.Dien_Thoai,
-                    p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
+                    p_objData.Ghi_Chu, p_objData.Email, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
             }
 
             catch (Exception)
@@ -125,7 +125,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Co_Ban
             {
                 v_iRes = Convert.ToInt64(CSqlHelper.ExecuteScalar(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_123_N_sp_ins_Insert",
                     p_objData.Chu_Hang_ID, p_objData.Ma_NCC, p_objData.Ten_NCC, p_objData.Dia_Chi, p_objData.Dien_Thoai,
-                    p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
+                    p_objData.Ghi_Chu, p_objData.Email, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function));
             }
 
             catch (Exception)
@@ -142,7 +142,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Co_Ban
             {
                 CSqlHelper.ExecuteNonquery(CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_123_N_sp_upd_Update", p_objData.Auto_ID,
                     p_objData.Chu_Hang_ID, p_objData.Ma_NCC, p_objData.Ten_NCC, p_objData.Dia_Chi, p_objData.Dien_Thoai,
-                    p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
+                    p_objData.Ghi_Chu, p_objData.Email, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
             }
 
             catch (Exception)
@@ -157,7 +157,7 @@ namespace Quan_Ly_Kho_Data_Access.Controller.Danh_Muc_Co_Ban
             {
                 CSqlHelper.ExecuteNonquery(p_conn, p_trans, CConfig.Quan_Ly_Kho_Data_Conn_String, "FQ_123_N_sp_upd_Update", p_objData.Auto_ID,
                     p_objData.Chu_Hang_ID, p_objData.Ma_NCC, p_objData.Ten_NCC, p_objData.Dia_Chi, p_objData.Dien_Thoai,
-                    p_objData.Ghi_Chu, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
+                    p_objData.Ghi_Chu, p_objData.Email, p_objData.Last_Updated_By, p_objData.Last_Updated_By_Function);
             }
 
             catch (Exception)

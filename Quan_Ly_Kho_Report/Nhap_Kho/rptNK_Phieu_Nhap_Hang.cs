@@ -5,6 +5,7 @@
         public rptNK_Phieu_Nhap_Hang()
         {
             InitializeComponent();
+            
         }
     }
 }
